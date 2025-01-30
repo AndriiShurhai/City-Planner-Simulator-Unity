@@ -12,7 +12,8 @@
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Uu]ser[Ss]ettings/
-**/[Aa]ssets/TextMeshPro/
+**/[Aa]ssets/Text\ Mesh\ Pro/
+**/TextMeshPro/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
