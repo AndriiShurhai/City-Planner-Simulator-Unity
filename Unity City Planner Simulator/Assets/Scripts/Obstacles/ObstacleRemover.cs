@@ -17,9 +17,15 @@ public class ObstacleRemover : MonoBehaviour
     [SerializeField] private GameObject removeEffectPrefab;
     [SerializeField] private int removalCost;
 
+    private Tilemap currentHoverObstacleTilemap;
     private Tilemap currentObstacleTilemap;
+
     private Vector3Int selectedCell;
     private Vector3Int lastHoveredCell;
+    private Vector3Int lastSelectedCell;
+
+    private Tilemap lastObstacleTilemap;
+
     private bool isHovering = false;
 
     private Camera mainCamera;
@@ -35,6 +41,8 @@ public class ObstacleRemover : MonoBehaviour
 
     private void OnRemoveClicked()
     {
+        if (!EconomyManager.Instance.CanAfford(removalCost)) return;
+        EconomyManager.Instance.SubtractMoney(removalCost);
         currentObstacleTilemap.SetTile(selectedCell, null);
         contextMenuPanel.gameObject.SetActive(false);
         AudioManager.Instance.PlayRemoveObstacleSound();
@@ -47,7 +55,7 @@ public class ObstacleRemover : MonoBehaviour
 
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int cellPosition = obstacleTilemap.WorldToCell(mousePosition);
-        bool hasObstacle = CheckObstaclesOnCellPosition(cellPosition);
+        bool hasObstacle = CheckAndSetObstacleOnCellPosition(cellPosition, false);
 
         if (lastHoveredCell != cellPosition && hasObstacle && !isHovering)
         {
@@ -59,54 +67,98 @@ public class ObstacleRemover : MonoBehaviour
             isHovering = false;
         }
 
-        if (cellPosition != lastHoveredCell && currentObstacleTilemap != null)
+        if (cellPosition != lastHoveredCell && currentHoverObstacleTilemap != null)
         {
-            currentObstacleTilemap.SetColor(lastHoveredCell, Color.white);
+            if (lastHoveredCell != selectedCell)
+            {
+              currentHoverObstacleTilemap.SetColor(lastHoveredCell, Color.white);
+            }
             lastHoveredCell = cellPosition;
         }
 
 
         if (hasObstacle)
         {
-            if (currentObstacleTilemap!= null) currentObstacleTilemap.SetColor(cellPosition, Color.yellow);
+            if (currentHoverObstacleTilemap != null)
+            {
+                if (cellPosition != lastSelectedCell)
+                {
+                    currentHoverObstacleTilemap.SetColor(cellPosition, Color.yellow);
+                }
+            }
         }
 
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (hasObstacle)
+            if (CheckAndSetObstacleOnCellPosition(cellPosition, true))
             {
-                contextMenuPanel.gameObject.SetActive(true);
+                if (lastObstacleTilemap != null && lastObstacleTilemap != currentObstacleTilemap)
+                {
+                    lastObstacleTilemap.SetColor(lastSelectedCell, Color.white);
+                }
+                else if(lastObstacleTilemap != null && lastObstacleTilemap == currentObstacleTilemap)
+                {
+                    if (cellPosition != lastSelectedCell)
+                    {
+                        currentObstacleTilemap.SetColor(lastSelectedCell, Color.white);
+                    }
+                }
+
                 selectedCell = cellPosition;
+                lastSelectedCell = selectedCell;
+                lastObstacleTilemap = currentObstacleTilemap;
+
+                contextMenuPanel.gameObject.SetActive(true);
+                
+                currentObstacleTilemap.SetColor(cellPosition, Color.grey);
             }
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            currentObstacleTilemap.SetColor(cellPosition, Color.white);
         }
     }
 
-    private bool CheckObstaclesOnCellPosition(Vector3Int cellPosition)
+    private bool CheckAndSetObstacleOnCellPosition(Vector3Int cellPosition, bool assign)
     {
         if (largeObstacleTilemap.GetTile(cellPosition) != null)
         {
-            currentObstacleTilemap = largeObstacleTilemap;
-            removalCost = 500;
-            Debug.Log("The Removal Cost is 500 coins");
+            SetCurrentHoverObstacle(largeObstacleTilemap);
+            if (assign)
+            {
+                currentObstacleTilemap = largeObstacleTilemap;
+                removalCost = 500;
+            }
             return true;
         }
         else if(middleObstacleTilemap.GetTile(cellPosition) != null)
         {
-            currentObstacleTilemap = middleObstacleTilemap;
-            removalCost = 250;
-            Debug.Log("The Removal Cost is 250 coins");
+            SetCurrentHoverObstacle(middleObstacleTilemap);
+            if (assign)
+            {
+                currentObstacleTilemap = middleObstacleTilemap;
+                removalCost = 250;
+            }
             return true;
         }
         else if (smallObstacleTilemap.GetTile(cellPosition) != null) 
         {
-            currentObstacleTilemap = smallObstacleTilemap;
-            removalCost = 100;
-            Debug.Log("The Removal Cost is 100 coins");
+            SetCurrentHoverObstacle(smallObstacleTilemap);
+            if (assign)
+            {
+                currentObstacleTilemap= smallObstacleTilemap;
+                removalCost = 100;
+            }
             return true;
         }
         else
         {
             return false;
         }
+    }
+
+    private void SetCurrentHoverObstacle(Tilemap obstacle)
+    {
+        currentHoverObstacleTilemap = obstacle;
     }
 }
