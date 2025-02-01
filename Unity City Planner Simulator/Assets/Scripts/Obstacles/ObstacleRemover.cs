@@ -113,7 +113,7 @@ public class ObstacleRemover : MonoBehaviour
                 currentObstacleTilemap.SetColor(cellPosition, Color.grey);
             }
 
-            else if(!CheckAndSetObstacleOnCellPosition(cellPosition, false))
+            else if(!CheckAndSetObstacleOnCellPosition(cellPosition, false) && obstacleTilemap.GetTile(cellPosition) != null)
             {
                 currentObstacleTilemap.SetColor(cellPosition, Color.white);
                 if (lastObstacleTilemap != null)
@@ -166,10 +166,7 @@ public class ObstacleRemover : MonoBehaviour
             }
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     private void SetCurrentHoverObstacle(Tilemap obstacle)
