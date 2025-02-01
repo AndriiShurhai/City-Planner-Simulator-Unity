@@ -423,7 +423,6 @@ MonoBehaviour:
   removeButton: {fileID: 1510775452}
   removeEffectPrefab: {fileID: 4680209450104582352, guid: eb6e6be65e3cac349808bd4d0039bab7, type: 3}
   removalCost: 100
-  removalText: {fileID: 422689408}
 --- !u!4 &103062361
 Transform:
   m_ObjectHideFlags: 0
@@ -3042,7 +3041,6 @@ GameObject:
   - component: {fileID: 716265076}
   - component: {fileID: 716265078}
   - component: {fileID: 716265077}
-  - component: {fileID: 716265079}
   m_Layer: 0
   m_Name: smallObstacles
   m_TagString: Untagged
@@ -3135,7 +3133,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 1073741824
   - first: {x: -5, y: -4, z: 0}
     second:
       serializedVersion: 2
@@ -3145,7 +3143,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 1073741824
   - first: {x: 1, y: 2, z: 0}
     second:
       serializedVersion: 2
@@ -3155,7 +3153,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 1073741824
   - first: {x: -4, y: 3, z: 0}
     second:
       serializedVersion: 2
@@ -3165,7 +3163,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 1073741824
   - first: {x: 5, y: 4, z: 0}
     second:
       serializedVersion: 2
@@ -3175,7 +3173,7 @@ Tilemap:
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 0
+      m_AllTileFlags: 1073741824
   m_AnimatedTiles:
   - first: {x: 2, y: -5, z: 0}
     second:
@@ -3183,7 +3181,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 21300000, guid: 9bd6caa86635fb546a9cfec7c351ba25, type: 3}
       - {fileID: 21300000, guid: efeadd67942c49e40a4ee57fd8a5ab71, type: 3}
-      m_AnimationSpeed: 2.4827726
+      m_AnimationSpeed: 1.1643822
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -5, y: -4, z: 0}
@@ -3192,7 +3190,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 21300000, guid: 9bd6caa86635fb546a9cfec7c351ba25, type: 3}
       - {fileID: 21300000, guid: efeadd67942c49e40a4ee57fd8a5ab71, type: 3}
-      m_AnimationSpeed: 2.0412562
+      m_AnimationSpeed: 1.1260359
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 1, y: 2, z: 0}
@@ -3201,7 +3199,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 21300000, guid: 9bd6caa86635fb546a9cfec7c351ba25, type: 3}
       - {fileID: 21300000, guid: efeadd67942c49e40a4ee57fd8a5ab71, type: 3}
-      m_AnimationSpeed: 1.8943875
+      m_AnimationSpeed: 1.769839
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -4, y: 3, z: 0}
@@ -3210,7 +3208,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 21300000, guid: 9bd6caa86635fb546a9cfec7c351ba25, type: 3}
       - {fileID: 21300000, guid: efeadd67942c49e40a4ee57fd8a5ab71, type: 3}
-      m_AnimationSpeed: 2.3445544
+      m_AnimationSpeed: 1.4207237
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 5, y: 4, z: 0}
@@ -3219,7 +3217,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: 21300000, guid: 9bd6caa86635fb546a9cfec7c351ba25, type: 3}
       - {fileID: 21300000, guid: efeadd67942c49e40a4ee57fd8a5ab71, type: 3}
-      m_AnimationSpeed: 1.8034885
+      m_AnimationSpeed: 1.5972956
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -3274,19 +3272,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &716265079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716265075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375bdbe391ea3b744bb0bf8b69a7da83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  message: A small obstacle, to remove it you must pay 100 coins.
 --- !u!1 &994495746
 GameObject:
   m_ObjectHideFlags: 0
@@ -3413,7 +3398,7 @@ Tilemap:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      m_AnimationSpeed: 3.0939798
+      m_AnimationSpeed: 3.194571
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -3, y: 3, z: 0}
@@ -3423,7 +3408,7 @@ Tilemap:
       - {fileID: 0}
       - {fileID: 0}
       - {fileID: 0}
-      m_AnimationSpeed: 3.389388
+      m_AnimationSpeed: 3.3945036
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -3524,6 +3509,61 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1 &1216922766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216922768}
+  - component: {fileID: 1216922767}
+  m_Layer: 0
+  m_Name: Tootip Obstacles Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1216922767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216922766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375bdbe391ea3b744bb0bf8b69a7da83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallObstacleMessage: This is small obstacle. To remove it you need to pay 100
+    coins.
+  middleObstacleMessage: This is middle obstacle. To remove it you need to pay 250
+    coins.
+  largeObstacleMessage: This is large obstacle. To remove it you need to pay 500
+    coins.
+  mainCamera: {fileID: 519420031}
+  obstacleTilemap: {fileID: 994495749}
+  largeObstacleTilemap: {fileID: 638196586}
+  middleObstacleTilemap: {fileID: 1881437420}
+  smallObstacleTilemap: {fileID: 716265078}
+--- !u!4 &1216922768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216922766}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6519536, y: -0.11853328, z: -9.947268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259142455
 GameObject:
   m_ObjectHideFlags: 0
@@ -4863,7 +4903,7 @@ Tilemap:
       - {fileID: 21300000, guid: e6275e56e99fc0342841adf315c83a48, type: 3}
       - {fileID: 21300000, guid: fb87b1c388e5ca64e974861fccbded03, type: 3}
       - {fileID: 21300000, guid: a7c390c7ae5540e41ab236e51e0c7a42, type: 3}
-      m_AnimationSpeed: 3.3998249
+      m_AnimationSpeed: 3.8110108
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 7, y: -4, z: 0}
@@ -4873,7 +4913,7 @@ Tilemap:
       - {fileID: 21300000, guid: 4c785cfa29e8cb3428dd7c36a40b7862, type: 3}
       - {fileID: 21300000, guid: bc4863a720fbc204a84b36f0e056bc41, type: 3}
       - {fileID: 21300000, guid: 1d862574413560d4bba668f84cef06ed, type: 3}
-      m_AnimationSpeed: 1.64844
+      m_AnimationSpeed: 1.1957775
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -7, y: -3, z: 0}
@@ -4883,7 +4923,7 @@ Tilemap:
       - {fileID: 21300000, guid: e6275e56e99fc0342841adf315c83a48, type: 3}
       - {fileID: 21300000, guid: fb87b1c388e5ca64e974861fccbded03, type: 3}
       - {fileID: 21300000, guid: a7c390c7ae5540e41ab236e51e0c7a42, type: 3}
-      m_AnimationSpeed: 3.570303
+      m_AnimationSpeed: 3.574549
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: -3, z: 0}
@@ -4893,7 +4933,7 @@ Tilemap:
       - {fileID: 21300000, guid: 4c785cfa29e8cb3428dd7c36a40b7862, type: 3}
       - {fileID: 21300000, guid: bc4863a720fbc204a84b36f0e056bc41, type: 3}
       - {fileID: 21300000, guid: 1d862574413560d4bba668f84cef06ed, type: 3}
-      m_AnimationSpeed: 1.5900948
+      m_AnimationSpeed: 1.6903113
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -6, y: 2, z: 0}
@@ -4903,7 +4943,7 @@ Tilemap:
       - {fileID: 21300000, guid: e6275e56e99fc0342841adf315c83a48, type: 3}
       - {fileID: 21300000, guid: fb87b1c388e5ca64e974861fccbded03, type: 3}
       - {fileID: 21300000, guid: a7c390c7ae5540e41ab236e51e0c7a42, type: 3}
-      m_AnimationSpeed: 3.569233
+      m_AnimationSpeed: 3.770093
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 7, y: 2, z: 0}
@@ -4913,7 +4953,7 @@ Tilemap:
       - {fileID: 21300000, guid: 4c785cfa29e8cb3428dd7c36a40b7862, type: 3}
       - {fileID: 21300000, guid: bc4863a720fbc204a84b36f0e056bc41, type: 3}
       - {fileID: 21300000, guid: 1d862574413560d4bba668f84cef06ed, type: 3}
-      m_AnimationSpeed: 1.2003485
+      m_AnimationSpeed: 1.3170843
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -5166,3 +5206,4 @@ SceneRoots:
   - {fileID: 1817715237}
   - {fileID: 423381697}
   - {fileID: 1886128595}
+  - {fileID: 1216922768}

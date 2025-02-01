@@ -112,10 +112,25 @@ public class ObstacleRemover : MonoBehaviour
                 
                 currentObstacleTilemap.SetColor(cellPosition, Color.grey);
             }
+
+            else if(!CheckAndSetObstacleOnCellPosition(cellPosition, false))
+            {
+                currentObstacleTilemap.SetColor(cellPosition, Color.white);
+                if (lastObstacleTilemap != null)
+                {
+                    lastObstacleTilemap.SetColor(lastSelectedCell, Color.white);
+                }
+                contextMenuPanel.gameObject.SetActive(false);
+            }
         }
         else if (Input.GetMouseButtonDown(1))
         {
             currentObstacleTilemap.SetColor(cellPosition, Color.white);
+            if (lastObstacleTilemap != null)
+            {
+                lastObstacleTilemap.SetColor(lastSelectedCell, Color.white);
+            }
+            contextMenuPanel.gameObject.SetActive(false);
         }
     }
 
