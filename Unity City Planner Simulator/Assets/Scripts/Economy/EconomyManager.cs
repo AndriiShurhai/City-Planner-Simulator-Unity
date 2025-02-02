@@ -57,4 +57,9 @@ public class EconomyManager : MonoBehaviour
             currentMoneyTXT.text = currentMoney.ToString();
         }
     }
+
+    internal void RegisterBuilding(Building building)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -9,6 +9,8 @@ public class BuildingData : ScriptableObject
     public Sprite buildingSprite;
     public Transform buildingPrefab;
 
+    public BuildingType buildingType;
+
     public int cost;
     public int maintenanceCost;
     public int incomePerCycle;
