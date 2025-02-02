@@ -3,10 +3,19 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public BuildingData buildingData;
-    public Vector2Int gridPosition;
+    [SerializeField] public BuildingData buildingData;
+    [SerializeField] public Vector2Int gridPosition;
     public Vector2Int size;
 
+    public virtual void Initialize()
+    {
+
+    }
+   public virtual void Initialize(BuildingData buildingData, Vector2Int size)
+   {
+        this.buildingData = buildingData;
+        this.size = size;
+   }
     public virtual void OnPlaced()
     {
         EconomyManager.Instance.RegisterBuilding(this);

@@ -60,6 +60,6 @@ public class EconomyManager : MonoBehaviour
 
     internal void RegisterBuilding(Building building)
     {
-        throw new NotImplementedException();
+        Debug.Log("Placed");
     }
 }
