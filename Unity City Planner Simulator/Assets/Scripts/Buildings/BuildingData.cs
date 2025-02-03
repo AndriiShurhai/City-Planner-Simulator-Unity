@@ -10,6 +10,7 @@ public class BuildingData : ScriptableObject
     public Transform buildingPrefab;
 
     public BuildingType buildingType;
+    public Vector2Int size;
 
     public int cost;
     public int maintenanceCost;

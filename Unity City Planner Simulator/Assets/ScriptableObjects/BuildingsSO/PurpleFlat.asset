@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Residential house
   buildingSprite: {fileID: 21300000, guid: 4cc62615463b77b4aaf05e707bd507e6, type: 3}
-  buildingPrefab: {fileID: 2889373945596074940, guid: c33e79a537f9dd04cb42b98e74757b76, type: 3}
+  buildingPrefab: {fileID: 4428906684350208622, guid: df42bf444f2695948b8aac0d1040a631, type: 3}
   buildingType: 0
+  size: {x: 4, y: 7}
   cost: 0
   maintenanceCost: 0
   incomePerCycle: 0
