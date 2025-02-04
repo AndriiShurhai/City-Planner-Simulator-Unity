@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 190154463320851615}
   - component: {fileID: -5320152395012571571}
   - component: {fileID: 4240760658713497059}
-  - component: {fileID: 660735539702871654}
   - component: {fileID: -4277828877718704237}
   - component: {fileID: 6850273324399412644}
   - component: {fileID: 4401056389333230125}
+  - component: {fileID: 7462145648012698964}
   m_Layer: 0
   m_Name: WhiteGrayHouse
   m_TagString: Untagged
@@ -138,21 +138,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &660735539702871654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588068838091743371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 9181e92d6d47c0f459aa7666eb3ff0f8, type: 2}
-  gridPosition: {x: 0, y: 0}
-  size: {x: 0, y: 0}
 --- !u!198 &-4277828877718704237
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -170,13 +155,13 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 3
-    scalar: 80
+    scalar: 3
     minScalar: 1
     maxCurve:
       serializedVersion: 2
@@ -343,7 +328,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0.2679245, g: 0.2679245, b: 0.2679245, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4900,7 +4885,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4920,8 +4905,8 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 47
-  m_RenderMode: 0
+  m_SortingOrder: 20
+  m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -4944,7 +4929,7 @@ ParticleSystemRenderer:
   m_VertexStreams: 00010304
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -4975,3 +4960,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7462145648012698964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588068838091743371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a371283088ec241807587a15bb32f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 9181e92d6d47c0f459aa7666eb3ff0f8, type: 2}
+  gridPosition: {x: 0, y: 0}
+  size: {x: 3, y: 6}
+  ps: {fileID: -4277828877718704237}

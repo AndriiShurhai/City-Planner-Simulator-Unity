@@ -125,7 +125,10 @@ public class ObstacleRemover : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            currentObstacleTilemap.SetColor(cellPosition, Color.white);
+            if (currentObstacleTilemap!= null)
+            {
+                currentObstacleTilemap.SetColor(cellPosition, Color.white);
+            }
             if (lastObstacleTilemap != null)
             {
                 lastObstacleTilemap.SetColor(lastSelectedCell, Color.white);
