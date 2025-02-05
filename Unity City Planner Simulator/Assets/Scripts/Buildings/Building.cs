@@ -27,7 +27,7 @@ public class Building : MonoBehaviour
         EconomyManager.Instance.AddMoney(netIncome);
     }
 
-    protected virtual int CalculateIncome()
+    public virtual int CalculateIncome()
     {
         return buildingData.incomePerCycle - buildingData.maintenanceCost;
     }

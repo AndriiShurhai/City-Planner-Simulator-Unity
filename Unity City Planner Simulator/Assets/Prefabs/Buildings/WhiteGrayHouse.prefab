@@ -4969,10 +4969,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4588068838091743371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a371283088ec241807587a15bb32f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 521c2dbc69d006c4288776b9947769e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 9181e92d6d47c0f459aa7666eb3ff0f8, type: 2}
+  buildingData: {fileID: 11400000, guid: b865cf68a39eb4748aeef95a81a223a4, type: 2}
   gridPosition: {x: 0, y: 0}
-  size: {x: 3, y: 6}
+  size: {x: 0, y: 0}
   ps: {fileID: -4277828877718704237}

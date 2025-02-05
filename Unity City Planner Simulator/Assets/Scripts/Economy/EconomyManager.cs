@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class EconomyManager : MonoBehaviour
     [SerializeField] AudioManager audioManager;
 
     private int currentMoney;
-
+    public List<Building> registeredBuildings;
     public static EconomyManager Instance { get; private set; }
     public TMPro.TMP_Text CurrentMoney { get { return currentMoneyTXT; } }
 
@@ -50,7 +51,7 @@ public class EconomyManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (currentMoneyTXT != null)
         {
@@ -60,6 +61,7 @@ public class EconomyManager : MonoBehaviour
 
     internal void RegisterBuilding(Building building)
     {
+        registeredBuildings.Add(building);
         Debug.Log("Placed");
     }
 }

@@ -20,3 +20,4 @@ MonoBehaviour:
   cost: 0
   maintenanceCost: 500
   incomePerCycle: 1000
+  incomePerResident: 30

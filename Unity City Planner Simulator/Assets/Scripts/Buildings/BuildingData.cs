@@ -8,12 +8,11 @@ public class BuildingData : ScriptableObject
 
     public Sprite buildingSprite;
     public Transform buildingPrefab;
-
     public BuildingType buildingType;
     public Vector2Int size;
-
     public int cost;
     public int maintenanceCost;
-    public int incomePerCycle;
 
+    public int incomePerCycle;
+    public int incomePerResident;
 }
