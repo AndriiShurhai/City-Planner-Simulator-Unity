@@ -66,7 +66,6 @@ public class ObstacleRemover : MonoBehaviour
 
         Instance = this;
 
-        DontDestroyOnLoad(gameObject);
     }
 
     private void OnRemoveClicked()

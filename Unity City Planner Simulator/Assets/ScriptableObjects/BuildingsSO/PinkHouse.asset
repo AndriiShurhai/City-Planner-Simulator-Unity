@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: PinkHouse
   m_EditorClassIdentifier: 
-  buildingName: 
+  buildingName: Pink House
+  buildingDescription: Residential good-looking house.
   buildingSprite: {fileID: 21300000, guid: b68171cacba36a4479798cf790d618a2, type: 3}
   buildingPrefab: {fileID: 4391470973054179955, guid: 62b1fd48ed0033b47b8bb3cbe2792e32, type: 3}
   buildingType: 0

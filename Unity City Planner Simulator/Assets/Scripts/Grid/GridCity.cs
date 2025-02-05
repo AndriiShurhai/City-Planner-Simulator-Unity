@@ -17,12 +17,23 @@ public class GridCity : MonoBehaviour
     [SerializeField] Grid grid;
     [SerializeField] Tilemap buildingTilemap;
 
+    public static GridCity Instance { get; private set; }
 
     private void Start()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+        }
+        else 
+        { 
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
     }
     private void Update()
     {
+        if (selectedBuilding == null) return;
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -84,5 +95,10 @@ public class GridCity : MonoBehaviour
             }
         }
 
+    }
+
+    public void SetActiveBuildingType(BuildingData data)
+    {
+        selectedBuilding = data;
     }
 }

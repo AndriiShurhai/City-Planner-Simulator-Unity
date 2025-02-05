@@ -29,15 +29,18 @@ namespace SVS
         [SerializeField] private Tilemap groundTilemap;
         private Vector2 mapSize;
 
-        private Camera mainCamera;
+        [SerializeField]private Camera mainCamera;
         private float targetZoom;
         private float zoomVelocity;
         private bool isDragging;
         private Vector3 lastMousePosition;
 
+        public static CameraController Instance { get; private set; }
+
         private void Awake()
         {
             mainCamera = Camera.main;
+            Instance = this;
         }
 
         private void Start()

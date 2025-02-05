@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PurpleFlat
   m_EditorClassIdentifier: 
   buildingName: Purple flat
+  buildingDescription: Purple general flat.
   buildingSprite: {fileID: 21300000, guid: 4cc62615463b77b4aaf05e707bd507e6, type: 3}
   buildingPrefab: {fileID: 4428906684350208622, guid: df42bf444f2695948b8aac0d1040a631, type: 3}
   buildingType: 0
   size: {x: 4, y: 7}
-  cost: 0
+  cost: 2300
   maintenanceCost: 0
   incomePerCycle: 0
   incomePerResident: 0

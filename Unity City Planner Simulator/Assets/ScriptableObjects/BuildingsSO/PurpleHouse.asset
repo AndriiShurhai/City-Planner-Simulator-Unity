@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: PurpleHouse
   m_EditorClassIdentifier: 
-  buildingName: 
+  buildingName: Purple house
+  buildingDescription: An old residential cosy house.
   buildingSprite: {fileID: 21300000, guid: ebf4402f05e512c42aa275c9f2cde0e0, type: 3}
   buildingPrefab: {fileID: 4320835702826016237, guid: 306ffa0122db2744f987309860fc7360, type: 3}
   buildingType: 0

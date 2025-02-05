@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private float cycleInterval = 30f;
 
+    public static GameManager Instance { get; private set; }
+
     private void Start()
     {
         StartCoroutine(EconomyCycle());

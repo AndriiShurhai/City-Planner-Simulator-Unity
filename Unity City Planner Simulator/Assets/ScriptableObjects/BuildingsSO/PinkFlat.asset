@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PinkFlat
   m_EditorClassIdentifier: 
   buildingName: Pink Flat
+  buildingDescription: Good-looking and cute flat.
   buildingSprite: {fileID: 21300000, guid: e3e72686e6552ca4f87c165faafabbb1, type: 3}
   buildingPrefab: {fileID: 463793761022909502, guid: e0399ee8a84a1a44a82dc553c6635e98, type: 3}
   buildingType: 0
   size: {x: 4, y: 7}
-  cost: 0
+  cost: 2500
   maintenanceCost: 500
   incomePerCycle: 1000
   incomePerResident: 30

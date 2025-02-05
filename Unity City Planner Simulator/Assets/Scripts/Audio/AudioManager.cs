@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void PlaySound(AudioClip clip)

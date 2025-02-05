@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: GovermentStructure
   m_EditorClassIdentifier: 
   buildingName: Goverment Structure
+  buildingDescription: The main structure allows you to manage your city.
   buildingSprite: {fileID: 21300000, guid: e7c59bfad2ade1c4ba6f050f060e3aa9, type: 3}
   buildingPrefab: {fileID: 4427661025103703106, guid: 6439e380546ca104ab9ed3bc6bcebf4e, type: 3}
   buildingType: 0
   size: {x: 5, y: 8}
-  cost: 0
+  cost: 4000
   maintenanceCost: 0
   incomePerCycle: 0
+  incomePerResident: 0

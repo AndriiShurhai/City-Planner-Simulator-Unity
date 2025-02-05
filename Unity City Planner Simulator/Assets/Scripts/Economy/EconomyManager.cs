@@ -11,7 +11,7 @@ public class EconomyManager : MonoBehaviour
     private int currentMoney;
     public List<Building> registeredBuildings;
     public static EconomyManager Instance { get; private set; }
-    public TMPro.TMP_Text CurrentMoney { get { return currentMoneyTXT; } }
+    public int CurrentMoney { get { return currentMoney; } }
 
     private void Awake()
     {

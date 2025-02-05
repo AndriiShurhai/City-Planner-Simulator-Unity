@@ -15,6 +15,7 @@ public class Building : MonoBehaviour
    {
         this.buildingData = buildingData;
         this.size = size;
+        DontDestroyOnLoad(gameObject);
    }
     public virtual void OnPlaced()
     {
