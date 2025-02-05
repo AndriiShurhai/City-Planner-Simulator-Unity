@@ -30,6 +30,32 @@ public class ObstacleRemover : MonoBehaviour
 
     private Camera mainCamera;
 
+    public static ObstacleRemover Instance { get; private set; }
+    
+    public Tilemap LargeObstacleTilemap
+    {
+        get
+        {
+            return this.largeObstacleTilemap;
+        }
+    }
+
+    public Tilemap MiddleObstacleTilemap
+    {
+        get
+        {
+            return this.middleObstacleTilemap;
+        }
+    }
+
+    public Tilemap SmallObstacleTilemap
+    {
+        get
+        {
+            return this.smallObstacleTilemap;
+        }
+    }
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -37,6 +63,10 @@ public class ObstacleRemover : MonoBehaviour
         contextMenuPanel.gameObject.SetActive(false);
 
         removeButton.onClick.AddListener(OnRemoveClicked);
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnRemoveClicked()
