@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PurpleHouse
   m_EditorClassIdentifier: 
   buildingName: 
-  buildingSprite: {fileID: 0}
-  buildingPrefab: {fileID: 0}
+  buildingSprite: {fileID: 21300000, guid: ebf4402f05e512c42aa275c9f2cde0e0, type: 3}
+  buildingPrefab: {fileID: 4320835702826016237, guid: 306ffa0122db2744f987309860fc7360, type: 3}
   buildingType: 0
-  size: {x: 0, y: 0}
-  cost: 0
-  maintenanceCost: 0
+  size: {x: 3, y: 6}
+  cost: 600
+  maintenanceCost: 20
   incomePerCycle: 0
-  incomePerResident: 0
+  incomePerResident: 30

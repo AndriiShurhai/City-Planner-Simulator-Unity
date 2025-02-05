@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: WhiteGrayHosue
   m_EditorClassIdentifier: 
   buildingName: 
-  buildingSprite: {fileID: 0}
-  buildingPrefab: {fileID: 0}
+  buildingSprite: {fileID: 21300000, guid: 9ce2a42584abd044286446d59ca10dbd, type: 3}
+  buildingPrefab: {fileID: 190154463320851615, guid: 8957e0cea42488b4bb5efa1e6087f373, type: 3}
   buildingType: 0
-  size: {x: 0, y: 0}
+  size: {x: 3, y: 6}
   cost: 0
-  maintenanceCost: 0
+  maintenanceCost: 750
   incomePerCycle: 0
-  incomePerResident: 0
+  incomePerResident: 50
