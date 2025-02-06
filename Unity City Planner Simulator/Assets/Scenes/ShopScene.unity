@@ -199,7 +199,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 103
   m_TargetDisplay: 0
 --- !u!224 &14169333
 RectTransform:
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1583,7 +1583,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3e6ecd1fbbb08b47b700623fed181b0, type: 2}
   - {fileID: 11400000, guid: 5ccf237324112cc4ea0e44374b2dac0b, type: 2}
   - {fileID: 11400000, guid: e1c951f7541b65448b36a731fa2a8468, type: 2}
-  - {fileID: 11400000, guid: e8369f6dc0262624aa104578ad02d81a, type: 2}
   - {fileID: 11400000, guid: b865cf68a39eb4748aeef95a81a223a4, type: 2}
   shopPanelsGO:
   - {fileID: 1537388698}
@@ -1949,7 +1948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

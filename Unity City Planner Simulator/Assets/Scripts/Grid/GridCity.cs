@@ -29,7 +29,6 @@ public class GridCity : MonoBehaviour
         { 
             Instance = this;
         }
-        DontDestroyOnLoad(gameObject);
     }
     private void Update()
     {
@@ -94,6 +93,9 @@ public class GridCity : MonoBehaviour
                 buildings[new Vector2Int(x, y)] = building;
             }
         }
+
+        EconomyManager.Instance.SubtractMoney(building.buildingData.cost);
+        selectedBuilding = null;
 
     }
 

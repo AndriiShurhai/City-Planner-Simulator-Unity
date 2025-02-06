@@ -12,11 +12,11 @@ public class SceneManagerController : MonoBehaviour
 
     public void LoadShopScene()
     {
-        SceneManager.LoadScene("ShopScene");
+        SceneManager.LoadScene("ShopScene", LoadSceneMode.Additive);
     }
 
-    public void LoadSampleScene()
+    public void CloseShopScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.UnloadSceneAsync("ShopScene");
     }
 }

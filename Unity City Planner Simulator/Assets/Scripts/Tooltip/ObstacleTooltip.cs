@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class Tooltip : MonoBehaviour
@@ -16,6 +17,7 @@ public class Tooltip : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         ManageOnMouseEnter();
     }
 

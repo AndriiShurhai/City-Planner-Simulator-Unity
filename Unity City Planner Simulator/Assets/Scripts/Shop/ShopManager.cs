@@ -58,7 +58,7 @@ public class ShopManager : MonoBehaviour
         {
             GridCity.Instance.SetActiveBuildingType(shopItemsSO[buttonIndex]);
             CheckPurchusable();
-            SceneManagerController.Instance.LoadSampleScene();
+            SceneManagerController.Instance.CloseShopScene();
         }
     }
 }

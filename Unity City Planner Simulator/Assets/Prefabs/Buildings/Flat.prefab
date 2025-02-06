@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4428906684350208622}
   - component: {fileID: -4951422861936265684}
   - component: {fileID: 2542751285065235790}
-  - component: {fileID: 7313484782190576304}
   - component: {fileID: 821744804162010011}
+  - component: {fileID: 1093588728293706975}
   m_Layer: 0
   m_Name: Flat
   m_TagString: Untagged
@@ -136,21 +136,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.0001, y: 0.0001}
   m_EdgeRadius: 0
---- !u!114 &7313484782190576304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6569433980049911159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5a4ac774c437104d96ab2e353128299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 5ccf237324112cc4ea0e44374b2dac0b, type: 2}
-  gridPosition: {x: 0, y: 0}
-  size: {x: 4, y: 7}
 --- !u!95 &821744804162010011
 Animator:
   serializedVersion: 7
@@ -173,3 +158,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1093588728293706975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6569433980049911159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 5ccf237324112cc4ea0e44374b2dac0b, type: 2}
+  gridPosition: {x: 0, y: 0}
+  size: {x: 4, y: 7}
