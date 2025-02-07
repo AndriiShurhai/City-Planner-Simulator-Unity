@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class CarPathfinding : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Tilemap roadTilemap;
+    [SerializeField] public Tilemap roadTilemap;
     [SerializeField] private float moveSpeed = 5f;
 
-    [SerializeField] private List<Sprite> carSprites = new List<Sprite>();
+    [SerializeField] public List<Sprite> carSprites = new List<Sprite>();
 
     [SerializeField] int carSpriteIndex = 0;
+
+    public System.Action OnDestinationReached;
 
     private Vector3Int[] directions = {
         new Vector3Int(1, 0, 0),   
@@ -28,7 +31,6 @@ public class CarPathfinding : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        this.SetDestination(new Vector3(346, -245, 0));
     }
 
     void Update()
@@ -39,9 +41,10 @@ public class CarPathfinding : MonoBehaviour
         }
     }
 
-    public void SetDestination(Vector3 target)
+    public void SetDestination(Vector3 start, Vector3 target)
     {
-        Vector3Int startCell = roadTilemap.WorldToCell(transform.position);
+        transform.position = start; 
+        Vector3Int startCell = roadTilemap.WorldToCell(start);
         Vector3Int targetCell = roadTilemap.WorldToCell(target);
 
         path = FindPath(startCell, targetCell);
@@ -120,6 +123,7 @@ public class CarPathfinding : MonoBehaviour
         if (currentPathIndex >= path.Count)
         {
             isMoving = false;
+            OnDestinationReached?.Invoke();
             return;
         }
 
