@@ -16,6 +16,7 @@ public class GridCity : MonoBehaviour
 
     [SerializeField] Grid grid;
     [SerializeField] Tilemap buildingTilemap;
+    [SerializeField] CustomBuildingCursor customBuildingCursor;
 
     public static GridCity Instance { get; private set; }
 
@@ -96,11 +97,18 @@ public class GridCity : MonoBehaviour
 
         EconomyManager.Instance.SubtractMoney(building.buildingData.cost);
         selectedBuilding = null;
+        customBuildingCursor.ToggleCursor(false, null);
 
     }
 
     public void SetActiveBuildingType(BuildingData data)
     {
         selectedBuilding = data;
+        customBuildingCursor.ToggleCursor(true, data);
+    }
+
+    public BuildingData GetActiveBuildingType()
+    {
+        return selectedBuilding;
     }
 }
