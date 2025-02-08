@@ -11,9 +11,15 @@ public class CarAgentManager : MonoBehaviour
     [SerializeField] private List<Sprite> redCarSprites;
     [SerializeField] private List<Sprite> greenCarSprites;
     [SerializeField] private List<Sprite> pinkCarSprites;
+    [SerializeField] private List<Sprite> blueNewCarSprites;
+    [SerializeField] private List<Sprite> pinkNewCarSprites;
+    [SerializeField] private List<Sprite> skyNewCarSprites;
+    [SerializeField] private List<Sprite> greenNewCarSprites;
+
 
     [SerializeField] private List<Vector3Int> positions;
-    [SerializeField] private GameObject carPrefab;  
+    [SerializeField] private GameObject carPrefab;
+    [SerializeField] private GameObject newCarPrefab; 
     [SerializeField] private float interval = 4f;
     [SerializeField] private int maxCarsAllowed = 10;  
 
@@ -41,7 +47,7 @@ public class CarAgentManager : MonoBehaviour
 
     private void SpawnNewCar()
     {
-        int randomCarSpriteIndex = Random.Range(0, 3);
+        int randomCarSpriteIndex = Random.Range(0, 7);
         int randomStartPositionIndex = Random.Range(0, positions.Count);
         int randomEndPositionIndex = Random.Range(0, positions.Count);
 
@@ -55,6 +61,10 @@ public class CarAgentManager : MonoBehaviour
             0 => redCarSprites,
             1 => greenCarSprites,
             2 => pinkCarSprites,
+            3 => blueNewCarSprites,
+            4 => pinkNewCarSprites,
+            5 => skyNewCarSprites,
+            6 => greenNewCarSprites,
             _ => redCarSprites
         };
 
