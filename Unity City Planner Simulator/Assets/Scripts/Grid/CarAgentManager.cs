@@ -20,7 +20,7 @@ public class CarAgentManager : MonoBehaviour
     [SerializeField] private List<Vector3Int> positions;
     [SerializeField] private GameObject carPrefab;
     [SerializeField] private GameObject newCarPrefab; 
-    [SerializeField] private float interval = 4f;
+    [SerializeField] private float interval = 1f;
     [SerializeField] private int maxCarsAllowed = 10;  
 
     private List<GameObject> activeCars = new List<GameObject>();

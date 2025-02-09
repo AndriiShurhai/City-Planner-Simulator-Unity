@@ -48,6 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadTilemap: {fileID: 0}
   moveSpeed: 5
+  leftLaneTileOne: {fileID: 11400000, guid: f3b3c318fb4ca6d44802c16029cc2420, type: 2}
+  rightLaneTileOne: {fileID: 11400000, guid: ba086d99612e79e4eaac00f0537bf88b, type: 2}
+  leftLaneTileTwo: {fileID: 0}
+  rightLaneTIleTwo: {fileID: 0}
   carSprites: []
   carSpriteIndex: 0
 --- !u!212 &2263028345232778968

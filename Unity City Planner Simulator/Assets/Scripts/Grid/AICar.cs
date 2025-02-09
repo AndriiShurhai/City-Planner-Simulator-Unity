@@ -8,6 +8,9 @@ public class CarPathfinding : MonoBehaviour
     [Header("References")]
     [SerializeField] public Tilemap roadTilemap;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private List<string> leftLaneTiles = new List<string> { "tilemap_288", "tilemap_313" };
+    [SerializeField] private List<string> rightLaneTiles = new List<string> { "tilemap_290", "tilemap_265" };
+    [SerializeField] private List<string> dividerLaneTiles = new List<string> { "tilemap_294", "tilemap_271", "tilemap_296", "tilemap_319", "tilemap_295"};
 
     [SerializeField] public List<Sprite> carSprites = new List<Sprite>();
 
@@ -16,10 +19,10 @@ public class CarPathfinding : MonoBehaviour
     public System.Action OnDestinationReached;
 
     private Vector3Int[] directions = {
-        new Vector3Int(1, 0, 0),   
-        new Vector3Int(-1, 0, 0),  
-        new Vector3Int(0, 1, 0),   
-        new Vector3Int(0, -1, 0)   
+        new Vector3Int(1, 0, 0),
+        new Vector3Int(-1, 0, 0),
+        new Vector3Int(0, 1, 0),
+        new Vector3Int(0, -1, 0)
     };
 
     private List<Vector3> path = new List<Vector3>();
@@ -27,6 +30,13 @@ public class CarPathfinding : MonoBehaviour
     private bool isMoving = false;
 
     private SpriteRenderer spriteRenderer;
+
+    private enum RoadType
+    {
+        LeftLane,
+        RightLane,
+        DividerLane
+    }
 
     private void Start()
     {
@@ -43,15 +53,62 @@ public class CarPathfinding : MonoBehaviour
 
     public void SetDestination(Vector3 start, Vector3 target)
     {
-        transform.position = start; 
-        Vector3Int startCell = roadTilemap.WorldToCell(start);
-        Vector3Int targetCell = roadTilemap.WorldToCell(target);
+        transform.position = start;
+        Vector3Int startCell = GetCorrectLane(roadTilemap.WorldToCell(start));
+        Vector3Int targetCell = GetCorrectLane(roadTilemap.WorldToCell(target));
 
         path = FindPath(startCell, targetCell);
         currentPathIndex = 0;
         isMoving = true;
     }
 
+    private Vector3Int GetCorrectLane(Vector3Int cell)
+    {
+        foreach (Vector3Int direction in directions)
+        {
+            Vector3Int checkCell = cell + direction;
+            if (IsValidLane(checkCell))
+            {
+                return checkCell;
+            }
+        }
+        return cell;
+    }
+
+    private bool IsValidLane(Vector3Int position)
+    {
+        TileBase tile = roadTilemap.GetTile(position);
+        if (tile == null) return false;
+        return leftLaneTiles.Contains(tile.name) || rightLaneTiles.Contains(tile.name);
+    }
+
+    private RoadType GetRoadType(Vector3Int position)
+    {
+        TileBase tile = roadTilemap.GetTile(position);
+
+        if (leftLaneTiles.Contains(tile.name)) return RoadType.LeftLane;
+        if (rightLaneTiles.Contains(tile.name)) return RoadType.RightLane;
+        if (dividerLaneTiles.Contains(tile.name)) return RoadType.DividerLane;
+
+        return RoadType.DividerLane;
+    }
+
+    private bool IsCorrectDrivingSide(Vector3Int current, Vector3Int next)
+    {
+        Vector3Int direction = current - next;
+        RoadType roadType = GetRoadType(current);
+
+        if (direction.x > 0 || direction.y > 0)
+        {
+            return roadType == RoadType.RightLane;
+        }
+        else if (direction.x < 0 || direction.y < 0)
+        {
+            return roadType == RoadType.LeftLane;
+        }
+
+        return true;
+    }
     private List<Vector3> FindPath(Vector3Int start, Vector3Int target)
     {
         PriorityQueue<Vector3Int> frontier = new PriorityQueue<Vector3Int>();
@@ -77,7 +134,13 @@ public class CarPathfinding : MonoBehaviour
                 if (!IsValidRoadTile(next))
                     continue;
 
+
                 float newCost = costSoFar[current] + 1;
+
+                if (GetRoadType(current) != GetRoadType(next) || !IsCorrectDrivingSide(current, next))
+                {
+                    newCost += 5;
+                }
 
                 if (!costSoFar.ContainsKey(next) || newCost < costSoFar[next])
                 {
@@ -94,7 +157,18 @@ public class CarPathfinding : MonoBehaviour
 
     private bool IsValidRoadTile(Vector3Int position)
     {
-        return roadTilemap.HasTile(position);
+        TileBase tile = roadTilemap.GetTile(position);
+
+        if (tile == null)
+        {
+            return false;
+        }
+
+        if (!(leftLaneTiles.Contains(tile.name) || rightLaneTiles.Contains(tile.name) || dividerLaneTiles.Contains(tile.name))){
+            return tile != null;
+        }
+
+        return true;
     }
 
     private float HeuristicCost(Vector3Int a, Vector3Int b)
@@ -109,7 +183,31 @@ public class CarPathfinding : MonoBehaviour
 
         while (current != start)
         {
-            path.Add(roadTilemap.GetCellCenterWorld(current));
+            Vector3 worldPosition = roadTilemap.GetCellCenterWorld(current);
+            RoadType roadType = GetRoadType(current);
+
+            Vector3Int direction = cameFrom[current] - current;
+
+            if (direction.x > 0 && roadType == RoadType.RightLane)
+            {
+                worldPosition += new Vector3(0, 0.4f, 0);
+            }
+
+            else if (direction.x < 0 && roadType == RoadType.RightLane)
+            {
+                worldPosition += new Vector3(0, -0.4f, 0);
+            }
+
+            else if(direction.y > 0 && roadType == RoadType.RightLane)
+            {
+                worldPosition += new Vector3(-0.4f, 0, 0);
+            }
+            else if (direction.y < 0 && roadType == RoadType.RightLane)
+            {
+                worldPosition += new Vector3(0.4f, 0, 0);
+            }
+
+            path.Add(worldPosition);
             current = cameFrom[current];
         }
 
