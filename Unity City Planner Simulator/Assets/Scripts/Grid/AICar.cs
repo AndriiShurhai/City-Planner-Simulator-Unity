@@ -164,7 +164,7 @@ public class CarPathfinding : MonoBehaviour
             return false;
         }
 
-        if (!(leftLaneTiles.Contains(tile.name) || rightLaneTiles.Contains(tile.name) || dividerLaneTiles.Contains(tile.name))){
+        if (!(leftLaneTiles.Contains(tile.name) && !rightLaneTiles.Contains(tile.name) && !dividerLaneTiles.Contains(tile.name))){
             return tile != null;
         }
 
