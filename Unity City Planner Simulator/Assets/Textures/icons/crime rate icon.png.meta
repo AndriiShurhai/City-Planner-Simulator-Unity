@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: f468101224b4bab4da3911d45a020ad3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8022378148969297508
+    second: crime rate icon_0
+  - first:
+      213: 6387051935601862964
+    second: crime rate icon_1
+  - first:
+      213: 508062183513831036
+    second: crime rate icon_2
+  - first:
+      213: 3815576797453203709
+    second: crime rate icon_3
+  - first:
+      213: 5937060946821517056
+    second: crime rate icon_4
+  - first:
+      213: 2655913747758739271
+    second: crime rate icon_5
+  - first:
+      213: 8575244168451795688
+    second: crime rate icon_6
+  - first:
+      213: -5521579660184423386
+    second: crime rate icon_7
+  - first:
+      213: 7241458724446620161
+    second: crime rate icon_8
+  - first:
+      213: -9216223207610001454
+    second: crime rate icon_9
+  - first:
+      213: 1166386742587225649
+    second: crime rate icon_10
+  - first:
+      213: -1745165499600291945
+    second: crime rate icon_11
+  - first:
+      213: 6572946572725937431
+    second: crime rate icon_12
+  - first:
+      213: -3507180088044207615
+    second: crime rate icon_13
+  - first:
+      213: -5755043239402816874
+    second: crime rate icon_14
+  - first:
+      213: 486438934189429645
+    second: crime rate icon_15
+  - first:
+      213: -9189880677245526997
+    second: crime rate icon_16
+  - first:
+      213: -6422344982121134928
+    second: crime rate icon_17
+  - first:
+      213: 8276494779587414851
+    second: crime rate icon_18
+  - first:
+      213: -1711489888579792380
+    second: crime rate icon_19
+  - first:
+      213: -6054278866671716482
+    second: crime rate icon_20
+  - first:
+      213: 3037295598266884599
+    second: crime rate icon_21
+  - first:
+      213: 1768468921590757980
+    second: crime rate icon_22
+  - first:
+      213: 4309878173395701782
+    second: crime rate icon_23
+  - first:
+      213: 3594817846251834612
+    second: crime rate icon_24
+  - first:
+      213: -8629307943937938722
+    second: crime rate icon_25
+  - first:
+      213: -3830434039043068472
+    second: crime rate icon_26
+  - first:
+      213: -3510964442992102015
+    second: crime rate icon_27
+  - first:
+      213: 1397525747627349036
+    second: crime rate icon_28
+  - first:
+      213: 7336686020324880352
+    second: crime rate icon_29
+  - first:
+      213: -383591594133593570
+    second: crime rate icon_30
+  - first:
+      213: 5778152893993288274
+    second: crime rate icon_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 8
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: crime rate icon_0
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 402
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9944d0f399caa090800000000000000
+      internalID: -8022378148969297508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_1
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 419
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439258735ed53a850800000000000000
+      internalID: 6387051935601862964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_2
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 411
+        width: 26
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c76b6243ddffc0700800000000000000
+      internalID: 508062183513831036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 332
+        width: 96
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df8bb69a1e6a3f430800000000000000
+      internalID: 3815576797453203709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_4
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 419
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00f0429a97da46250800000000000000
+      internalID: 5937060946821517056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_5
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 411
+        width: 25
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74f6c316b73bbd420800000000000000
+      internalID: 2655913747758739271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_6
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 390
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ea2fca3323610770800000000000000
+      internalID: 8575244168451795688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_7
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 395
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6247fabbd886f53b0800000000000000
+      internalID: -5521579660184423386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_8
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 400
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10a4b4ec754de7460800000000000000
+      internalID: 7241458724446620161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_9
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 400
+        width: 25
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d7d1b382d5691080800000000000000
+      internalID: -9216223207610001454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_10
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 392
+        width: 19
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 136f2a60096df2010800000000000000
+      internalID: 1166386742587225649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_11
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 375
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 797be02793de7c7e0800000000000000
+      internalID: -1745165499600291945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_12
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 333
+        width: 38
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71563fa351cc73b50800000000000000
+      internalID: 6572946572725937431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_13
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 371
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1024dc0ba4ef35fc0800000000000000
+      internalID: -3507180088044207615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_14
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 352
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69ab1605aaaf120b0800000000000000
+      internalID: -5755043239402816874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_15
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 351
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d83d74522ad20c600800000000000000
+      internalID: 486438934189429645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_16
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 347
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2cdd80d63cf67080800000000000000
+      internalID: -9189880677245526997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_17
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 325
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b448ab044f3fd6a0800000000000000
+      internalID: -6422344982121134928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_18
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 169
+        width: 162
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34bceaab6240cd270800000000000000
+      internalID: 8276494779587414851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_19
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 190
+        width: 131
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4025782a3019f38e0800000000000000
+      internalID: -1711489888579792380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_20
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 298
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e77b0ec9271eafba0800000000000000
+      internalID: -6054278866671716482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_21
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 281
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f12e8c1144a62a20800000000000000
+      internalID: 3037295598266884599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_22
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 270
+        width: 8
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5a3cbb4d1dda8810800000000000000
+      internalID: 1768468921590757980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_23
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 242
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 610d57e2d53cfcb30800000000000000
+      internalID: 4309878173395701782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_24
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 185
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fc4316f8cb53e130800000000000000
+      internalID: 3594817846251834612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_25
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 149
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eda6f10252a8e3880800000000000000
+      internalID: -8629307943937938722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_26
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 150
+        width: 20
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cde547398097dac0800000000000000
+      internalID: -3830434039043068472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_27
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 148
+        width: 20
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 185bd64e07c864fc0800000000000000
+      internalID: -3510964442992102015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_28
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 157
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c245ac75342056310800000000000000
+      internalID: 1397525747627349036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_29
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 157
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0efe906601521d560800000000000000
+      internalID: 7336686020324880352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_30
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 145
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1267dc3a753daaf0800000000000000
+      internalID: -383591594133593570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crime rate icon_31
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 145
+        width: 22
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2528d50717f103050800000000000000
+      internalID: 5778152893993288274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      crime rate icon_0: -8022378148969297508
+      crime rate icon_1: 6387051935601862964
+      crime rate icon_10: 1166386742587225649
+      crime rate icon_11: -1745165499600291945
+      crime rate icon_12: 6572946572725937431
+      crime rate icon_13: -3507180088044207615
+      crime rate icon_14: -5755043239402816874
+      crime rate icon_15: 486438934189429645
+      crime rate icon_16: -9189880677245526997
+      crime rate icon_17: -6422344982121134928
+      crime rate icon_18: 8276494779587414851
+      crime rate icon_19: -1711489888579792380
+      crime rate icon_2: 508062183513831036
+      crime rate icon_20: -6054278866671716482
+      crime rate icon_21: 3037295598266884599
+      crime rate icon_22: 1768468921590757980
+      crime rate icon_23: 4309878173395701782
+      crime rate icon_24: 3594817846251834612
+      crime rate icon_25: -8629307943937938722
+      crime rate icon_26: -3830434039043068472
+      crime rate icon_27: -3510964442992102015
+      crime rate icon_28: 1397525747627349036
+      crime rate icon_29: 7336686020324880352
+      crime rate icon_3: 3815576797453203709
+      crime rate icon_30: -383591594133593570
+      crime rate icon_31: 5778152893993288274
+      crime rate icon_4: 5937060946821517056
+      crime rate icon_5: 2655913747758739271
+      crime rate icon_6: 8575244168451795688
+      crime rate icon_7: -5521579660184423386
+      crime rate icon_8: 7241458724446620161
+      crime rate icon_9: -9216223207610001454
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
