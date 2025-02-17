@@ -7,7 +7,7 @@ public class CarPathfinding : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] public Tilemap roadTilemap;
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private List<string> leftLaneTiles = new List<string> { "tilemap_288", "tilemap_313" };
     [SerializeField] private List<string> rightLaneTiles = new List<string> { "tilemap_290", "tilemap_265" };
     [SerializeField] private List<string> dividerLaneTiles = new List<string> { "tilemap_294", "tilemap_271", "tilemap_296", "tilemap_319", "tilemap_295"};

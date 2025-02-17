@@ -201,6 +201,24 @@ public class ObstacleRemover : MonoBehaviour
         return false;
     }
 
+    public bool CheckSmallObstacle(Vector3Int cellPosition)
+    {
+        return smallObstacleTilemap.HasTile(cellPosition);
+    }
+    public bool CheckMiddleObstacle(Vector3Int cellPosition)
+    {
+        return middleObstacleTilemap.HasTile(cellPosition);
+    }
+
+    public bool CheckLargeObstacle(Vector3Int cellPosition)
+    {
+        return largeObstacleTilemap.HasTile(cellPosition);
+    }
+
+    public bool CheckObstacle(Vector3Int cellPosition)
+    {
+        return CheckAndSetObstacleOnCellPosition(cellPosition, false);
+    }
     private void SetCurrentHoverObstacle(Tilemap obstacle)
     {
         currentHoverObstacleTilemap = obstacle;

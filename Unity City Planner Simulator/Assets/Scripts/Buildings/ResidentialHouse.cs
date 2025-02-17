@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 public class ResidentialHouse : Building
 {
     private const int START_RESIDENTS = 1;
+    private const int MAX_RESIDENTS = 3;
 
     [SerializeField] private ParticleSystem ps;
 
@@ -18,6 +19,8 @@ public class ResidentialHouse : Building
         base.Initialize(buildingData, size);
         currentResidents = START_RESIDENTS;
         currentLevel = 1;
+
+        AddBuildingEffect(new UpgradeBoostResidentialEffect(this));
     }
 
     public override int CalculateIncome()
@@ -32,6 +35,8 @@ public class ResidentialHouse : Building
     public override void ProcessTick()
     {
         base.ProcessTick();
+
+        Debug.Log("This what you can do after base process tick");
 
         // additional affects
     }
@@ -51,7 +56,6 @@ public class ResidentialHouse : Building
         yield return new WaitForSeconds(delay);
 
         ps.Play();
-
         isPlaying = false;
     }
 

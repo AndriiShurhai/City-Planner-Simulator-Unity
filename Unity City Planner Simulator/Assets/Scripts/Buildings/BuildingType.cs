@@ -5,5 +5,6 @@ public enum BuildingType
     Commercial,
     Industrial,
     Amusement,
-    Service
+    Service,
+    Flat
 }
