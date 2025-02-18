@@ -7,10 +7,22 @@ using System;
 public class AIResident : MonoBehaviour
 {
     [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap roadTilmeap;
+    [SerializeField] private Tilemap roadTilemap;
 
-    [SerializeField] private float moveSpeed = 0.1f;
-    [SerializeField] private int movementRadius = 10;
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private int movementRadius = 5;
+    [SerializeField] private Vector3? currentDestination = null;
+    [SerializeField] private int minIdleWait = 3;
+    [SerializeField] private int maxIdleWait = 10;
+    [SerializeField] private bool isWaiting = false;
+
+    private float currentWaitTime = 0f;
+    private float waitTimeTarget;
+    private float carDetectionRadius = 3f;
+    [SerializeField] private LayerMask carLayer;
+    private CircleCollider2D carDetectionCollider;
+    private int accelerateSpeed = 7;
+    private int defaultSpeed = 2;
 
     [SerializeField] public List<Sprite> citizenSprites = new List<Sprite>();
     [SerializeField] private int citizenSpriteIndex = 0;
@@ -49,15 +61,116 @@ public class AIResident : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        carDetectionCollider = GetComponent<CircleCollider2D>(); 
+
+        if (carDetectionCollider == null)
+        {
+            carDetectionCollider = gameObject.AddComponent<CircleCollider2D>();
+            carDetectionCollider.radius = carDetectionRadius;
+            carDetectionCollider.isTrigger = true;
+        }
     }
 
     private void Update()
     {
+        if (IsCarNearby())
+        {
+            if (isMoving)
+            {
+                if (roadTilemap.GetTile(roadTilemap.WorldToCell(transform.position)) == null)
+                {
+                    animator.SetBool("isMoving", false);
+                    isMoving = false;
+                    moveSpeed = defaultSpeed;
+                    return;
+                }
+                else
+                {
+                    moveSpeed = accelerateSpeed;
+                }
+            }
+        }
+        else
+        {
+            moveSpeed = defaultSpeed;
+            if (!isMoving && path.Count > 0)
+            {
+                animator.SetBool("isMoving", true);
+                isMoving = true;
+            }
+        }
+        if (isWaiting)
+        {
+            currentWaitTime += Time.deltaTime;
+            if (currentWaitTime >= waitTimeTarget)
+            {
+                isWaiting = false;
+                currentWaitTime = 0f;
+                currentDestination = null;
+            }
+
+            return;
+        }
+
         if (isMoving && path.Count > 0)
         {
             MoveAlongPath();
         }
+        else if (!currentDestination.HasValue || Vector3.Distance(transform.position, currentDestination.Value) < 0.1f)
+        {
+            ChooseNewRandomDestination();
+        }
+    }
+
+    private bool IsCarNearby()
+    {
+        Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(transform.position, carDetectionRadius, carLayer);
+
+        foreach(Collider2D collider in nearbyColliders)
+        {
+            if (collider.gameObject != gameObject && collider.gameObject.CompareTag("Car"))
+            {
+                Vector2 directionToCar = (collider.transform.position - transform.position).normalized;
+
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = (directionToCar.x < 0);
+                }
+
+                return true;
+            }
+        }
+        return false;
+    }
+    private void ChooseNewRandomDestination()
+    {
+        int maxAttempts = 10;
+        int attempts = 0;
+
+        while (attempts < maxAttempts)
+        {
+            int x = UnityEngine.Random.Range(
+                Mathf.Max(-movementRadius, (int)groundTilemap.localBounds.min.x),
+                Mathf.Min(movementRadius, (int)groundTilemap.localBounds.max.x)
+            );
+            int y = UnityEngine.Random.Range(
+                Mathf.Max(-movementRadius, (int)groundTilemap.localBounds.min.y),
+                Mathf.Min(movementRadius, (int)groundTilemap.localBounds.max.y)
+            );
+
+            Vector3Int targetCell = new Vector3Int(x, y, 0);
+            if (IsValidCell(targetCell) && !roadTilemap.HasTile(targetCell))
+            {
+                Vector3 randomPoint = groundTilemap.GetCellCenterWorld(targetCell);
+                currentDestination = randomPoint;
+                SetDestination(randomPoint);
+                Debug.Log($"New destination set: {randomPoint}");
+                return;
+            }
+            attempts++;
+        }
+
+        Debug.LogWarning("Failed to find valid destination after " + maxAttempts + " attempts");
     }
 
     public void SetDestination(Vector3 target)
@@ -69,6 +182,11 @@ public class AIResident : MonoBehaviour
         currentPathIndex = 0;
         isMoving = true;
         animator.SetBool("isMoving", true);
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = (target.x < transform.position.x);
+        }
     }
 
     private bool IsValidCell(Vector3Int position)
@@ -135,7 +253,7 @@ public class AIResident : MonoBehaviour
             current = cameFrom[current];
         }
 
-        path.Add(roadTilmeap.GetCellCenterWorld(startCell));
+        path.Add(groundTilemap.GetCellCenterWorld(startCell));
         path.Reverse();
         return path;
     }
@@ -154,11 +272,17 @@ public class AIResident : MonoBehaviour
             OnDestinationReached?.Invoke();
             currentPathIndex = 0;
             path.Clear();
+
+            isWaiting = true;
+            currentWaitTime = 0;
+            waitTimeTarget = UnityEngine.Random.Range(minIdleWait, maxIdleWait);
             return;
         }
 
         Vector3 targetPositon = path[currentPathIndex];
         Vector3 direction = (targetPositon - transform.position).normalized;
+
+
 
         transform.position = Vector3.MoveTowards(transform.position, targetPositon, moveSpeed * Time.deltaTime);
 

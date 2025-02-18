@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 9159338869126879066}
   - component: {fileID: -4720121829143020058}
   - component: {fileID: 2263028345232778968}
-  - component: {fileID: 6172004915340693981}
-  m_Layer: 0
+  - component: {fileID: 6808637314305435989}
+  m_Layer: 6
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,10 +48,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadTilemap: {fileID: 0}
   moveSpeed: 5
-  leftLaneTileOne: {fileID: 11400000, guid: f3b3c318fb4ca6d44802c16029cc2420, type: 2}
-  rightLaneTileOne: {fileID: 11400000, guid: ba086d99612e79e4eaac00f0537bf88b, type: 2}
-  leftLaneTileTwo: {fileID: 0}
-  rightLaneTIleTwo: {fileID: 0}
+  leftLaneTiles:
+  - tilemap_288
+  - tilemap_313
+  rightLaneTiles:
+  - tilemap_290
+  - tilemap_265
+  dividerLaneTiles:
+  - tilemap_294
+  - tilemap_271
+  - tilemap_296
+  - tilemap_319
+  - tilemap_295
   carSprites: []
   carSpriteIndex: 0
 --- !u!212 &2263028345232778968
@@ -109,8 +117,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6172004915340693981
-BoxCollider2D:
+--- !u!58 &6808637314305435989
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,14 +152,4 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.0001, y: 0.0001}
-  m_EdgeRadius: 0
+  m_Radius: 1.44

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3073424732961078968}
   - component: {fileID: 5419680624047983013}
-  - component: {fileID: 411305060926779254}
   - component: {fileID: 1553639649891938000}
+  - component: {fileID: 1096799983981649151}
   m_Layer: 0
   m_Name: Citizen
   m_TagString: Untagged
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 23
+  m_SortingOrder: 2
   m_Sprite: {fileID: 8584873978044962614, guid: c82ef8f84c82569409ba7f0f1a854fe7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -89,28 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &411305060926779254
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784550416289867142}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f626e73ee9d3a624bad9ec40311a34e5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1553639649891938000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +102,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 0}
-  roadTilmeap: {fileID: 0}
+  roadTilemap: {fileID: 0}
   moveSpeed: 5
+  movementRadius: 10
+  minIdleWait: 3
+  maxIdleWait: 10
+  isWaiting: 0
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 64
   citizenSprites: []
   citizenSpriteIndex: 0
+  animator: {fileID: 0}
+--- !u!95 &1096799983981649151
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784550416289867142}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cbffad767c3947f49a73c86445160c34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
