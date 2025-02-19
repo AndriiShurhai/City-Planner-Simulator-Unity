@@ -282,8 +282,6 @@ public class AIResident : MonoBehaviour
         Vector3 targetPositon = path[currentPathIndex];
         Vector3 direction = (targetPositon - transform.position).normalized;
 
-
-
         transform.position = Vector3.MoveTowards(transform.position, targetPositon, moveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPositon) < 0.1f)
