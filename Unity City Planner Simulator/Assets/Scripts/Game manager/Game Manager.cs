@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
             {
                 building.ProcessTick();
             }
-            EconomyManager.Instance.UpdateUI();
         }
     }
 }

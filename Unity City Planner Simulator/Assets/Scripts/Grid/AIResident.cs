@@ -164,7 +164,6 @@ public class AIResident : MonoBehaviour
                 Vector3 randomPoint = groundTilemap.GetCellCenterWorld(targetCell);
                 currentDestination = randomPoint;
                 SetDestination(randomPoint);
-                Debug.Log($"New destination set: {randomPoint}");
                 return;
             }
             attempts++;

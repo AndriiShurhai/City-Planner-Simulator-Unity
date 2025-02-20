@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
-    [SerializeField] private int startingMoney;
+    [SerializeField] private const int STARTING_MONEY = 10000;
+
+
     [SerializeField] TMPro.TMP_Text currentMoneyTXT;
     [SerializeField] AudioManager audioManager;
 
-    private int currentMoney;
+    private int _currentMoney;
     public List<Building> registeredBuildings;
+
+    public delegate void MoneyChangeHandler(float newMoney);
+    public event MoneyChangeHandler OnMoneyChanged;
     public static EconomyManager Instance { get; private set; }
-    public int CurrentMoney { get { return currentMoney; } }
+    public int CurrentMoney { get { return _currentMoney; } }
+
+
 
     private void Awake()
     {
@@ -28,26 +35,28 @@ public class EconomyManager : MonoBehaviour
 
     private void Start()
     {
-        currentMoney = startingMoney;
+        _currentMoney = STARTING_MONEY;
         UpdateUI();
     }
 
     public bool CanAfford(int cost)
     {
-        return currentMoney >= cost;
+        return _currentMoney >= cost;
     }
 
     public void AddMoney(int amount)
     {
         if (amount < 0) return;
-        currentMoney += amount;
+        _currentMoney += amount;
+        OnMoneyChanged?.Invoke(_currentMoney);
         UpdateUI();
     }
 
     public void SubtractMoney(int amount)
     {
         if (!CanAfford(amount)) return;
-        currentMoney = Mathf.Max(0, currentMoney - amount);
+        _currentMoney = Mathf.Max(0, _currentMoney - amount);
+        OnMoneyChanged?.Invoke(_currentMoney);
         UpdateUI();
     }
 
@@ -55,7 +64,7 @@ public class EconomyManager : MonoBehaviour
     {
         if (currentMoneyTXT != null)
         {
-            currentMoneyTXT.text = currentMoney.ToString();
+            currentMoneyTXT.text = _currentMoney.ToString();
         }
     }
 
