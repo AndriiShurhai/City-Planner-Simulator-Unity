@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
         CheckPurchasable();
     }
 
-    private void HandleMoneyChange(float newMoney)
+    private void HandleMoneyChange(int newMoney)
     {
         try
         {

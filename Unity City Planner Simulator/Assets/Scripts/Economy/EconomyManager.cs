@@ -13,8 +13,7 @@ public class EconomyManager : MonoBehaviour
     private int _currentMoney;
     public List<Building> registeredBuildings;
 
-    public delegate void MoneyChangeHandler(float newMoney);
-    public event MoneyChangeHandler OnMoneyChanged;
+    public event Action<int> OnMoneyChanged;
     public static EconomyManager Instance { get; private set; }
     public int CurrentMoney { get { return _currentMoney; } }
 
