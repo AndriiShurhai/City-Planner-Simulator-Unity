@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    [SerializeField] private BuildingData buildingData;
+    [SerializeField] public BuildingData buildingData;
     
     private Vector2Int gridPosition;
     private Vector2Int size;

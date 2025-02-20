@@ -729,7 +729,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -0.9560573, y: 1.7672572, z: -0.24399579}
+    m_Position: {x: 0.58291024, y: 4.6950502, z: -0.6482211}
     m_Rotation: {x: 277.86084, y: 180, z: 180}
     m_Scale: {x: 0.42000064, y: 1, z: 1}
     placementMode: 0
@@ -4927,8 +4927,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: a3e6ecd1fbbb08b47b700623fed181b0, type: 2}
-  gridPosition: {x: 0, y: 0}
-  size: {x: 0, y: 0}
   ps: {fileID: 3838953785055598957}
 --- !u!61 &-6395186215651166301
 BoxCollider2D:
@@ -4964,15 +4962,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.050632954, y: -0.08860946}
+  m_Offset: {x: 1.5, y: 2.6058738}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     oldSize: {x: 3, y: 6}
     newSize: {x: 3, y: 6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.5569715, y: 6.177219}
+  m_Size: {x: 3, y: 5.2117476}
   m_EdgeRadius: 0

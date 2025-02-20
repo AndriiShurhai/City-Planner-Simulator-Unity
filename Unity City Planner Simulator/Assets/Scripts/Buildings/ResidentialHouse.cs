@@ -6,7 +6,6 @@ using JetBrains.Annotations;
 public class ResidentialHouse : Building
 {
     private const int START_RESIDENTS = 1;
-    private const int MAX_RESIDENTS = 3;
 
     [SerializeField] private ParticleSystem ps;
 
@@ -21,6 +20,11 @@ public class ResidentialHouse : Building
         currentLevel = 1;
 
         AddBuildingEffect(new UpgradeBoostResidentialEffect(this));
+
+        if (!isPlaying)
+        {
+            StartCoroutine(PlayParticlesWithDelay());
+        }
     }
 
     public override int CalculateIncome()
@@ -40,13 +44,7 @@ public class ResidentialHouse : Building
 
         // additional affects
     }
-    private void Update()
-    {
-        if (!isPlaying)
-        {
-            StartCoroutine(PlayParticlesWithDelay());
-        }
-    }
+
 
     
     private IEnumerator PlayParticlesWithDelay()
@@ -57,6 +55,12 @@ public class ResidentialHouse : Building
 
         ps.Play();
         isPlaying = false;
+    }
+
+    private void HandleUpgrade(int level)
+    {
+        level++;
+        currentResidents++;
     }
 
 }
