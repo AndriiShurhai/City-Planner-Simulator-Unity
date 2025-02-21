@@ -190,21 +190,20 @@ public class CarPathfinding : MonoBehaviour
 
             if (direction.x > 0 && roadType == RoadType.RightLane)
             {
-                worldPosition += new Vector3(0, 0.4f, 0);
+                worldPosition += new Vector3(0, 0.2f, 0);
             }
 
             else if (direction.x < 0 && roadType == RoadType.RightLane)
             {
-                worldPosition += new Vector3(0, -0.4f, 0);
+                worldPosition += new Vector3(0, -0.2f, 0);
             }
-
             else if(direction.y > 0 && roadType == RoadType.RightLane)
             {
-                worldPosition += new Vector3(-0.4f, 0, 0);
+                worldPosition += new Vector3(-0.2f, 0, 0);
             }
             else if (direction.y < 0 && roadType == RoadType.RightLane)
             {
-                worldPosition += new Vector3(0.4f, 0, 0);
+                worldPosition += new Vector3(0.2f, 0, 0);
             }
 
             path.Add(worldPosition);

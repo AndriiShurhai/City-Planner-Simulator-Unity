@@ -19,6 +19,8 @@ public class GridCity : MonoBehaviour
     public static GridCity Instance { get; private set; }
     public BuildingData SelectedBuilding { get; }
 
+    public IReadOnlyDictionary<Vector2Int, Building> Buildings => buildings;
+
     private void Start()
     {
         if (Instance != null)

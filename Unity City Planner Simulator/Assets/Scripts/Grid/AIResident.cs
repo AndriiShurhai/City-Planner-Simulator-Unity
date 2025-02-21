@@ -230,7 +230,7 @@ public class AIResident : MonoBehaviour
                 if (!costSoFar.ContainsKey(next) || newCost < costSoFar[next])
                 {
                     costSoFar[next] = newCost;
-                    float priority = newCost + HeruisticCost(next, targetCell);
+                    float priority = newCost + HeuristicCost(next, targetCell);
                     frontier.Enqueue(next, priority);
                     cameFrom[next] = current;
                 }
@@ -246,9 +246,9 @@ public class AIResident : MonoBehaviour
 
         while (current != startCell)
         {
-            Vector3 worldPositon = groundTilemap.GetCellCenterWorld(current);
+            Vector3 worldPosition = groundTilemap.GetCellCenterWorld(current);
 
-            path.Add(worldPositon);
+            path.Add(worldPosition);
             current = cameFrom[current];
         }
 
@@ -257,11 +257,20 @@ public class AIResident : MonoBehaviour
         return path;
     }
 
-    private float HeruisticCost(Vector3Int a, Vector3Int b)
+    private float HeuristicCost(Vector3Int a, Vector3Int b)
     {
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
     }
 
+    private bool IsValidPoint(Vector3 position)
+    {
+        Vector2Int cellPositon = (Vector2Int)groundTilemap.WorldToCell(position);
+        if (GridCity.Instance.Buildings.ContainsKey(cellPositon))
+        {
+            return false;
+        }
+        return true;
+    }
     private void MoveAlongPath()
     {
         if (currentPathIndex >= path.Count)
@@ -280,6 +289,24 @@ public class AIResident : MonoBehaviour
 
         Vector3 targetPositon = path[currentPathIndex];
         Vector3 direction = (targetPositon - transform.position).normalized;
+
+        Vector3 newPosition = targetPositon;
+
+        if (!IsValidPoint(newPosition))
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", false);
+            OnDestinationReached?.Invoke();
+            currentPathIndex = 0;
+            path.Clear();
+
+            isWaiting = true;
+            currentWaitTime = 0;
+            waitTimeTarget = 1;
+            Debug.Log("This is not valid point");
+
+            return;
+        }
 
         transform.position = Vector3.MoveTowards(transform.position, targetPositon, moveSpeed * Time.deltaTime);
 

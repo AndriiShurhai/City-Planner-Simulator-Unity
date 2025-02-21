@@ -124,17 +124,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 2, y: 3.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     oldSize: {x: 4, y: 7}
     newSize: {x: 4, y: 7}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 4, y: 7}
   m_EdgeRadius: 0
 --- !u!114 &5353714070582508826
 MonoBehaviour:
@@ -149,8 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: db1e9febc518cab45aa8327456d69b5b, type: 2}
-  gridPosition: {x: 0, y: 0}
-  size: {x: 4, y: 7}
 --- !u!95 &1014467872768034616
 Animator:
   serializedVersion: 7
