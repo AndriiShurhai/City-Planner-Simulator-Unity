@@ -34,15 +34,33 @@ namespace SVS
         private float zoomVelocity;
         private bool isDragging;
         private Vector3 lastMousePosition;
-
+        private bool usePerfectZoom = true;
+        private float zoomStep = 0.5f;
         public static CameraController Instance { get; private set; }
 
         private void Awake()
         {
             mainCamera = Camera.main;
             Instance = this;
+
+            ConfigureCamera();
         }
 
+        private void ConfigureCamera()
+        {
+            mainCamera.allowMSAA = false;
+
+            transform.position = new Vector3(
+                Mathf.Round(transform.position.x),
+                Mathf.Round(transform.position.y),
+                transform.position.z
+            );
+
+            if (mainCamera.targetTexture != null)
+            {
+                mainCamera.targetTexture.filterMode = FilterMode.Point;
+            }
+        }
         private void Start()
         {
             Bounds bounds = groundTilemap.localBounds;
@@ -66,6 +84,15 @@ namespace SVS
             HandleZoom();
             HandleMouseDrag();
             if (enableBounds) ClampPosition();
+
+            if (usePerfectZoom)
+            {
+                transform.position = new Vector3(
+                    Mathf.Round(transform.position.x * 8f)/8f,
+                    Mathf.Round(transform.position.y * 8f)/8f,
+                    transform.position.z
+                );
+            }
         }
 
         private void HandleMovement()
@@ -109,6 +136,17 @@ namespace SVS
         private void HandleZoom()
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+            if (usePerfectZoom && scroll != 0f)
+            {
+                float newZoom = targetZoom - scroll * zoomSpeed;
+                targetZoom = Mathf.Round(newZoom / zoomStep) * zoomStep;
+            }
+            else
+            {
+                targetZoom = Mathf.Clamp(targetZoom - scroll * zoomSpeed, minZoom, maxZoom);
+            }
+
             targetZoom = Mathf.Clamp(targetZoom - scroll * zoomSpeed, minZoom, maxZoom);
 
             mainCamera.orthographicSize = Mathf.SmoothDamp(
