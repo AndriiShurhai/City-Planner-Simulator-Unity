@@ -49,19 +49,21 @@ public class ResidentsManager : MonoBehaviour
                 _ => citizenSprite6Prefab,
             };
 
-            GameObject newCitizen = Instantiate(prefabCitizen,
+            GameObject newCitizen = prefabCitizen;        
+
+            if (newCitizen.GetComponent<AIResident>() == null )
+            {
+                newCitizen.AddComponent<AIResident>();
+            }
+
+            newCitizen.GetComponent<AIResident>().Initialize(groundTilemap, roadTilemap, newCitizen.GetComponent<Animator>());
+
+            position = new Vector3Int(position.x + offset, position.y, position.z);
+
+            Instantiate(newCitizen,
                 position,
                 Quaternion.identity
             );
-            
-            AIResident AIResident = newCitizen.GetComponent<AIResident>();
-            if ( AIResident != null )
-            {
-                AIResident.groundTilemap = groundTilemap;
-                AIResident.roadTilemap = roadTilemap;
-                AIResident.animator = newCitizen.GetComponent<Animator>();
-            }
-            position = new Vector3Int(position.x + offset, position.y, position.z);
         }
     }
 
