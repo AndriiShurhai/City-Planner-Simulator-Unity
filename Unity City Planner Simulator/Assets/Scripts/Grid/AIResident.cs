@@ -3,11 +3,12 @@ using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.LowLevel;
 using System;
+using Unity.VisualScripting;
 
 public class AIResident : MonoBehaviour
 {
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap roadTilemap;
+    [SerializeField] public Tilemap groundTilemap;
+    [SerializeField] public Tilemap roadTilemap;
 
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private int movementRadius = 5;
@@ -27,7 +28,7 @@ public class AIResident : MonoBehaviour
     [SerializeField] public List<Sprite> citizenSprites = new List<Sprite>();
     [SerializeField] private int citizenSpriteIndex = 0;
 
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
 
     public System.Action OnDestinationReached;
 
@@ -61,7 +62,7 @@ public class AIResident : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        carDetectionCollider = GetComponent<CircleCollider2D>(); 
+        carDetectionCollider = GetComponent<CircleCollider2D>();
 
         if (carDetectionCollider == null)
         {
@@ -69,6 +70,35 @@ public class AIResident : MonoBehaviour
             carDetectionCollider.radius = carDetectionRadius;
             carDetectionCollider.isTrigger = true;
         }
+
+        Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
+        if (!IsValidPoint(currentCell) || !IsValidCell(currentCell))
+        {
+            Vector3Int validPosition = FindNearestValidPosition(currentCell);
+            transform.position = validPosition;
+        }
+    }
+
+    private Vector3Int FindNearestValidPosition(Vector3Int currentCell)
+    {
+        for (int radius = 1; radius < 100; radius++)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    Vector3Int testPos = currentCell + new Vector3Int(x, y, 0);
+                    if (IsValidCell(testPos) && !roadTilemap.HasTile(testPos) && IsValidPoint(testPos))
+                    {
+                        Debug.Log("POSITION FOUND");
+                        return testPos;
+                    }
+                }
+            }
+        }
+
+        Debug.LogWarning("No valid position found for resident!");
+        return currentCell;
     }
 
     private void Update()
@@ -144,22 +174,22 @@ public class AIResident : MonoBehaviour
     }
     private void ChooseNewRandomDestination()
     {
-        int maxAttempts = 10;
+        int maxAttempts = 30;
         int attempts = 0;
 
         while (attempts < maxAttempts)
         {
             int x = UnityEngine.Random.Range(
-                Mathf.Max(-movementRadius, (int)groundTilemap.localBounds.min.x),
-                Mathf.Min(movementRadius, (int)groundTilemap.localBounds.max.x)
+                Mathf.Max((int)transform.position.x - movementRadius, (int)groundTilemap.localBounds.min.x),
+                Mathf.Min((int)transform.position.x + movementRadius, (int)groundTilemap.localBounds.max.x)
             );
             int y = UnityEngine.Random.Range(
-                Mathf.Max(-movementRadius, (int)groundTilemap.localBounds.min.y),
-                Mathf.Min(movementRadius, (int)groundTilemap.localBounds.max.y)
+                Mathf.Max((int)transform.position.y - movementRadius, (int)groundTilemap.localBounds.min.y),
+                Mathf.Min((int)transform.position.y + movementRadius, (int)groundTilemap.localBounds.max.y)
             );
 
             Vector3Int targetCell = new Vector3Int(x, y, 0);
-            if (IsValidCell(targetCell) && !roadTilemap.HasTile(targetCell))
+            if (IsValidCell(targetCell) && !roadTilemap.HasTile(targetCell) && IsValidPoint((Vector3)targetCell))
             {
                 Vector3 randomPoint = groundTilemap.GetCellCenterWorld(targetCell);
                 currentDestination = randomPoint;
@@ -169,7 +199,12 @@ public class AIResident : MonoBehaviour
             attempts++;
         }
 
-        Debug.LogWarning("Failed to find valid destination after " + maxAttempts + " attempts");
+        Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
+
+        Vector3Int validPosition = FindNearestValidPosition(currentCell);
+        transform.position = Vector3.MoveTowards(transform.position, validPosition, moveSpeed * Time.deltaTime);
+
+        Debug.Log("Failed to find valid destination after " + maxAttempts + " attempts");
     }
 
     public void SetDestination(Vector3 target)
@@ -178,6 +213,11 @@ public class AIResident : MonoBehaviour
         Vector3Int targetCell = groundTilemap.WorldToCell(target);
 
         path = FindPath(startCell, targetCell);
+        if (path == null)
+        {
+            path = new List<Vector3>();
+            return;
+        }
         currentPathIndex = 0;
         isMoving = true;
         animator.SetBool("isMoving", true);
@@ -223,7 +263,7 @@ public class AIResident : MonoBehaviour
             {
                 Vector3Int next = current + direction;
 
-                if (!IsValidCell(next)) continue;
+                if (!IsValidCell(next) || !IsValidPoint(groundTilemap.CellToWorld(next))) continue;
 
                 float newCost = costSoFar[current] + 1;
 
@@ -236,7 +276,9 @@ public class AIResident : MonoBehaviour
                 }
             }
         }
-        return ReconstructPath(cameFrom, startCell, targetCell);
+
+        if (cameFrom.ContainsKey(targetCell)) return ReconstructPath(cameFrom, startCell, targetCell);
+        return null;
     }
 
     private List<Vector3> ReconstructPath(Dictionary<Vector3Int, Vector3Int> cameFrom, Vector3Int startCell, Vector3Int targetCell)
@@ -296,15 +338,18 @@ public class AIResident : MonoBehaviour
         {
             isMoving = false;
             animator.SetBool("isMoving", false);
-            OnDestinationReached?.Invoke();
             currentPathIndex = 0;
             path.Clear();
-
+            currentDestination = null;
             isWaiting = true;
+
             currentWaitTime = 0;
             waitTimeTarget = 1;
-            Debug.Log("This is not valid point");
 
+            Vector3Int validPosition = FindNearestValidPosition(groundTilemap.WorldToCell(transform.position));
+
+            transform.position = Vector3.MoveTowards(transform.position, validPosition, moveSpeed * Time.deltaTime);
+            Debug.Log("This is not valid point");
             return;
         }
 

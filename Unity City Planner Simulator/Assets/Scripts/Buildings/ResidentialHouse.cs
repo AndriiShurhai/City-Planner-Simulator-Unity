@@ -49,14 +49,31 @@ public class ResidentialHouse : Building
     
     private IEnumerator PlayParticlesWithDelay()
     {
-        isPlaying = true;
-        float delay = UnityEngine.Random.Range(1f, 5f);
-        yield return new WaitForSeconds(delay);
+        while (true)
+        {
+            isPlaying = true;
+            float delay = UnityEngine.Random.Range(1f, 80f);
+            yield return new WaitForSeconds(delay);
 
-        ps.Play();
-        isPlaying = false;
+            ps.Play();
+            isPlaying = false;
+
+            Debug.Log("Doing this");
+        }
     }
 
+    public override void OnPlaced()
+    {
+        base.OnPlaced();
+        if (occupiedPositions != null && occupiedPositions.Count > 0)
+        {
+            ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)occupiedPositions[0]);
+        }
+        else
+        {
+            Debug.Log("There is no occupied positions");
+        }
+    }
     private void HandleUpgrade(int level)
     {
         level++;

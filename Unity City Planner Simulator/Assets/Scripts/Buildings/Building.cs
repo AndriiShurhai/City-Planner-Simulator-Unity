@@ -5,11 +5,11 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     [SerializeField] public BuildingData buildingData;
-    
+
     private Vector2Int gridPosition;
     private Vector2Int size;
     private readonly List<BuildingEffectBase> buildingEffects = new List<BuildingEffectBase>();
-    private List<Vector2Int> occupiedPositions;
+    protected List<Vector2Int> occupiedPositions;
     private bool isInitialized;
 
     public event Action OnUpgrade;
@@ -18,7 +18,8 @@ public class Building : MonoBehaviour
     public Vector2Int GridPosition => gridPosition;
     public Vector2Int Size => size;
     public IReadOnlyList<BuildingEffectBase> BuildingEffects => buildingEffects;
-    public IReadOnlyList<Vector2Int> OccupiedPositions => occupiedPositions;    
+    public IReadOnlyList<Vector2Int> OccupiedPositions => occupiedPositions;
+
     public virtual void Initialize(BuildingData buildingData, Vector2Int size)
     {
         if (isInitialized) return;
@@ -113,6 +114,7 @@ public class Building : MonoBehaviour
 
     public virtual void DestroyBuilding()
     {
+        Debug.Log("Trying to destroy building");
         if (GridCity.Instance != null)
         {
             GridCity.Instance.RemoveBuilding(this, occupiedPositions);

@@ -140,6 +140,7 @@ public class ObstacleRemover : MonoBehaviour
         else if (!CheckAndSetObstacleOnCellPosition(cellPosition, assign: false) && 
             _obstacleTilemap.GetTile(cellPosition) != null)
         {
+            if (_currentObstacleTilemap == null) return;
             _currentObstacleTilemap.SetColor(cellPosition, Color.white);
             if (_lastObstacleTilemap != null)
             {

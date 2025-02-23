@@ -72,9 +72,10 @@ public class GridCity : MonoBehaviour
 
         Vector3 worldPosition = grid.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
         Collider2D overlap = Physics2D.OverlapBox(
-            worldPosition + (Vector3)collider.offset,
+            new Vector3(position.x, position.y, 0) + (Vector3)collider.offset,
             collider.size,
-            0);
+            0
+        );
 
         return overlap == null;
     }
@@ -98,6 +99,7 @@ public class GridCity : MonoBehaviour
         Building building = instance.GetComponent<Building>();
 
         building.Initialize(data, data.size); 
+        building.SetGridPosition(position);
         building.OnPlaced();
 
         for (int x = position.x; x < position.x + data.size.x; x++)

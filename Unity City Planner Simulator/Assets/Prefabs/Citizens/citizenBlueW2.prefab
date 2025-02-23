@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6853716371982926493}
   - component: {fileID: 3988661124013934053}
   - component: {fileID: 7439680009664789853}
+  - component: {fileID: -6129339162665947173}
   m_Layer: 0
   m_Name: citizenBlueW2
   m_TagString: Untagged
@@ -110,3 +111,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-6129339162665947173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610849143393741850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055b61f5998fcdf4d889100cc40aa82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 0}
+  roadTilemap: {fileID: 0}
+  moveSpeed: 2
+  movementRadius: 5
+  minIdleWait: 3
+  maxIdleWait: 10
+  isWaiting: 0
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  citizenSprites: []
+  citizenSpriteIndex: 0
+  animator: {fileID: 7439680009664789853}
