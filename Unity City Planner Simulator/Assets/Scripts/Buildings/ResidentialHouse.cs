@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.IO.LowLevel.Unsafe;
 using JetBrains.Annotations;
+using System;
 
 public class ResidentialHouse : Building
 {
@@ -12,6 +13,8 @@ public class ResidentialHouse : Building
     private int currentLevel;
     private int currentResidents;
     private bool isPlaying = false;
+
+    public new event Action<int, Vector3> OnUpgrade;
 
     public override void Initialize(BuildingData buildingData, Vector2Int size)
     {
@@ -59,6 +62,8 @@ public class ResidentialHouse : Building
             isPlaying = false;
 
             Debug.Log("Doing this");
+
+            HandleUpgrade();
         }
     }
 
@@ -74,10 +79,14 @@ public class ResidentialHouse : Building
             Debug.Log("There is no occupied positions");
         }
     }
-    private void HandleUpgrade(int level)
+    private void HandleUpgrade()
     {
-        level++;
+        if (currentLevel >= 3) return;
+
+        currentLevel++;
         currentResidents++;
+
+        ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)occupiedPositions[0]);
     }
 
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 
 public class CarPathfinding : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class CarPathfinding : MonoBehaviour
 
     [SerializeField] int carSpriteIndex = 0;
 
-    public System.Action OnDestinationReached;
+    public event Action OnDestinationReached;
 
     private Vector3Int[] directions = {
         new Vector3Int(1, 0, 0),

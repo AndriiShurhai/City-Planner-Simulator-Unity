@@ -14,9 +14,10 @@ public class ResidentsManager : MonoBehaviour
     [SerializeField] private GameObject citizenSprite5Prefab;
     [SerializeField] private GameObject citizenSprite6Prefab;
 
-    private List<GameObject> activeCitizens = new List<GameObject>();
-
+    private List<GameObject> activeCitizens = new List<GameObject>(); 
     public static ResidentsManager Instance { get; private set; }
+
+
 
     private void Awake()
     {
@@ -66,5 +67,4 @@ public class ResidentsManager : MonoBehaviour
             );
         }
     }
-
 }

@@ -101,19 +101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055b61f5998fcdf4d889100cc40aa82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundTilemap: {fileID: 0}
-  roadTilemap: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 2
   movementRadius: 10
   minIdleWait: 3
   maxIdleWait: 10
-  isWaiting: 0
+  groundTilemap: {fileID: 0}
+  roadTilemap: {fileID: 0}
   carLayer:
     serializedVersion: 2
     m_Bits: 64
   citizenSprites: []
-  citizenSpriteIndex: 0
-  animator: {fileID: 0}
+  animator: {fileID: 1096799983981649151}
+  carDetectionRadius: 3
 --- !u!95 &1096799983981649151
 Animator:
   serializedVersion: 7

@@ -13,7 +13,6 @@ public class Building : MonoBehaviour
     private bool isInitialized;
 
     public event Action OnUpgrade;
-
     public BuildingData BuildingData => buildingData;
     public Vector2Int GridPosition => gridPosition;
     public Vector2Int Size => size;

@@ -13,11 +13,9 @@ public class EconomyManager : MonoBehaviour
     private int _currentMoney;
     public List<Building> registeredBuildings;
 
-    public event Action<int> OnMoneyChanged;
+    public event Action OnMoneyChanged;
     public static EconomyManager Instance { get; private set; }
     public int CurrentMoney { get { return _currentMoney; } }
-
-
 
     private void Awake()
     {
@@ -35,6 +33,7 @@ public class EconomyManager : MonoBehaviour
     private void Start()
     {
         _currentMoney = STARTING_MONEY;
+        this.OnMoneyChanged += UpdateUI;
         UpdateUI();
     }
 
@@ -47,16 +46,14 @@ public class EconomyManager : MonoBehaviour
     {
         if (amount < 0) return;
         _currentMoney += amount;
-        OnMoneyChanged?.Invoke(_currentMoney);
-        UpdateUI();
+        OnMoneyChanged?.Invoke();
     }
 
     public void SubtractMoney(int amount)
     {
         if (!CanAfford(amount)) return;
         _currentMoney = Mathf.Max(0, _currentMoney - amount);
-        OnMoneyChanged?.Invoke(_currentMoney);
-        UpdateUI();
+        OnMoneyChanged?.Invoke();
     }
 
     public void UpdateUI()
