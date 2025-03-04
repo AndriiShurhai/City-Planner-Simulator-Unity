@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.Utilities;
 
-public class MovementController : MonoBehaviour
+public class MovementController
 {
     private readonly AIResident resident;
     private readonly PathFinder pathFinder;
@@ -23,6 +21,9 @@ public class MovementController : MonoBehaviour
     private readonly int movementRadius;
     private readonly int minIdleWait;
     private readonly int maxIdleWait;
+
+    // Store the last valid movement direction.
+    private Vector3 lastDirection = Vector3.right;
 
     public MovementController(
         AIResident resident,
@@ -49,7 +50,7 @@ public class MovementController : MonoBehaviour
     {
         if (isWaiting)
         {
-            HandleWaititng();
+            HandleWaiting();
             return;
         }
 
@@ -58,7 +59,7 @@ public class MovementController : MonoBehaviour
             MoveAlongPath();
         }
         else if (!currentDestination.HasValue ||
-            Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f)
+                 Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f)
         {
             ChooseNewRandomDestination();
         }
@@ -73,8 +74,8 @@ public class MovementController : MonoBehaviour
 
         if (newDestination.HasValue)
         {
-            currentDestination = newDestination.Value; 
-            SetDestination(newDestination.Value );
+            currentDestination = newDestination.Value;
+            SetDestination(newDestination.Value);
         }
     }
 
@@ -92,15 +93,42 @@ public class MovementController : MonoBehaviour
 
         currentPathIndex = 0;
         isMoving = true;
-        animator.SetBool("isMoving", true);
-        UpdateSpriteDirection(target);
     }
 
     private void UpdateSpriteDirection(Vector3 target)
     {
-        if (spriteRenderer != null)
+        // Compute direction from current position to target
+        Vector3 direction = target - resident.transform.position;
+        // If the movement is too small, use the last nonzero direction to avoid flickering.
+        if (direction.sqrMagnitude < 0.001f)
         {
-            spriteRenderer.flipX = (target.x < resident.transform.position.x);
+            direction = lastDirection;
+        }
+        else
+        {
+            lastDirection = direction.normalized;
+        }
+
+        // Reset all animation booleans
+        animator.SetBool("IsMovingUp", false);
+        animator.SetBool("IsMovingDown", false);
+        animator.SetBool("IsMovingLeft", false);
+        animator.SetBool("IsMovingRight", false);
+
+        // Determine primary movement axis and set animator accordingly.
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0)
+                animator.SetBool("IsMovingRight", true);
+            else
+                animator.SetBool("IsMovingLeft", true);
+        }
+        else
+        {
+            if (direction.y > 0)
+                animator.SetBool("IsMovingUp", true);
+            else
+                animator.SetBool("IsMovingDown", true);
         }
     }
 
@@ -119,6 +147,7 @@ public class MovementController : MonoBehaviour
             return;
         }
 
+        UpdateSpriteDirection(targetPosition);
         MoveTowardsTarget(targetPosition);
     }
 
@@ -130,6 +159,7 @@ public class MovementController : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
 
+        // If close enough to the target, proceed to the next waypoint.
         if (Vector3.Distance(resident.transform.position, targetPosition) < 0.1f)
         {
             currentPathIndex++;
@@ -139,19 +169,22 @@ public class MovementController : MonoBehaviour
     private void HandleInvalidPosition()
     {
         isMoving = false;
-        animator.SetBool("isMoving", false);
         currentDestination = null;
 
         ResetPath();
         StartWaiting(1f);
 
-        Vector3Int validPosition = pathFinder.FindNearestValidPosition(
+        Vector3Int validCell = pathFinder.FindNearestValidPosition(
             pathFinder.WorldToCell(resident.transform.position)
         );
+        Vector3 validPosition = pathFinder.GetCellCenterWorld(validCell);
+
+        // Update sprite direction based on the valid cell's center.
+        UpdateSpriteDirection(validPosition);
 
         resident.transform.position = Vector3.MoveTowards(
             resident.transform.position,
-            pathFinder.GetCellCenterWorld(validPosition),
+            validPosition,
             moveSpeed * Time.deltaTime
         );
     }
@@ -159,8 +192,6 @@ public class MovementController : MonoBehaviour
     private void HandlePathCompletion()
     {
         isMoving = false;
-        animator.SetBool("isMoving", false);
-
         ResetPath();
         StartWaiting();
     }
@@ -169,10 +200,9 @@ public class MovementController : MonoBehaviour
     {
         isWaiting = true;
         currentWaitTime = 0;
-
         waitTimeTarget = customWaitTarget > 0 ?
-            customWaitTarget :
-            UnityEngine.Random.Range(minIdleWait, maxIdleWait);
+                         customWaitTarget :
+                         UnityEngine.Random.Range(minIdleWait, maxIdleWait);
     }
 
     private void ResetPath()
@@ -181,10 +211,9 @@ public class MovementController : MonoBehaviour
         path.Clear();
     }
 
-    private void HandleWaititng()
+    private void HandleWaiting()
     {
         currentWaitTime += Time.deltaTime;
-
         if (currentWaitTime >= waitTimeTarget)
         {
             isWaiting = false;

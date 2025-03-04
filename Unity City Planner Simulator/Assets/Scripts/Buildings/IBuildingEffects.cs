@@ -4,7 +4,6 @@ public interface IBuildingEffects
 {
     void ProcessTick(Building building);
     void OnPlaced(Building building);
-    
     void Remove(Building building);
 }
 

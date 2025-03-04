@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
+  m_Name: hospital
+  m_EditorClassIdentifier: 
+  buildingName: House
+  buildingDescription: Common good-looking and cosy residential house.
+  buildingSprite: {fileID: 21300000, guid: 00a397d4ab4d4c5489424a3ae7e2ceee, type: 3}
+  buildingPrefab: {fileID: 190154463320851615, guid: 0213ddc1c9a3ab642a557d56154d82ae, type: 3}
+  buildingType: 0
+  size: {x: 3, y: 6}
+  cost: 0
+  maintenanceCost: 750
+  incomePerCycle: 0
+  incomePerResident: 50

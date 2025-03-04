@@ -44,8 +44,8 @@ public class ResidentialHouse : Building
         base.ProcessTick();
 
         Debug.Log("This what you can do after base process tick");
-
         // additional affects
+
     }
 
 

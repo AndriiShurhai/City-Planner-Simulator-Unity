@@ -6,12 +6,12 @@ public class EconomyManager : MonoBehaviour
 {
     [SerializeField] private const int STARTING_MONEY = 10000;
 
-
     [SerializeField] TMPro.TMP_Text currentMoneyTXT;
     [SerializeField] AudioManager audioManager;
 
     private int _currentMoney;
     public List<Building> registeredBuildings;
+    public List<GameObject> registeredResidents;
 
     public event Action OnMoneyChanged;
     public static EconomyManager Instance { get; private set; }

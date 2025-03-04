@@ -7,17 +7,9 @@ public class ResidentsManager : MonoBehaviour
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap roadTilemap;
 
-    [SerializeField] private GameObject citizenSprite1Prefab;
-    [SerializeField] private GameObject citizenSprite2Prefab;
-    [SerializeField] private GameObject citizenSprite3Prefab;
-    [SerializeField] private GameObject citizenSprite4Prefab;
-    [SerializeField] private GameObject citizenSprite5Prefab;
-    [SerializeField] private GameObject citizenSprite6Prefab;
+    [SerializeField] private List<GameObject> citizensPrefabs = new List<GameObject>();
 
-    private List<GameObject> activeCitizens = new List<GameObject>(); 
     public static ResidentsManager Instance { get; private set; }
-
-
 
     private void Awake()
     {
@@ -37,18 +29,9 @@ public class ResidentsManager : MonoBehaviour
         position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
         for (int i = 0; i < amount; i++)
         {
-            int randomCitizenSpriteIndex = Random.Range(0, 6);
+            int randomCitizenSpriteIndex = Random.Range(0, citizensPrefabs.Count - 1);
 
-            GameObject prefabCitizen = randomCitizenSpriteIndex switch
-            {
-                0 => citizenSprite1Prefab,
-                1 => citizenSprite2Prefab,
-                2 => citizenSprite3Prefab,
-                3 => citizenSprite4Prefab,
-                4 => citizenSprite5Prefab,
-                5 => citizenSprite6Prefab,
-                _ => citizenSprite6Prefab,
-            };
+            GameObject prefabCitizen = citizensPrefabs[randomCitizenSpriteIndex];
 
             GameObject newCitizen = prefabCitizen;        
 
@@ -65,6 +48,8 @@ public class ResidentsManager : MonoBehaviour
                 position,
                 Quaternion.identity
             );
+
+            EconomyManager.Instance.registeredResidents.Add(newCitizen);
         }
     }
 }
