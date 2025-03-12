@@ -5,6 +5,8 @@ public enum BuildingType
     Commercial,
     Industrial,
     Amusement,
-    Service,
-    Flat
+    Flat,
+    Medical,
+    Police,
+    Education
 }

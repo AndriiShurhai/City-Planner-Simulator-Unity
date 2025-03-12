@@ -3,35 +3,61 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class HappinessRateManager : MonoBehaviour 
+public class HappinessRateManager : MonoBehaviour, IRate
 {
     private float _currentHappinessRate;
-    [SerializeField] private TMP_Text _currentHappinessRateTXT;
+    [SerializeField] private TMP_Text currentHappinessRateTXT;
     [SerializeField] private Image[] happinessConditionImages;
     [SerializeField] private Image[] happinessImagesToChange;
 
     public event Action OnHappinessRateChange;
 
-    public void Start()
+    private float _safetyWeight = 3f;
+    private float _employmentWeight = 2f;
+    private float _healthWeight = 2f;
+    private float _educationWeight = 1f;
+
+    public float HapppinessRate { get { return _currentHappinessRate; } }
+    public static HappinessRateManager Instance { get; private set; }
+    private void Start()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+
+        _currentHappinessRate = 70f;
         OnHappinessRateChange += UpdateUI;
         OnHappinessRateChange?.Invoke();
     }
-    public void IncreaseHappinessRatePercentage(float percentage)
+
+    public void CalculateRate()
     {
-        _currentHappinessRate += percentage;
+        _currentHappinessRate = Mathf.Clamp((_safetyWeight * (100 - CrimeRateManager.Instance.CrimeRate)
+                                          + _employmentWeight * (100 - UnemploymentRateManager.Instance.UnemploymentRate)
+                                          + _healthWeight * HealthRateManager.Instance.HealthRate
+                                          + _educationWeight * EducationRateManager.Instance.EducationRate)
+                                          / (_safetyWeight + _employmentWeight + _healthWeight + _educationWeight),
+                                          0, 100);
+        OnHappinessRateChange?.Invoke();
+    }
+    public void IncreaseRate(float percentage)
+    {
+        _currentHappinessRate = Mathf.Clamp(_currentHappinessRate + percentage, 0, 100);
+        //_currentHappinessRate += percentage;
         OnHappinessRateChange?.Invoke();
     }
 
-    public void DecreaseHappinessRatePercentage(float percentage)
+    public void DecreaseRate(float percentage)
     {
-        _currentHappinessRate -= percentage;
+        _currentHappinessRate = Mathf.Clamp(_currentHappinessRate - percentage, 0, 100);
         OnHappinessRateChange?.Invoke(); 
     }
 
     private void UpdateUI()
     {
-        _currentHappinessRateTXT.text = $"{_currentHappinessRate}%";
+        currentHappinessRateTXT.text = $"{_currentHappinessRate}%";
 
         if (0 <= _currentHappinessRate && _currentHappinessRate <= 25)
         {
@@ -42,22 +68,18 @@ public class HappinessRateManager : MonoBehaviour
             UpdateImages(1);
         }
 
-        else if (50 < _currentHappinessRate && _currentHappinessRate <= 60)
+        else if (50 < _currentHappinessRate && _currentHappinessRate <= 75)
         {
             UpdateImages(2);
         }
 
-        else if(60 < _currentHappinessRate && _currentHappinessRate <= 70)
+        else if(75 < _currentHappinessRate && _currentHappinessRate <= 90)
         {
             UpdateImages(3);
         }
-        else if (70 < _currentHappinessRate && _currentHappinessRate <= 90)
-        {
-            UpdateImages(4);
-        }
         else if (90 < _currentHappinessRate && _currentHappinessRate <= 100)
         {
-            UpdateImages(5);
+            UpdateImages(4);
         }
     }
 

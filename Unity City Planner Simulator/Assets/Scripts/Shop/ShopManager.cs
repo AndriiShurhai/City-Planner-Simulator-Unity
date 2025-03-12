@@ -50,7 +50,7 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < _shopItemsSO.Length; i++)
         {
-            _purchaseButtons[i].interactable = EconomyManager.Instance.CurrentMoney >= _shopItemsSO[i].cost;
+            _purchaseButtons[i].interactable = EconomyManager.Instance.CanAfford(_shopItemsSO[i].cost);
         }
     }
     private void LoadPanels()
@@ -60,6 +60,7 @@ public class ShopManager : MonoBehaviour
             _shopPanels[i].titleTxt.text = _shopItemsSO[i].buildingName;
             _shopPanels[i].descriptionTxt.text = _shopItemsSO[i].buildingDescription;
             _shopPanels[i].costTxt.text = _shopItemsSO[i].cost.ToString();
+            _shopPanels[i].imageItem.sprite = _shopItemsSO[i].buildingSprite;
         }
     }
 

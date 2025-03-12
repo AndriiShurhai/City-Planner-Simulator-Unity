@@ -50,6 +50,7 @@ public class ResidentsManager : MonoBehaviour
             );
 
             EconomyManager.Instance.registeredResidents.Add(newCitizen);
+            PopulationRateManager.Instance.IncreaseRate(1);
         }
     }
 }

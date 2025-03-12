@@ -8,21 +8,21 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    private void Start()
-    {
-        StartCoroutine(EconomyCycle());
-    }
+    //private void Start()
+    //{
+    //    StartCoroutine(EconomyCycle());
+    //}
 
-    private IEnumerator EconomyCycle()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(cycleInterval);
+    //private IEnumerator EconomyCycle()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(cycleInterval);
 
-            foreach(Building building in EconomyManager.Instance.registeredBuildings)
-            {
-                building.ProcessTick();
-            }
-        }
-    }
+    //        foreach(Building building in EconomyManager.Instance.registeredBuildings)
+    //        {
+    //            building.ProcessTick();
+    //        }
+    //    }
+    //}
 }

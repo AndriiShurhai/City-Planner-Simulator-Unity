@@ -16,4 +16,6 @@ public class BuildingData : ScriptableObject
 
     public int incomePerCycle;
     public int incomePerResident;
+
+    public int jobsAvailiable;
 }

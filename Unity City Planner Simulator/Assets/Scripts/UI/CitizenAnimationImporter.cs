@@ -126,7 +126,7 @@ public class CitizenAnimationImporter : EditorWindow
         return new SpriteMetaData
         {
             name = name,
-            rect = new Rect(index * 32, 0, 32, 32), // Adjust size as needed
+            rect = new Rect(index * 64, 0, 64, 364),
             alignment = 0,
             pivot = new Vector2(0.5f, 0.5f)
         };

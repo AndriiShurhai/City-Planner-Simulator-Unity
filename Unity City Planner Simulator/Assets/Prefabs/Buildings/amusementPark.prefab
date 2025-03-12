@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 190154463320851615}
   - component: {fileID: -5320152395012571571}
   - component: {fileID: 4240760658713497059}
-  - component: {fileID: 3621863407616488596}
+  - component: {fileID: 5686841969833546684}
+  - component: {fileID: 2957886048820792645}
   m_Layer: 0
-  m_Name: output
+  m_Name: amusementPark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: e736c4f972e3463418d14e906453e46f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,19 +124,41 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.5, y: 2.7091517}
+  m_Offset: {x: 7.785876, y: 7.6527567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.390625, y: 0.390625}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 15.624999, y: 15.624999}
     newSize: {x: 0.390625, y: 0.390625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3, y: 5.4183035}
+  m_Size: {x: 14.506787, y: 14.134047}
   m_EdgeRadius: 0
---- !u!114 &3621863407616488596
+--- !u!95 &5686841969833546684
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588068838091743371}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 641122bf91ca57a448f80c87c16294ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2957886048820792645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +167,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4588068838091743371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 54b8b999729ee064da0fbe363a47d31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 7628ca21c2381774e90419e14b1fe143, type: 2}
+  happinessBonus: 2

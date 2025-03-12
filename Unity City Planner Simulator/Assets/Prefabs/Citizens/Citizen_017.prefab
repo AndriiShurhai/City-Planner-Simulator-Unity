@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8715747078463286452}
   - component: {fileID: 3438553486661829630}
   - component: {fileID: 6156022514822960521}
+  - component: {fileID: -9008180197340108864}
   m_Layer: 0
   m_Name: Citizen_017
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.49, y: 0.49, z: 0.49}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &6156022514822960521
 Animator:
   serializedVersion: 7
@@ -110,3 +111,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-9008180197340108864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820789494260785910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055b61f5998fcdf4d889100cc40aa82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  movementRadius: 5
+  minIdleWait: 3
+  maxIdleWait: 10
+  groundTilemap: {fileID: 0}
+  roadTilemap: {fileID: 0}
+  carLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  citizenSprites: []
+  animator: {fileID: 6156022514822960521}
+  carDetectionRadius: 3
