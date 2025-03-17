@@ -18,6 +18,7 @@ public class Tooltip : MonoBehaviour
     private void Update()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (GridCity.Instance.GetActiveBuildingType() != null) return;
         ManageOnMouseEnter();
     }
 

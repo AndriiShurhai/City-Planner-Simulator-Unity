@@ -19,6 +19,7 @@ MonoBehaviour:
   buildingType: 0
   size: {x: 3, y: 6}
   cost: 600
-  maintenanceCost: 20
-  incomePerCycle: 0
+  maintenanceCost: 100
+  incomePerCycle: 200
   incomePerResident: 30
+  jobsAvailiable: 0

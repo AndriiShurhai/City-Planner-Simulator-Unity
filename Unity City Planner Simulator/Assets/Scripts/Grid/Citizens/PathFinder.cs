@@ -108,7 +108,7 @@ public class PathFinder
 
     public Vector3? FindRandomDestination(Vector3 position, int movementRadius)
     {
-        int maxAttempts = 30;
+        int maxAttempts = 1000;
         int attempts = 0;
 
         while (attempts < maxAttempts)
@@ -121,6 +121,7 @@ public class PathFinder
             attempts++;
         }
 
+        Debug.Log("Could not find a destination");
         return null;
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,8 +31,10 @@ public class GridCity : MonoBehaviour
     }
     private void Update()
     {
+        UpdateCursor(); 
         if (_selectedBuilding == null) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -45,6 +48,12 @@ public class GridCity : MonoBehaviour
                 PlaceBuilding(_selectedBuilding, gridPosition);
             }
         }
+    }
+
+    private void UpdateCursor()
+    {
+        bool show = GetActiveBuildingType() != null && !EventSystem.current.IsPointerOverGameObject();
+        customBuildingCursor.ToggleCursor(show);
     }
 
     public bool CanPlaceBuilding(Vector2Int position, Vector2Int size, BuildingData building)

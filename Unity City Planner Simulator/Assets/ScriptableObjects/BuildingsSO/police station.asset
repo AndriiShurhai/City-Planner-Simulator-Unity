@@ -20,6 +20,6 @@ MonoBehaviour:
   size: {x: 11, y: 11}
   cost: 0
   maintenanceCost: 750
-  incomePerCycle: 0
-  incomePerResident: 50
+  incomePerCycle: 800
+  incomePerResident: 0
   jobsAvailiable: 0

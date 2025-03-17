@@ -19,9 +19,8 @@ public class EconomyManager : MonoBehaviour
     [SerializeField] TMPro.TMP_Text currentMoneyTXT;
     [SerializeField] AudioManager audioManager;
 
-    [SerializeField] private float monthlyIncomeTax = 10f;
+    [SerializeField] private float monthlyIncomeTax = 750f;
     [SerializeField] private float monthlyPropertyTax = 5f;
-    [SerializeField] private float baseInfrastructureCost = 1000f;
 
     private int _currentMoney;
     private float _monthlyRevenue;
@@ -85,19 +84,16 @@ public class EconomyManager : MonoBehaviour
 
     private void CalculateExpenses()
     {
-        _monthlyExpenses = baseInfrastructureCost;
+        _monthlyExpenses = 0;
         foreach (var building in registeredBuildings)
         {
             building.ProcessTick();
         }
-
-        _monthlyExpenses += crimeRateManager.CrimeRate * 50f;
-        _monthlyExpenses += unemploymentRateManager.UnemploymentRate * 100f;
     }
 
     private void CalculateRevenue()
     {
-        float workingPopulation = 0;
+        float workingPopulation = PopulationRateManager.Instance.CurrentPopulationRate;
         _monthlyRevenue = workingPopulation * monthlyIncomeTax;
 
         _monthlyRevenue += registeredBuildings.Count * monthlyPropertyTax;

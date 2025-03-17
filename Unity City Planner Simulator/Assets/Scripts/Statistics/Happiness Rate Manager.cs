@@ -34,10 +34,22 @@ public class HappinessRateManager : MonoBehaviour, IRate
 
     public void CalculateRate()
     {
+        float happinessEffect = 0;
+
+        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        {
+            if (building.buildingData.buildingType == BuildingType.Amusement)
+            {
+                happinessEffect++;
+            }
+        }
+        happinessEffect *= 10;
+
         _currentHappinessRate = Mathf.Clamp((_safetyWeight * (100 - CrimeRateManager.Instance.CrimeRate)
                                           + _employmentWeight * (100 - UnemploymentRateManager.Instance.UnemploymentRate)
                                           + _healthWeight * HealthRateManager.Instance.HealthRate
-                                          + _educationWeight * EducationRateManager.Instance.EducationRate)
+                                          + _educationWeight * EducationRateManager.Instance.EducationRate
+                                          + 1 * happinessEffect)
                                           / (_safetyWeight + _employmentWeight + _healthWeight + _educationWeight),
                                           0, 100);
         OnHappinessRateChange?.Invoke();
@@ -45,7 +57,6 @@ public class HappinessRateManager : MonoBehaviour, IRate
     public void IncreaseRate(float percentage)
     {
         _currentHappinessRate = Mathf.Clamp(_currentHappinessRate + percentage, 0, 100);
-        //_currentHappinessRate += percentage;
         OnHappinessRateChange?.Invoke();
     }
 

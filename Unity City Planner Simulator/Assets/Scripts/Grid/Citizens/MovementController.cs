@@ -63,6 +63,10 @@ public class MovementController
         {
             ChooseNewRandomDestination();
         }
+
+        Debug.Log($"isMoving: {isMoving}");
+        Debug.Log($"isWaiting: {isWaiting}");
+        Debug.Log($"currentDestination: {currentDestination}");
     }
 
     private void ChooseNewRandomDestination()
@@ -76,6 +80,10 @@ public class MovementController
         {
             currentDestination = newDestination.Value;
             SetDestination(newDestination.Value);
+        }
+        else
+        {
+            Debug.Log("Lol");
         }
     }
 

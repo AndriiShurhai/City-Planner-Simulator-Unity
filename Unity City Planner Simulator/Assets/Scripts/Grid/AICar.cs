@@ -10,7 +10,7 @@ public class CarPathfinding : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private List<string> leftLaneTiles = new List<string> { "tilemap_288", "tilemap_313" };
     [SerializeField] private List<string> rightLaneTiles = new List<string> { "tilemap_290", "tilemap_265" };
-    [SerializeField] private List<string> dividerLaneTiles = new List<string> { "tilemap_294", "tilemap_271", "tilemap_296", "tilemap_319", "tilemap_295"};
+    [SerializeField] private List<string> dividerLaneTiles = new List<string> { "tilemap_294", "tilemap_271"}; //"tilemap_296", "tilemap_319", "tilemap_295"
 
     [SerializeField] public List<Sprite> carSprites = new List<Sprite>();
 
@@ -35,7 +35,8 @@ public class CarPathfinding : MonoBehaviour
     {
         LeftLane,
         RightLane,
-        DividerLane
+        DividerLane,
+        Other
     }
 
     private void Start()
@@ -90,7 +91,7 @@ public class CarPathfinding : MonoBehaviour
         if (rightLaneTiles.Contains(tile.name)) return RoadType.RightLane;
         if (dividerLaneTiles.Contains(tile.name)) return RoadType.DividerLane;
 
-        return RoadType.DividerLane;
+        return RoadType.Other;
     }
 
     private bool IsCorrectDrivingSide(Vector3Int current, Vector3Int next)
@@ -100,11 +101,11 @@ public class CarPathfinding : MonoBehaviour
 
         if (direction.x > 0 || direction.y > 0)
         {
-            return roadType == RoadType.RightLane;
+            return roadType == RoadType.RightLane || (roadType != RoadType.LeftLane && roadType != RoadType.DividerLane);
         }
         else if (direction.x < 0 || direction.y < 0)
         {
-            return roadType == RoadType.LeftLane;
+            return roadType == RoadType.LeftLane || (roadType != RoadType.RightLane && roadType != RoadType.DividerLane);
         }
 
         return true;
@@ -188,22 +189,28 @@ public class CarPathfinding : MonoBehaviour
 
             Vector3Int direction = cameFrom[current] - current;
 
-            if (direction.x > 0 && roadType == RoadType.RightLane)
+            if (roadType == RoadType.LeftLane)
             {
-                worldPosition += new Vector3(0, 0.2f, 0);
+                if (direction.x < 0)
+                {
+                    worldPosition += new Vector3(0, 0.3f, 0);
+                }
+                else if(direction.y < 0)
+                {
+                    worldPosition += new Vector3(0.3f, 0, 0);
+                }
             }
 
-            else if (direction.x < 0 && roadType == RoadType.RightLane)
+            else if (roadType == RoadType.RightLane)
             {
-                worldPosition += new Vector3(0, -0.2f, 0);
-            }
-            else if(direction.y > 0 && roadType == RoadType.RightLane)
-            {
-                worldPosition += new Vector3(-0.2f, 0, 0);
-            }
-            else if (direction.y < 0 && roadType == RoadType.RightLane)
-            {
-                worldPosition += new Vector3(0.2f, 0, 0);
+                if (direction.x > 0)
+                {
+                    worldPosition += new Vector3(0, -0.3f, 0);
+                }
+                else if ((direction.y > 0))
+                {
+                    worldPosition += new Vector3(0, -0.3f, 0);
+                }
             }
 
             path.Add(worldPosition);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CustomBuildingCursor : MonoBehaviour
 {
@@ -25,7 +26,8 @@ public class CustomBuildingCursor : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        ToggleCursor(false);
+        spriteRenderer.enabled = false;
+        Cursor.visible = true;
     }
 
     private void Update()
@@ -38,13 +40,15 @@ public class CustomBuildingCursor : MonoBehaviour
 
     public void ToggleCursor(bool show, BuildingData buildingType = null)
     {
-        if (GridCity.Instance == null || GridCity.Instance.GetActiveBuildingType() == null)
+        if (buildingType != null)
         {
-            Cursor.visible = !show;
-            spriteRenderer.enabled = show;
-            return;
+            activeBuildingType = buildingType;
         }
-        activeBuildingType = GridCity.Instance.GetActiveBuildingType();
+        else if (show && GridCity.Instance != null)
+        {
+            activeBuildingType = GridCity.Instance.GetActiveBuildingType();
+        }
+
         spriteRenderer.enabled = show;
         Cursor.visible = !show;
 
@@ -52,6 +56,8 @@ public class CustomBuildingCursor : MonoBehaviour
         {
             spriteRenderer.sprite = activeBuildingType.buildingSprite;
         }
+
+        Debug.Log($"Custom cursor toggled: {show}, Sprite enabled: {spriteRenderer.enabled}, Building: {(activeBuildingType != null ? activeBuildingType.name : "none")}");
     }
 
     private void UpdateCursorPosition()

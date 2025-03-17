@@ -56,6 +56,8 @@ public class EducationRateManager : MonoBehaviour, IRate
         _currentEducationRate = _currentEducationRate + _alphaEducation * (_targetEducation - _currentEducationRate);
 
         _currentEducationRate = Mathf.Clamp(_currentEducationRate, 0, 100);
+
+        UpdateUI();
     }
     private void UpdateUI()
     {

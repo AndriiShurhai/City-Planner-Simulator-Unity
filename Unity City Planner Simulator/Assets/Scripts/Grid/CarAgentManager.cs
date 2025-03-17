@@ -17,7 +17,7 @@ public class CarAgentManager : MonoBehaviour
     [SerializeField] private List<Sprite> greenNewCarSprites;
 
 
-    [SerializeField] private List<Vector3Int> positions;
+    [SerializeField] private List<GameObject> positions;
     [SerializeField] private GameObject carPrefab;
     [SerializeField] private GameObject newCarPrefab; 
     [SerializeField] private float interval = 5f;
@@ -69,7 +69,7 @@ public class CarAgentManager : MonoBehaviour
         };
 
         GameObject newCar = Instantiate(carPrefab,
-            positions[randomStartPositionIndex],
+            positions[randomStartPositionIndex].transform.position,
             Quaternion.identity);
 
         SpriteRenderer spriteRenderer = newCar.GetComponent<SpriteRenderer>();
@@ -83,7 +83,7 @@ public class CarAgentManager : MonoBehaviour
         {
             pathfinding.carSprites = carSprites;
             pathfinding.roadTilemap = roadTilemap;
-            pathfinding.SetDestination(positions[randomStartPositionIndex], positions[randomEndPositionIndex]);
+            pathfinding.SetDestination(positions[randomStartPositionIndex].transform.position, positions[randomEndPositionIndex].transform.position);
             pathfinding.OnDestinationReached += () => OnCarReachedDestination(newCar);
         }
 

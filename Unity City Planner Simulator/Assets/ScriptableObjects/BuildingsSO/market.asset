@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
+  m_Name: market
+  m_EditorClassIdentifier: 
+  buildingName: House
+  buildingDescription: Common good-looking and cosy residential house.
+  buildingSprite: {fileID: 21300000, guid: 292fe9b7fc2f06844b29d9b5a2b0b3a9, type: 3}
+  buildingPrefab: {fileID: 190154463320851615, guid: dd6987ff83f7f6b4c847b3e821e3d17c, type: 3}
+  buildingType: 1
+  size: {x: 13, y: 11}
+  cost: 2000
+  maintenanceCost: 750
+  incomePerCycle: 800
+  incomePerResident: 0
+  jobsAvailiable: 0
