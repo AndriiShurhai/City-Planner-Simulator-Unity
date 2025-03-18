@@ -4,11 +4,17 @@ using UnityEngine.Tilemaps;
 
 public class ResidentsManager : MonoBehaviour
 {
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap roadTilemap;
+    [SerializeField] public Tilemap groundTilemap;
+    [SerializeField] public Tilemap roadTilemap;
 
     [SerializeField] private List<GameObject> citizensPrefabs = new List<GameObject>();
 
+    private bool isResidentSpawned = false;
+
+    private float crimeCheckInterval = 40f;
+    private float crimeCheckTimer = 0f;
+
+    private List<AIResident> residents = new List<AIResident>();
     public static ResidentsManager Instance { get; private set; }
 
     private void Awake()
@@ -22,8 +28,29 @@ public class ResidentsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        if (isResidentSpawned)
+        {
+            crimeCheckTimer = 2f;
+        }
+    }
+
+    private void Update()
+    {
+        if (!isResidentSpawned) return;
+
+        crimeCheckTimer -= Time.deltaTime;
+
+        if (crimeCheckTimer <= 0)
+        {
+            DoCrime();
+            crimeCheckTimer = crimeCheckInterval;
+        }
+    }
     public void SpawnResidents(int amount, Vector3Int position)
     {
+        isResidentSpawned = true;
         int offset = 1;
 
         position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
@@ -33,24 +60,48 @@ public class ResidentsManager : MonoBehaviour
 
             GameObject prefabCitizen = citizensPrefabs[randomCitizenSpriteIndex];
 
-            GameObject newCitizen = prefabCitizen;        
 
-            if (newCitizen.GetComponent<AIResident>() == null )
-            {
-                newCitizen.AddComponent<AIResident>();
-            }
-
-            newCitizen.GetComponent<AIResident>().Initialize(groundTilemap, roadTilemap, newCitizen.GetComponent<Animator>());
-
-            position = new Vector3Int(position.x + offset, position.y, position.z);
-
-            Instantiate(newCitizen,
+            GameObject citizenInstance = Instantiate(prefabCitizen,
                 position,
                 Quaternion.identity
             );
+            AIResident residentAI = citizenInstance.GetComponent<AIResident>();
 
-            EconomyManager.Instance.registeredResidents.Add(newCitizen);
+            if (residentAI == null)
+            {
+                residentAI = citizenInstance.AddComponent<AIResident>();
+            }
+
+            residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
+            residents.Add( residentAI );
+
+            position = new Vector3Int(position.x + offset, position.y, position.z);
+
+
+
+            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
             PopulationRateManager.Instance.IncreaseRate(1);
+        }
+    }
+
+    public void DoCrime()
+    {
+        Building target = null;
+
+        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        {
+            if (building.buildingData.buildingType == BuildingType.Commercial)
+            {
+                target = building;
+                break;
+            }
+        }
+
+        if (target == null) return;
+
+        if (EconomyManager.Instance.registeredResidents.Count > 0 && residents.Count > 0)
+        {
+            residents[0].InitiateCrime(target);
         }
     }
 }

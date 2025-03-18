@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 using System;
 using Unity.VisualScripting;
 using JetBrains.Annotations;
+using Unity.Hierarchy;
 
 public class AIResident : MonoBehaviour
 {
@@ -32,26 +33,34 @@ public class AIResident : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D carDetectionCollider;
 
+    public bool isCommitingCrime = false;
+    private Building targetBuilding;
+
     public void Initialize(Tilemap groundTilemap, Tilemap roadTilemap, Animator animator)
     {
         this.groundTilemap = groundTilemap;
         this.roadTilemap = roadTilemap;
         this.animator = animator;
+
     }
 
-    private void Awake()
-    {    }
 
     private void Start()
     {
-        InitializeComponents();
         ValidateStartingPosition();
+    }
+
+    private void Awake()
+    {
+        groundTilemap = ResidentsManager.Instance.groundTilemap;
+        roadTilemap = ResidentsManager.Instance.roadTilemap;
+        InitializeComponents();
     }
 
     private void ValidateStartingPosition()
     {
         Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
-        
+
         if (!pathFinder.IsValidPosition(currentCell))
         {
             Vector3Int validPosition = pathFinder.FindNearestValidPosition(currentCell);
@@ -63,6 +72,7 @@ public class AIResident : MonoBehaviour
     {
         movementController.UpdateMovement();
     }
+
     private void InitializeComponents()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -81,5 +91,29 @@ public class AIResident : MonoBehaviour
             carDetectionCollider.radius = carDetectionRadius;
             carDetectionCollider.isTrigger = true;
         }
+    }
+
+    private void SetDestination(Vector3 target)
+    {
+        movementController.SetDestination(target);
+    }
+
+    public void InitiateCrime(Building building)
+    {
+        if (isCommitingCrime) return;
+
+        isCommitingCrime = true;
+
+        targetBuilding = building;
+
+        if (movementController == null)
+        {
+            Debug.LogWarning("Movement controller is not initialized");
+            InitializeComponents();
+        }
+
+        spriteRenderer.color = Color.red;
+        SetDestination(building.transform.position - new Vector3(2, 4, 0));
+            
     }
 }

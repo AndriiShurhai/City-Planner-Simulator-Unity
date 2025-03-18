@@ -22,7 +22,6 @@ public class MovementController
     private readonly int minIdleWait;
     private readonly int maxIdleWait;
 
-    // Store the last valid movement direction.
     private Vector3 lastDirection = Vector3.right;
 
     public MovementController(
@@ -48,6 +47,7 @@ public class MovementController
 
     public void UpdateMovement()
     {
+        Debug.Log($"Path count before updateMovement is: {path.Count}");
         if (isWaiting)
         {
             HandleWaiting();
@@ -57,20 +57,24 @@ public class MovementController
         if (isMoving && path.Count > 0)
         {
             MoveAlongPath();
+            Debug.Log($"Starting moving: path count {path.Count}");
         }
         else if (!currentDestination.HasValue ||
-                 Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f)
+                 Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f && !resident.isCommitingCrime)
         {
+            Debug.Log("Choosing new destination");
             ChooseNewRandomDestination();
         }
-
-        Debug.Log($"isMoving: {isMoving}");
-        Debug.Log($"isWaiting: {isWaiting}");
-        Debug.Log($"currentDestination: {currentDestination}");
+        Debug.Log($"Path count after updateMovement is: {path.Count}");
     }
 
     private void ChooseNewRandomDestination()
     {
+        if (resident.isCommitingCrime)
+        {
+            Debug.Log("Can't choose new destination because commiting crime");
+        }
+
         Vector3? newDestination = pathFinder.FindRandomDestination(
             resident.transform.position,
             movementRadius
@@ -87,8 +91,21 @@ public class MovementController
         }
     }
 
-    private void SetDestination(Vector3 target)
+    public void SetDestination(Vector3 target)
     {
+        if (pathFinder == null)
+        {
+            Debug.Log("Path finder is null daaaaamn");
+            return;
+        }
+        if (resident == null)
+        {
+            Debug.Log("Resident is null daaaamn");
+            return;
+        }
+
+        ResetPath();
+
         Vector3Int startCell = pathFinder.WorldToCell(resident.transform.position);
         Vector3Int targetCell = pathFinder.WorldToCell(target);
 
@@ -98,9 +115,13 @@ public class MovementController
             path = new List<Vector3>();
             return;
         }
+        currentDestination = target;
 
         currentPathIndex = 0;
         isMoving = true;
+        isWaiting = false;
+
+        Debug.Log($"Path for destination is found, path count: {path.Count}");
     }
 
     private void UpdateSpriteDirection(Vector3 target)
@@ -176,8 +197,10 @@ public class MovementController
 
     private void HandleInvalidPosition()
     {
+        Debug.Log("Handling invalid position");
         isMoving = false;
         currentDestination = null;
+
 
         ResetPath();
         StartWaiting(1f);
@@ -199,6 +222,14 @@ public class MovementController
 
     private void HandlePathCompletion()
     {
+        if (resident.isCommitingCrime && path.Count > 0 && !(Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f))
+        {
+            Debug.Log("Destination is not reached!!!");
+        }
+        if (resident.isCommitingCrime)
+        {
+            resident.isCommitingCrime = false;  
+        }
         isMoving = false;
         ResetPath();
         StartWaiting();

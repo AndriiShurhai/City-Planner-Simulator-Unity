@@ -27,6 +27,7 @@ public class CrimeRateManager : MonoBehaviour, IRate
             Destroy(this);
         }
         Instance = this;
+        _crimeRate = 70;
         OnCrimeRateChange += UpdateUI;
     }
     public void IncreaseRate(float rate)
