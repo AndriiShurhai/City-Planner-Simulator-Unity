@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic; 
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -14,7 +15,10 @@ public class ResidentsManager : MonoBehaviour
     private float crimeCheckInterval = 40f;
     private float crimeCheckTimer = 0f;
 
+    public event Action<AIResident> OnResidentGointToCrime;
+
     private List<AIResident> residents = new List<AIResident>();
+    private List<Policeman> policemans = new List<Policeman>();
     public static ResidentsManager Instance { get; private set; }
 
     private void Awake()
@@ -48,6 +52,39 @@ public class ResidentsManager : MonoBehaviour
             crimeCheckTimer = crimeCheckInterval;
         }
     }
+
+    public void SpawnPolicemans(int amount, Vector3Int position, GameObject prefab)
+    {
+        int offset = 1;
+
+        position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
+
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject citizenInstance = Instantiate(prefab,
+                position,
+                Quaternion.identity
+            );
+            
+            Policeman residentAI = citizenInstance.GetComponent<Policeman>();
+
+            if (residentAI == null)
+            {
+                residentAI = citizenInstance.AddComponent<Policeman>();
+            }
+
+            residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
+
+            residentAI.InitializeComponents();
+
+            PoliceStationManager.Instance.policemans.Add(residentAI);
+
+            position = new Vector3Int(position.x + offset, position.y, position.z);
+
+            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
+            PopulationRateManager.Instance.IncreaseRate(1);
+        }
+    }
     public void SpawnResidents(int amount, Vector3Int position)
     {
         isResidentSpawned = true;
@@ -56,7 +93,7 @@ public class ResidentsManager : MonoBehaviour
         position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
         for (int i = 0; i < amount; i++)
         {
-            int randomCitizenSpriteIndex = Random.Range(0, citizensPrefabs.Count - 1);
+            int randomCitizenSpriteIndex = UnityEngine.Random.Range(0, citizensPrefabs.Count - 1);
 
             GameObject prefabCitizen = citizensPrefabs[randomCitizenSpriteIndex];
 
@@ -99,9 +136,10 @@ public class ResidentsManager : MonoBehaviour
 
         if (target == null) return;
 
-        if (EconomyManager.Instance.registeredResidents.Count > 0 && residents.Count > 0)
+        if (residents.Count > 0)
         {
             residents[0].InitiateCrime(target);
+            OnResidentGointToCrime?.Invoke(residents[0]);
         }
     }
 }

@@ -16,11 +16,11 @@ public class AIResident : MonoBehaviour
     [SerializeField] private int maxIdleWait = 10;
 
     [Header("References")]
-    [SerializeField] private Tilemap groundTilemap;
-    [SerializeField] private Tilemap roadTilemap;
+    [SerializeField] protected Tilemap groundTilemap;
+    [SerializeField] protected Tilemap roadTilemap;
     [SerializeField] private LayerMask carLayer;
     [SerializeField] private List<Sprite> citizenSprites;
-    [SerializeField] private Animator animator;
+    [SerializeField] protected Animator animator;
 
     [Header("Car Detection")]
     [SerializeField] private float carDetectionRadius = 3f;
@@ -28,36 +28,54 @@ public class AIResident : MonoBehaviour
     private const int ACCELERATION_SPEED = 7;
     private const int DEFAULT_SPEED = 2;
 
-    private MovementController movementController;
-    private PathFinder pathFinder;
-    private SpriteRenderer spriteRenderer;
-    private CircleCollider2D carDetectionCollider;
+    protected MovementController movementController;
+    protected PathFinder pathFinder;
+    protected SpriteRenderer spriteRenderer;
+    protected CircleCollider2D carDetectionCollider;
 
     public bool isCommitingCrime = false;
-    private Building targetBuilding;
+    public bool isChasing = false;
+    public MovementController MovementController { get; private set; }
+
 
     public void Initialize(Tilemap groundTilemap, Tilemap roadTilemap, Animator animator)
     {
+        Debug.Log($"Initialize called on {gameObject.name}");
+
+        if (groundTilemap == null)
+            Debug.LogError($"{gameObject.name}: groundTilemap is null during Initialize");
+        if (roadTilemap == null)
+            Debug.LogError($"{gameObject.name}: roadTilemap is null during Initialize");
+        if (animator == null)
+            Debug.LogError($"{gameObject.name}: animator is null during Initialize");
+
         this.groundTilemap = groundTilemap;
         this.roadTilemap = roadTilemap;
         this.animator = animator;
 
+        if (this.groundTilemap != null && this.roadTilemap != null && this.animator != null)
+        {
+            InitializeComponents();
+        }
+        else
+        {
+            Debug.LogWarning($"{gameObject.name}: Not initializing components due to missing dependencies");
+        }
     }
-
-
-    private void Start()
+    protected virtual void Start()
     {
         ValidateStartingPosition();
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         groundTilemap = ResidentsManager.Instance.groundTilemap;
         roadTilemap = ResidentsManager.Instance.roadTilemap;
         InitializeComponents();
+        Debug.Log("Everything is initialized");
     }
 
-    private void ValidateStartingPosition()
+    protected void ValidateStartingPosition()
     {
         Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
 
@@ -68,21 +86,63 @@ public class AIResident : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         movementController.UpdateMovement();
     }
 
-    private void InitializeComponents()
+    public void InitializeComponents()
     {
+        Debug.Log($"InitializeComponents called on {gameObject.name}");
+
+        if (groundTilemap == null)
+        {
+            Debug.LogError($"{gameObject.name}: groundTilemap is still null in InitializeComponents");
+            groundTilemap = ResidentsManager.Instance.groundTilemap;
+        }
+
+        if (roadTilemap == null)
+        {
+            Debug.LogError($"{gameObject.name}: roadTilemap is still null in InitializeComponents");
+            roadTilemap = ResidentsManager.Instance.roadTilemap;
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError($"{gameObject.name}: animator is still null in InitializeComponents");
+            animator = GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError($"{gameObject.name}: Failed to find Animator component");
+                return;
+            }
+        }
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError($"{gameObject.name}: Missing SpriteRenderer. Adding one.");
+            spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        }
+
         SetupCarDetection();
 
         pathFinder = new PathFinder(groundTilemap, roadTilemap);
+
         movementController = new MovementController(this, pathFinder, animator, spriteRenderer, moveSpeed, movementRadius, minIdleWait, maxIdleWait);
+
+        if (movementController == null)
+        {
+            Debug.LogError($"{gameObject.name}: Failed to create movement controller");
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: Movement controller created successfully");
+            movementController.OnDestinationReached += ResetCriminal;
+        }
     }
 
-    private void SetupCarDetection()
+    protected void SetupCarDetection()
     {
         carDetectionCollider = GetComponent<CircleCollider2D>();
         if (carDetectionCollider == null)
@@ -93,7 +153,7 @@ public class AIResident : MonoBehaviour
         }
     }
 
-    private void SetDestination(Vector3 target)
+    protected void SetDestination(Vector3 target)
     {
         movementController.SetDestination(target);
     }
@@ -104,8 +164,6 @@ public class AIResident : MonoBehaviour
 
         isCommitingCrime = true;
 
-        targetBuilding = building;
-
         if (movementController == null)
         {
             Debug.LogWarning("Movement controller is not initialized");
@@ -113,7 +171,17 @@ public class AIResident : MonoBehaviour
         }
 
         spriteRenderer.color = Color.red;
-        SetDestination(building.transform.position - new Vector3(2, 4, 0));
+        SetDestination(building.transform.position - new Vector3(0.1f, 0, 0));
             
+    }
+
+    public void ResetCriminal()
+    {
+        if (isCommitingCrime)
+        {
+            isCommitingCrime = false;
+        }
+        spriteRenderer.color = Color.white;
+        movementController.ChooseNewRandomDestination();
     }
 }

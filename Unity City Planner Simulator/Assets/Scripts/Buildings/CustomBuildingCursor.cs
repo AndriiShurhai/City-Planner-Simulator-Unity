@@ -56,8 +56,6 @@ public class CustomBuildingCursor : MonoBehaviour
         {
             spriteRenderer.sprite = activeBuildingType.buildingSprite;
         }
-
-        Debug.Log($"Custom cursor toggled: {show}, Sprite enabled: {spriteRenderer.enabled}, Building: {(activeBuildingType != null ? activeBuildingType.name : "none")}");
     }
 
     private void UpdateCursorPosition()

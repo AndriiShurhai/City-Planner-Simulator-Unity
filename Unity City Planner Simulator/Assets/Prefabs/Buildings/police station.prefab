@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 190154463320851615}
   - component: {fileID: -5320152395012571571}
   - component: {fileID: 4240760658713497059}
-  - component: {fileID: 3621863407616488596}
   - component: {fileID: 9164054739929953178}
+  - component: {fileID: 345792732822149177}
   m_Layer: 0
   m_Name: police station
   m_TagString: Untagged
@@ -136,19 +136,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 12, y: 12}
   m_EdgeRadius: 0
---- !u!114 &3621863407616488596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588068838091743371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 36585f82bd5937f4b93cf33a4f9d7739, type: 2}
 --- !u!95 &9164054739929953178
 Animator:
   serializedVersion: 7
@@ -171,3 +158,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &345792732822149177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588068838091743371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4fdb01f7ec49f4f926c1cb8677df4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 36585f82bd5937f4b93cf33a4f9d7739, type: 2}
+  policePrefabs:
+  - {fileID: 7438992297105765681, guid: 3a493c02596aa1044ac0bdf517ea8cda, type: 3}
+  - {fileID: 3052380382033297116, guid: f72bfa27fd89da84da69f503177a930f, type: 3}
+  policemans:
+  - {fileID: -5069726563037723177, guid: 3a493c02596aa1044ac0bdf517ea8cda, type: 3}
+  - {fileID: 2196773170043460493, guid: f72bfa27fd89da84da69f503177a930f, type: 3}
