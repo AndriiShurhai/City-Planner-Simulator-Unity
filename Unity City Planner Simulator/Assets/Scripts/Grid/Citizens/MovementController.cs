@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,14 +18,19 @@ public class MovementController
     private float currentWaitTime;
     private float waitTimeTarget;
 
-    private readonly float moveSpeed;
     private readonly int movementRadius;
     private readonly int minIdleWait;
     private readonly int maxIdleWait;
+    private float moveSpeed;
+    private float chaseSpeed = 3.5f;
+    private float normalSpeed;
+    private bool isChasing;
 
-    // Store the last valid movement direction.
     private Vector3 lastDirection = Vector3.right;
 
+    public event Action<bool> OnDestinationReached;
+    public List<Vector3> Path { get; private set; }
+    public int CurrentPathIndex { get; private set; }
     public MovementController(
         AIResident resident,
         PathFinder pathFinder,
@@ -48,6 +54,7 @@ public class MovementController
 
     public void UpdateMovement()
     {
+        Debug.Log($"Path count before updateMovement is: {path.Count}");
         if (isWaiting)
         {
             HandleWaiting();
@@ -59,17 +66,15 @@ public class MovementController
             MoveAlongPath();
         }
         else if (!currentDestination.HasValue ||
-                 Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f)
+                 Vector3.Distance(resident.transform.position, currentDestination.Value) < 0.01f) //
         {
+            Debug.Log("Choosing new destination");
             ChooseNewRandomDestination();
         }
-
-        Debug.Log($"isMoving: {isMoving}");
-        Debug.Log($"isWaiting: {isWaiting}");
-        Debug.Log($"currentDestination: {currentDestination}");
+        Debug.Log($"Path count after updateMovement is: {path.Count}");
     }
 
-    private void ChooseNewRandomDestination()
+    public void ChooseNewRandomDestination()
     {
         Vector3? newDestination = pathFinder.FindRandomDestination(
             resident.transform.position,
@@ -87,8 +92,19 @@ public class MovementController
         }
     }
 
-    private void SetDestination(Vector3 target)
+    public void SetDestination(Vector3 target)
     {
+        if (pathFinder == null)
+        {
+            Debug.Log("Path finder is null daaaaamn");
+            return;
+        }
+        if (resident == null)
+        {
+            Debug.Log("Resident is null daaaamn");
+            return;
+        }
+
         Vector3Int startCell = pathFinder.WorldToCell(resident.transform.position);
         Vector3Int targetCell = pathFinder.WorldToCell(target);
 
@@ -98,15 +114,32 @@ public class MovementController
             path = new List<Vector3>();
             return;
         }
+        currentDestination = target;
 
         currentPathIndex = 0;
+
+        if (resident.isChasing)
+        {
+            float currentPosition = Mathf.Abs(resident.transform.position.x) + Mathf.Abs(resident.transform.position.y) + Mathf.Abs(resident.transform.position.z);
+            for (int i = 0; i < path.Count; i++)
+            {
+                float currentPathPosition = Mathf.Abs(path[i].x) + Mathf.Abs(path[i].y) + Mathf.Abs(path[i].z); ;
+                if (currentPosition > currentPathPosition)
+                {
+                    currentPathIndex++;
+                }
+            }
+        }
         isMoving = true;
+        isWaiting = false;
+
+        Debug.Log($"Path for destination is found, path count: {path.Count}");
     }
 
     private void UpdateSpriteDirection(Vector3 target)
     {
-        // Compute direction from current position to target
         Vector3 direction = target - resident.transform.position;
+
         // If the movement is too small, use the last nonzero direction to avoid flickering.
         if (direction.sqrMagnitude < 0.001f)
         {
@@ -117,13 +150,12 @@ public class MovementController
             lastDirection = direction.normalized;
         }
 
-        // Reset all animation booleans
         animator.SetBool("IsMovingUp", false);
         animator.SetBool("IsMovingDown", false);
         animator.SetBool("IsMovingLeft", false);
         animator.SetBool("IsMovingRight", false);
+        
 
-        // Determine primary movement axis and set animator accordingly.
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             if (direction.x > 0)
@@ -145,6 +177,7 @@ public class MovementController
         if (currentPathIndex >= path.Count)
         {
             HandlePathCompletion();
+
             return;
         }
 
@@ -167,7 +200,6 @@ public class MovementController
             moveSpeed * Time.deltaTime
         );
 
-        // If close enough to the target, proceed to the next waypoint.
         if (Vector3.Distance(resident.transform.position, targetPosition) < 0.1f)
         {
             currentPathIndex++;
@@ -176,18 +208,23 @@ public class MovementController
 
     private void HandleInvalidPosition()
     {
-        isMoving = false;
-        currentDestination = null;
+        Debug.Log("Handling invalid position");
+
+        if (!resident.isCommitingCrime)
+        {
+            currentDestination = null;
+        }
 
         ResetPath();
+        isMoving = false;
         StartWaiting(1f);
+        isMoving = false;
 
         Vector3Int validCell = pathFinder.FindNearestValidPosition(
             pathFinder.WorldToCell(resident.transform.position)
         );
         Vector3 validPosition = pathFinder.GetCellCenterWorld(validCell);
 
-        // Update sprite direction based on the valid cell's center.
         UpdateSpriteDirection(validPosition);
 
         resident.transform.position = Vector3.MoveTowards(
@@ -195,10 +232,17 @@ public class MovementController
             validPosition,
             moveSpeed * Time.deltaTime
         );
+
+        if (resident.isCommitingCrime)
+        {
+            SetDestination(currentDestination.Value);
+        }
     }
 
     private void HandlePathCompletion()
     {
+
+        OnDestinationReached?.Invoke(false);
         isMoving = false;
         ResetPath();
         StartWaiting();
@@ -227,6 +271,21 @@ public class MovementController
             isWaiting = false;
             isMoving = true;
             currentDestination = null;
+        }
+    }
+
+    internal void SetChaseSpeed(bool chasing)
+    {
+        if (chasing && !isChasing)
+        {
+            moveSpeed = chaseSpeed;
+            isChasing = true;
+        }
+
+        else if (!chasing && isChasing)
+        {
+            moveSpeed = 2f;
+            isChasing = false;
         }
     }
 }

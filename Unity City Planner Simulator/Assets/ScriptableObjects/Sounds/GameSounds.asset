@@ -15,3 +15,5 @@ MonoBehaviour:
   buttonPress: {fileID: 8300000, guid: 5a05d98996fad15499174e83aee44290, type: 3}
   hover: {fileID: 8300000, guid: fea808478d524684482d42c672b90091, type: 3}
   removeObstacle: {fileID: 8300000, guid: dd7d1f4bfd330fe48bdfeb1aeeafff00, type: 3}
+  gunShot: {fileID: 8300000, guid: 63baebf8e2d64a44c945e14acba296d8, type: 3}
+  peopleScream: {fileID: 8300000, guid: c5b3f6a75424d234abd782bf4c2b2a12, type: 3}
