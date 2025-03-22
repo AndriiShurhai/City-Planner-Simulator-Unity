@@ -17,8 +17,8 @@ MonoBehaviour:
   buildingSprite: {fileID: 21300000, guid: bcb2f3c21bfdf614ab95a83678ed25c2, type: 3}
   buildingPrefab: {fileID: 190154463320851615, guid: 795e529e04873df4e983e9a92219df70, type: 3}
   buildingType: 7
-  size: {x: 13, y: 11}
-  cost: 2000
+  size: {x: 17, y: 15}
+  cost: 2001
   maintenanceCost: 750
   incomePerCycle: 800
   incomePerResident: 0

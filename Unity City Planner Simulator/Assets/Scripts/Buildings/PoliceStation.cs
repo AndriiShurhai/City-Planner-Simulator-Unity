@@ -10,6 +10,7 @@ public class PoliceStation : Building
     }
     void Start()
     {
-        ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)occupiedPositions[0], policePrefabs[0]);
+        int policePrefabIndex = Random.Range(0, policePrefabs.Count);
+        ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)occupiedPositions[0], policePrefabs[policePrefabIndex]);
     }
 }
