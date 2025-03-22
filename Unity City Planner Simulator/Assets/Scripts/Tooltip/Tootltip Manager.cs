@@ -16,6 +16,7 @@ public class TooltipManager : MonoBehaviour
         {
             Instance = this;
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

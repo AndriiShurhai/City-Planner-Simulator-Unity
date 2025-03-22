@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4588068838091743371}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.56, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -174,6 +174,3 @@ MonoBehaviour:
   policePrefabs:
   - {fileID: 7438992297105765681, guid: 3a493c02596aa1044ac0bdf517ea8cda, type: 3}
   - {fileID: 3052380382033297116, guid: f72bfa27fd89da84da69f503177a930f, type: 3}
-  policemans:
-  - {fileID: -5069726563037723177, guid: 3a493c02596aa1044ac0bdf517ea8cda, type: 3}
-  - {fileID: 2196773170043460493, guid: f72bfa27fd89da84da69f503177a930f, type: 3}

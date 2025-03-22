@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopScene.unity
     guid: d2ad23a5e435bcc4d9c6a3c10d5accb1
+  - enabled: 1
+    path: Assets/Scenes/Robbing.unity
+    guid: bc63fb7c452be4844aae2d1f2b01b915
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

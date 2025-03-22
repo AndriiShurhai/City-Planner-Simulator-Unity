@@ -18,9 +18,9 @@ public class AIResident : MonoBehaviour
     [Header("References")]
     [SerializeField] protected Tilemap groundTilemap;
     [SerializeField] protected Tilemap roadTilemap;
+    [SerializeField] protected Animator animator;
     [SerializeField] private LayerMask carLayer;
     [SerializeField] private List<Sprite> citizenSprites;
-    [SerializeField] protected Animator animator;
 
     [Header("Car Detection")]
     [SerializeField] private float carDetectionRadius = 3f;
@@ -36,7 +36,17 @@ public class AIResident : MonoBehaviour
     public bool isCommitingCrime = false;
     public bool isChasing = false;
     public MovementController MovementController { get; private set; }
-
+    protected virtual void Start()
+    {
+        ValidateStartingPosition();
+    }
+    protected virtual void Awake()
+    {
+        groundTilemap = ResidentsManager.Instance.groundTilemap;
+        roadTilemap = ResidentsManager.Instance.roadTilemap;
+        InitializeComponents();
+        Debug.Log("Everything is initialized");
+    }
 
     public void Initialize(Tilemap groundTilemap, Tilemap roadTilemap, Animator animator)
     {
@@ -62,34 +72,6 @@ public class AIResident : MonoBehaviour
             Debug.LogWarning($"{gameObject.name}: Not initializing components due to missing dependencies");
         }
     }
-    protected virtual void Start()
-    {
-        ValidateStartingPosition();
-    }
-
-    protected virtual void Awake()
-    {
-        groundTilemap = ResidentsManager.Instance.groundTilemap;
-        roadTilemap = ResidentsManager.Instance.roadTilemap;
-        InitializeComponents();
-        Debug.Log("Everything is initialized");
-    }
-
-    protected void ValidateStartingPosition()
-    {
-        Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
-
-        if (!pathFinder.IsValidPosition(currentCell))
-        {
-            Vector3Int validPosition = pathFinder.FindNearestValidPosition(currentCell);
-            transform.position = groundTilemap.GetCellCenterWorld(validPosition);
-        }
-    }
-
-    protected virtual void Update()
-    {
-        movementController.UpdateMovement();
-    }
 
     public void InitializeComponents()
     {
@@ -109,7 +91,7 @@ public class AIResident : MonoBehaviour
 
         if (animator == null)
         {
-            Debug.LogError($"{gameObject.name}: animator is still null in InitializeComponents");
+            Debug.Log($"{gameObject.name}: animator is still null in InitializeComponents");
             animator = GetComponent<Animator>();
             if (animator == null)
             {
@@ -140,6 +122,23 @@ public class AIResident : MonoBehaviour
             Debug.Log($"{gameObject.name}: Movement controller created successfully");
             movementController.OnDestinationReached += ResetCriminal;
         }
+    }
+
+
+    protected void ValidateStartingPosition()
+    {
+        Vector3Int currentCell = groundTilemap.WorldToCell(transform.position);
+
+        if (!pathFinder.IsValidPosition(currentCell))
+        {
+            Vector3Int validPosition = pathFinder.FindNearestValidPosition(currentCell);
+            transform.position = groundTilemap.GetCellCenterWorld(validPosition);
+        }
+    }
+
+    protected virtual void Update()
+    {
+        movementController.UpdateMovement();
     }
 
     protected void SetupCarDetection()
@@ -175,12 +174,15 @@ public class AIResident : MonoBehaviour
             
     }
 
-    public void ResetCriminal()
+    public void ResetCriminal(bool isCaught)
     {
-        if (isCommitingCrime)
+        if (isCommitingCrime && !isCaught)
         {
-            isCommitingCrime = false;
+            FindAnyObjectByType<RobbingSceneIntro>().StartRobbingSequence();
         }
+
+        isCommitingCrime = false;
+
         spriteRenderer.color = Color.white;
         movementController.ChooseNewRandomDestination();
     }

@@ -28,7 +28,7 @@ public class MovementController
 
     private Vector3 lastDirection = Vector3.right;
 
-    public event Action OnDestinationReached;
+    public event Action<bool> OnDestinationReached;
     public List<Vector3> Path { get; private set; }
     public int CurrentPathIndex { get; private set; }
     public MovementController(
@@ -241,8 +241,8 @@ public class MovementController
 
     private void HandlePathCompletion()
     {
-  
-        OnDestinationReached?.Invoke();
+
+        OnDestinationReached?.Invoke(false);
         isMoving = false;
         ResetPath();
         StartWaiting();

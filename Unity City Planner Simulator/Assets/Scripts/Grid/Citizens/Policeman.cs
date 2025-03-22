@@ -20,7 +20,6 @@ public class Policeman : AIResident
         Debug.Log($"Policeman Start called on {gameObject.name}");
         base.Start();
 
-        // Add additional check to ensure movement controller exists after Start
         if (movementController == null)
         {
             Debug.LogWarning($"Movement controller still null after Start in {gameObject.name}, reinitializing");
@@ -46,7 +45,8 @@ public class Policeman : AIResident
         isChasing = false;
         criminalTarget = null;
 
-        criminal.ResetCriminal();
+        criminal.ResetCriminal(true);
+        PoliceStationManager.Instance.ResetCriminal();
     }
     protected override void Update()
     {

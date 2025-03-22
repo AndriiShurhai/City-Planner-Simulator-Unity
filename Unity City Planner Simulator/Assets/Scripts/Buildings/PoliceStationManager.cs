@@ -8,6 +8,9 @@ public class PoliceStationManager : MonoBehaviour
 
     public static PoliceStationManager Instance;
 
+    private AIResident currentCriminal;
+    private int policemansCount;
+
     private void Start()
     {
         if (Instance != null)
@@ -16,11 +19,26 @@ public class PoliceStationManager : MonoBehaviour
         }
         Instance = this;
 
-        ResidentsManager.Instance.OnResidentGointToCrime += ProccessCrimeAction;
+        policemansCount = policemans.Count;
+
+        ResidentsManager.Instance.OnResidentGoingToCrime += ProccessCrimeAction;
+    }
+
+    private void Update()
+    {
+        if (policemans.Count > policemansCount)
+        {
+            if (currentCriminal != null)
+            {
+                ProccessCrimeAction(currentCriminal);
+            }
+            policemansCount = policemans.Count;
+        }
     }
 
     private void ProccessCrimeAction(AIResident criminal)
     {
+        currentCriminal = criminal;
         float minDistance = int.MaxValue;
         Policeman nearestPoliceman = null;
         foreach (var policeman in policemans)
@@ -41,5 +59,10 @@ public class PoliceStationManager : MonoBehaviour
             return;
         }
         nearestPoliceman.StartChasingCriminal(criminal.transform, criminal);
+    }
+
+    public void ResetCriminal()
+    {
+        currentCriminal = null;
     }
 }

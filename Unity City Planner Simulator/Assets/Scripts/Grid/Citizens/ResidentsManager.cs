@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,16 +10,18 @@ public class ResidentsManager : MonoBehaviour
     [SerializeField] public Tilemap roadTilemap;
 
     [SerializeField] private List<GameObject> citizensPrefabs = new List<GameObject>();
+    [SerializeField] private GameObject residentsParent;
 
     private bool isResidentSpawned = false;
 
     private float crimeCheckInterval = 40f;
     private float crimeCheckTimer = 0f;
 
-    public event Action<AIResident> OnResidentGointToCrime;
+    public event Action<AIResident> OnResidentGoingToCrime;
 
     private List<AIResident> residents = new List<AIResident>();
     private List<Policeman> policemans = new List<Policeman>();
+
     public static ResidentsManager Instance { get; private set; }
 
     private void Awake()
@@ -63,7 +66,8 @@ public class ResidentsManager : MonoBehaviour
         {
             GameObject citizenInstance = Instantiate(prefab,
                 position,
-                Quaternion.identity
+                Quaternion.identity,
+                residentsParent.transform
             );
             
             Policeman residentAI = citizenInstance.GetComponent<Policeman>();
@@ -93,14 +97,15 @@ public class ResidentsManager : MonoBehaviour
         position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
         for (int i = 0; i < amount; i++)
         {
-            int randomCitizenSpriteIndex = UnityEngine.Random.Range(0, citizensPrefabs.Count - 1);
+            int randomCitizenSpriteIndex = UnityEngine.Random.Range(0, citizensPrefabs.Count);
 
             GameObject prefabCitizen = citizensPrefabs[randomCitizenSpriteIndex];
 
 
             GameObject citizenInstance = Instantiate(prefabCitizen,
                 position,
-                Quaternion.identity
+                Quaternion.identity,
+                residentsParent.transform
             );
             AIResident residentAI = citizenInstance.GetComponent<AIResident>();
 
@@ -124,22 +129,37 @@ public class ResidentsManager : MonoBehaviour
     public void DoCrime()
     {
         Building target = null;
+        float minDistance = int.MaxValue;
+        AIResident criminal = null;
 
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
-        {
-            if (building.buildingData.buildingType == BuildingType.Commercial)
-            {
-                target = building;
-                break;
-            }
-        }
-
-        if (target == null) return;
 
         if (residents.Count > 0)
         {
-            residents[0].InitiateCrime(target);
-            OnResidentGointToCrime?.Invoke(residents[0]);
+            int randomResidentIndex = UnityEngine.Random.Range(0,residents.Count);
+            Debug.Log($"Resident for crime will be: {residents[randomResidentIndex]}");
+
+            criminal = residents[randomResidentIndex];
         }
+        if (criminal == null) return;
+
+        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.buildingData.buildingType == BuildingType.Commercial).Count()}");
+        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        {
+            Vector3 distance = criminal.transform.position - building.transform.position;
+            if (building.buildingData.buildingType == BuildingType.Commercial)
+            {
+                float cells = Mathf.Abs(distance.x) + Mathf.Abs(distance.y) + Mathf.Abs(distance.z);
+
+                if (cells < minDistance)
+                {
+                    minDistance = cells;
+                    target = building;
+                }
+            }
+        }
+        if (target == null) return;
+
+        criminal.InitiateCrime(target);
+        OnResidentGoingToCrime?.Invoke(criminal);
     }
 }
