@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="GameSounds", menuName = "Audio/Game Soudns")]
+[CreateAssetMenu(fileName = "GameSounds", menuName = "Audio/Game Sounds")]
 public class GameSounds : ScriptableObject
 {
     [Header("UI Sounds")]
@@ -9,4 +9,7 @@ public class GameSounds : ScriptableObject
 
     [Header("Game Sounds")]
     public AudioClip removeObstacle;
+
+    public AudioClip gunShot;
+    public AudioClip peopleScream;
 }
