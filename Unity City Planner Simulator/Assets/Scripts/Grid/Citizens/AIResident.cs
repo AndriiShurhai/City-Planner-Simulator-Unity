@@ -28,13 +28,16 @@ public class AIResident : MonoBehaviour
     private const int ACCELERATION_SPEED = 7;
     private const int DEFAULT_SPEED = 2;
 
+    private float healthInterval = 10f;
+    private float healthTimer = 0f;
+
     protected MovementController movementController;
     protected PathFinder pathFinder;
     protected SpriteRenderer spriteRenderer;
     protected CircleCollider2D carDetectionCollider;
 
     public bool isCommitingCrime = false;
-    public bool isChasing = false;
+    public bool isHavingHeartAttack = false;
     public MovementController MovementController { get; private set; }
     protected virtual void Start()
     {
@@ -46,6 +49,22 @@ public class AIResident : MonoBehaviour
         roadTilemap = ResidentsManager.Instance.roadTilemap;
         InitializeComponents();
         Debug.Log("Everything is initialized");
+    }
+
+    protected virtual void Update()
+    {
+        if (isHavingHeartAttack)
+        {
+            healthTimer += Time.deltaTime;
+            if (healthTimer >= healthInterval)
+            {
+                ResetHealthAttack(false);
+            }
+        }
+        if (!isHavingHeartAttack)
+        {
+            movementController.UpdateMovement();
+        }
     }
 
     public void Initialize(Tilemap groundTilemap, Tilemap roadTilemap, Animator animator)
@@ -136,10 +155,6 @@ public class AIResident : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
-    {
-        movementController.UpdateMovement();
-    }
 
     protected void SetupCarDetection()
     {
@@ -173,6 +188,15 @@ public class AIResident : MonoBehaviour
         SetDestination(building.transform.position - new Vector3(0.1f, 0, 0));
             
     }
+    internal void InitiateHealthAttack()
+    {
+        if (isHavingHeartAttack) return;
+
+        isHavingHeartAttack = true;
+
+        spriteRenderer.color = Color.blue;
+
+    }
 
     public void ResetCriminal(bool isCaught)
     {
@@ -182,6 +206,23 @@ public class AIResident : MonoBehaviour
         }
 
         isCommitingCrime = false;
+
+        spriteRenderer.color = Color.white;
+        movementController.ChooseNewRandomDestination();
+    }
+
+    public void ResetHealthAttack(bool isCured)
+    {
+
+        if (isHavingHeartAttack && !isCured)
+        {
+            PopulationRateManager.Instance.DecreaseRate(1);
+            Destroy(gameObject);
+            FindAnyObjectByType<MedicalAttack>().StartMedicalAttack();
+        }
+
+        isHavingHeartAttack = false;
+        healthTimer = 0f;
 
         spriteRenderer.color = Color.white;
         movementController.ChooseNewRandomDestination();

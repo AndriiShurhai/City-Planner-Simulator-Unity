@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SVS;
 using UnityEngine;
@@ -23,6 +24,24 @@ public class SceneManagerController : MonoBehaviour
     void Start()
     {
     }
+
+    public void CloseCurrentAdditiveScene()
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+
+        string mainSceneName = mainScene.scene.name;
+
+        if (activeScene.name != mainSceneName)
+        {
+            FadeManager.Instance?.FadeIn();
+            SceneManager.UnloadSceneAsync(activeScene.name);
+        }
+        else
+        {
+            Debug.LogWarning("The active scene is the main scene. No additive scene to unload.");
+        }
+    }
+
 
     public void LoadShopScene()
     {
@@ -53,5 +72,43 @@ public class SceneManagerController : MonoBehaviour
         }
         FadeManager.Instance.FadeIn();
         SceneManager.UnloadSceneAsync("Robbing");
+    }
+
+    internal void LoadMedicalAttackScene()
+    {
+        if (mainScene != null)
+        {
+            mainScene.SetActive(false);
+        }
+        SceneManager.LoadScene("MedicalAttackScene", LoadSceneMode.Additive);
+    }
+
+    public void CloseDialougeScene(string name)
+    {
+        if (mainScene != null)
+        {
+            mainScene.SetActive(true);
+        }
+        FadeManager.Instance.FadeIn();
+        SceneManager.UnloadSceneAsync(name);
+    }
+
+    public void CloseMedicalAttackScene()
+    {
+        if (mainScene != null)
+        {
+            mainScene.SetActive(true);
+        }
+        FadeManager.Instance.FadeIn();
+
+        Scene scene = SceneManager.GetSceneByName("MedicalAttackScene");
+        if (scene.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("MedicalAttackScene");
+        }
+        else
+        {
+            Debug.LogWarning("MedicalAttackScene is not loaded!");
+        }
     }
 }
