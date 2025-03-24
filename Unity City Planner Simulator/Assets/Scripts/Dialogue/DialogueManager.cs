@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using System.Collections;
+using System;
+using System.Runtime.CompilerServices;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class DialogueManager : MonoBehaviour
         "No one thought I would succeed.",
         "This is only the beginning!"
     };
+    public string sceneName;
 
     private int currentLineIndex = 0;
     private bool cutsceneActive = false;
@@ -89,7 +92,9 @@ public class DialogueManager : MonoBehaviour
     {
         cutsceneActive = false;
         dialogueText.gameObject.SetActive(false);
-        SceneManagerController.Instance.CloseRobbingScene();
+
+
+        SceneManagerController.Instance.CloseDialougeScene(sceneName);
         Debug.Log("Cutscene ended.");
     }
 }

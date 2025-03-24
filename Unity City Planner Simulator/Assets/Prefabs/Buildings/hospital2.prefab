@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 190154463320851615}
   - component: {fileID: -5320152395012571571}
   - component: {fileID: 4240760658713497059}
-  - component: {fileID: -6068060840573190331}
   - component: {fileID: 5373750400069468181}
+  - component: {fileID: -7172761837472183832}
   m_Layer: 0
   m_Name: hospital2
   m_TagString: Untagged
@@ -136,19 +136,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 16.076923, y: 15}
   m_EdgeRadius: 0
---- !u!114 &-6068060840573190331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588068838091743371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 6e9b388118b81cf46a5dfbd0316c6dc9, type: 2}
 --- !u!95 &5373750400069468181
 Animator:
   serializedVersion: 7
@@ -171,3 +158,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7172761837472183832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588068838091743371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4e57d56eb98504b9a487f46be3514f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 7efef008c2c91fd4d8846bd3466e34e2, type: 2}
+  doctorsPrefabs:
+  - {fileID: 99105146818192935, guid: 0de55ca4c1af4684bbd2e1fee7f1bf43, type: 3}
+  - {fileID: 1642375130578730922, guid: 7e0421e072d59e849a394efb61a6e69a, type: 3}

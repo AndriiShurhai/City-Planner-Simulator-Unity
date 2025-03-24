@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 997776914555533023}
   - component: {fileID: 4357199854733924441}
   - component: {fileID: 9176515563221882227}
-  - component: {fileID: -8209120273158758840}
+  - component: {fileID: 7380263494301127902}
   - component: {fileID: -5927220309432461889}
+  - component: {fileID: 7044266439501445242}
   m_Layer: 0
   m_Name: Citizen_032
   m_TagString: Untagged
@@ -112,7 +113,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8209120273158758840
+--- !u!114 &7380263494301127902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 99105146818192935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 055b61f5998fcdf4d889100cc40aa82e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ffd6cc161b9f5845a1db41c556921d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
@@ -130,14 +131,14 @@ MonoBehaviour:
   maxIdleWait: 10
   groundTilemap: {fileID: 0}
   roadTilemap: {fileID: 0}
+  animator: {fileID: 9176515563221882227}
   carLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   citizenSprites: []
-  animator: {fileID: 9176515563221882227}
   carDetectionRadius: 3
   isCommitingCrime: 0
-  isChasing: 0
+  isHavingHeartAttack: 0
 --- !u!58 &-5927220309432461889
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +175,30 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
+--- !u!50 &7044266439501445242
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99105146818192935}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

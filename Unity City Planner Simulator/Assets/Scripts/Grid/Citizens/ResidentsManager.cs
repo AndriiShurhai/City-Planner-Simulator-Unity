@@ -15,12 +15,14 @@ public class ResidentsManager : MonoBehaviour
     private bool isResidentSpawned = false;
 
     private float crimeCheckInterval = 40f;
-    private float crimeCheckTimer = 0f;
+    private float crimeCheckTimer = 40f;
+    private float healthAttackInterval = 40f;
+    private float healthAttackTimer = 40f;
 
     public event Action<AIResident> OnResidentGoingToCrime;
+    public event Action<AIResident> OnResidentGoingToDie;
 
     private List<AIResident> residents = new List<AIResident>();
-    private List<Policeman> policemans = new List<Policeman>();
 
     public static ResidentsManager Instance { get; private set; }
 
@@ -40,6 +42,7 @@ public class ResidentsManager : MonoBehaviour
         if (isResidentSpawned)
         {
             crimeCheckTimer = 2f;
+            healthAttackTimer = 40f;
         }
     }
 
@@ -48,11 +51,19 @@ public class ResidentsManager : MonoBehaviour
         if (!isResidentSpawned) return;
 
         crimeCheckTimer -= Time.deltaTime;
+        healthAttackTimer -= Time.deltaTime;   
 
         if (crimeCheckTimer <= 0)
         {
-            DoCrime();
+            DoCrimeIfCrimeRateIsHigh();
             crimeCheckTimer = crimeCheckInterval;
+        }
+
+        if (healthAttackTimer <= 0)
+        {
+            healthAttackTimer = healthAttackInterval;
+
+            DoHealthAttackIfHealthRateIsLow();
         }
     }
 
@@ -82,6 +93,40 @@ public class ResidentsManager : MonoBehaviour
             residentAI.InitializeComponents();
 
             PoliceStationManager.Instance.policemans.Add(residentAI);
+
+            position = new Vector3Int(position.x + offset, position.y, position.z);
+
+            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
+            PopulationRateManager.Instance.IncreaseRate(1);
+        }
+    }
+
+    public void SpawnDoctors(int amount, Vector3Int position, GameObject prefab)
+    {
+        int offset = 1;
+
+        position = new Vector3Int(position.x - offset * (amount / 2), position.y - offset, position.z);
+
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject citizenInstance = Instantiate(prefab,
+                position,
+                Quaternion.identity,
+                residentsParent.transform
+            );
+
+            Doctor residentAI = citizenInstance.GetComponent<Doctor>();
+
+            if (residentAI == null)
+            {
+                residentAI = citizenInstance.AddComponent<Doctor>();
+            }
+
+            residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
+
+            residentAI.InitializeComponents();
+
+            HospitalsManager.Instance.doctors.Add(residentAI);
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
@@ -119,15 +164,14 @@ public class ResidentsManager : MonoBehaviour
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
-
-
             EconomyManager.Instance.registeredResidents.Add(citizenInstance);
             PopulationRateManager.Instance.IncreaseRate(1);
         }
     }
 
-    public void DoCrime()
+    public void DoCrimeIfCrimeRateIsHigh()
     {
+        if (CrimeRateManager.Instance.CrimeRate <= 50) return;
         Building target = null;
         float minDistance = int.MaxValue;
         AIResident criminal = null;
@@ -161,5 +205,23 @@ public class ResidentsManager : MonoBehaviour
 
         criminal.InitiateCrime(target);
         OnResidentGoingToCrime?.Invoke(criminal);
+    }
+
+    public void DoHealthAttackIfHealthRateIsLow()
+    {
+        if (HealthRateManager.Instance.HealthRate >= 50) return;
+        AIResident residentWithHealthProblem = null;
+        if (residents.Count > 0)
+        {
+            int randomResidentIndex = UnityEngine.Random.Range(0, residents.Count);
+            
+            residentWithHealthProblem = residents[randomResidentIndex];
+        }
+
+        if (residentWithHealthProblem == null) return;
+
+        residentWithHealthProblem.InitiateHealthAttack();
+        OnResidentGoingToDie?.Invoke(residentWithHealthProblem);
+
     }
 }

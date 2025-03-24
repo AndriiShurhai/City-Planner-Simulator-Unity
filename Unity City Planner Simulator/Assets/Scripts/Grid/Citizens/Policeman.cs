@@ -5,6 +5,7 @@ public class Policeman : AIResident
 {
     private Transform criminalTarget;
     private float chasingRecalculationCooldown = 3f;
+    private bool isChasing = false;
 
     private int pathIndex;
 
@@ -47,6 +48,7 @@ public class Policeman : AIResident
 
         criminal.ResetCriminal(true);
         PoliceStationManager.Instance.ResetCriminal();
+        movementController.SetChaseSpeed(false);
     }
     protected override void Update()
     {
@@ -111,6 +113,7 @@ public class Policeman : AIResident
         criminalTarget = target;
         Debug.Log($"Calling set destination for the policeman. Target position: {criminalTarget.transform.position}  Current Position: {transform.position}");
 
+        movementController.SetChaseSpeed(true);
         movementController.SetDestination(criminalTarget.transform.position);
     }
 }
