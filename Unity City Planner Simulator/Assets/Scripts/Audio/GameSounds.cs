@@ -12,4 +12,6 @@ public class GameSounds : ScriptableObject
 
     public AudioClip gunShot;
     public AudioClip peopleScream;
+
+    public AudioClip heartBeat;
 }

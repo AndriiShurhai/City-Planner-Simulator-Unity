@@ -118,7 +118,7 @@ public class MovementController
 
         currentPathIndex = 0;
 
-        if (resident.isChasing)
+        if (resident is Policeman)
         {
             float currentPosition = Mathf.Abs(resident.transform.position.x) + Mathf.Abs(resident.transform.position.y) + Mathf.Abs(resident.transform.position.z);
             for (int i = 0; i < path.Count; i++)

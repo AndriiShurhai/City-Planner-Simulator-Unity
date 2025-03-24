@@ -229,6 +229,7 @@ MonoBehaviour:
   - I can't believe I've come this far...
   - No one thought I would succeed.
   - This is only the beginning!
+  sceneName: Robbing
   typingSpeed: 0.05
 --- !u!4 &463815724
 Transform:
