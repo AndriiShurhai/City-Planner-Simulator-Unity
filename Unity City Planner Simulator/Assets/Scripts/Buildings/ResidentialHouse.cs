@@ -70,9 +70,10 @@ public class ResidentialHouse : Building
     public override void OnPlaced()
     {
         base.OnPlaced();
-        if (occupiedPositions != null && occupiedPositions.Count > 0)
+        if (occupiedPositions != null && occupiedPositions.Count > 0 && !wasPlacedBefore)
         {
             ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)occupiedPositions[0]);
+            wasPlacedBefore = true;
         }
         else
         {

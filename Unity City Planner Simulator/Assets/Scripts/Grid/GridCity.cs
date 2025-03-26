@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -14,9 +15,14 @@ public class GridCity : MonoBehaviour
     private Dictionary<Vector2Int, Building> buildings = new Dictionary<Vector2Int, Building>();
     private BuildingData _selectedBuilding;
     public static GridCity Instance { get; private set; }
-    public BuildingData SelectedBuilding { get; }
+    public BuildingData SelectedBuilding { get;}
 
-    public IReadOnlyDictionary<Vector2Int, Building> Buildings => buildings;
+    public Grid Grid { get { return grid; } }
+
+    public Dictionary<Vector2Int, Building> Buildings
+    {
+        get { return buildings; }
+    }
 
     private void Start()
     {
@@ -32,27 +38,48 @@ public class GridCity : MonoBehaviour
     private void Update()
     {
         UpdateCursor(); 
-        if (_selectedBuilding == null) return;
-        if (EventSystem.current.IsPointerOverGameObject()) return;
 
-
-        if (Input.GetMouseButtonDown(0))
+        if (BuildingMover.Instance.CurrentlyMovingBuilding != null)
         {
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cellPosition = grid.WorldToCell(mouseWorldPos);
-            Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
-
-
-            if (CanPlaceBuilding(gridPosition, _selectedBuilding.size, _selectedBuilding))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
             {
-                PlaceBuilding(_selectedBuilding, gridPosition);
+                BuildingMover.Instance.CancelBuildingMove();
+            }
+            else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3Int cellPosition = grid.WorldToCell(mouseWorldPosition);
+                Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+
+                if (CanPlaceBuilding(gridPosition, BuildingMover.Instance.CurrentlyMovingBuilding.Size,
+                                     BuildingMover.Instance.CurrentlyMovingBuilding.BuildingData))
+                {
+                    MoveBuilding(BuildingMover.Instance.CurrentlyMovingBuilding, gridPosition);
+                    BuildingMover.Instance.CurrentlyMovingBuilding = null;
+                }
+            }
+        }
+
+        else if ((_selectedBuilding != null && !EventSystem.current.IsPointerOverGameObject()))
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3Int cellPosition = grid.WorldToCell(mouseWorldPos);
+                Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+
+
+                if (CanPlaceBuilding(gridPosition, _selectedBuilding.size, _selectedBuilding))
+                {
+                    PlaceBuilding(_selectedBuilding, gridPosition);
+                }
             }
         }
     }
 
     private void UpdateCursor()
     {
-        bool show = GetActiveBuildingType() != null && !EventSystem.current.IsPointerOverGameObject();
+        bool show = (GetActiveBuildingType() != null || BuildingMover.Instance.CurrentlyMovingBuilding != null) && !EventSystem.current.IsPointerOverGameObject();
         customBuildingCursor.ToggleCursor(show);
     }
 
@@ -122,11 +149,30 @@ public class GridCity : MonoBehaviour
 
     }
 
+    private void MoveBuilding(Building building, Vector2Int newPosition)
+    {
+        building.SetGridPosition(newPosition);
+
+        for (int x = newPosition.x; x < newPosition.x + building.Size.x; x++)
+        {
+            for (int y = newPosition.y; y < newPosition.y + building.Size.y; y++)
+            {
+                buildings[new Vector2Int(x, y)] = building;
+            }
+        }
+
+        Vector3 worldPosition = grid.CellToWorld(new Vector3Int(newPosition.x, newPosition.y, 0));
+        building.transform.position = worldPosition;
+
+        BuildingMover.Instance.ActivateCurrentlyMovingBuilding();
+    }
     public void RemoveBuilding(Building building, List<Vector2Int> occupiedPositions)
     {
         if (building == null || occupiedPositions == null) return;
 
-        foreach(Vector2Int position in occupiedPositions)
+        Debug.Log("Trying to remove a building in GridCity class");
+
+        foreach (Vector2Int position in occupiedPositions)
         {
             if (buildings.ContainsKey(position) && buildings[position] == building)
             {

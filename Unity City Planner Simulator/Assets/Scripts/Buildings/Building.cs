@@ -10,18 +10,36 @@ public class Building : MonoBehaviour
     private Vector2Int size;
     private readonly List<BuildingEffectBase> buildingEffects = new List<BuildingEffectBase>();
     protected List<Vector2Int> occupiedPositions;
-    private bool isInitialized;
+    protected Vector2Int lastGridPosition;
+    private bool isInitialized; 
 
     public event Action OnUpgrade;
     public BuildingData BuildingData => buildingData;
     public Vector2Int GridPosition => gridPosition;
     public Vector2Int Size => size;
     public IReadOnlyList<BuildingEffectBase> BuildingEffects => buildingEffects;
-    public IReadOnlyList<Vector2Int> OccupiedPositions => occupiedPositions;
+    public List<Vector2Int> OccupiedPositions { get { return occupiedPositions; } }
 
+    public bool wasPlacedBefore;
+
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2Int cellPosition = (Vector2Int)ResidentsManager.Instance.groundTilemap.WorldToCell(mousePosition);
+
+            if (occupiedPositions != null && occupiedPositions.Contains(cellPosition))
+            {
+                BuildingPanel.Instance.ShowBuildingPanel(this, occupiedPositions[0] + new Vector2Int(size.x / 2, -2));
+            }
+        }
+    }
     public virtual void Initialize(BuildingData buildingData, Vector2Int size)
     {
         if (isInitialized) return;
+        if (wasPlacedBefore) return;
 
         this.buildingData = buildingData;
         this.size = size;
@@ -53,6 +71,7 @@ public class Building : MonoBehaviour
     public virtual void OnPlaced()
     {
         if (!isInitialized) return;
+        if (wasPlacedBefore) return;
 
         foreach (var effect in buildingEffects)
         {
@@ -113,12 +132,25 @@ public class Building : MonoBehaviour
 
     public virtual void DestroyBuilding()
     {
-        Debug.Log("Trying to destroy building");
+        Debug.Log("Trying to destroy building and call remove building method.");
         if (GridCity.Instance != null)
         {
             GridCity.Instance.RemoveBuilding(this, occupiedPositions);
         }
 
+        EconomyManager.Instance.registeredBuildings.Remove(this);
         Destroy(gameObject);
+    }
+
+    public virtual void MoveBuilding()
+    {
+        StartMove();
+    }
+    private void StartMove()
+    {
+        if (BuildingMover.Instance.StartMovingBuilding(this))
+        {
+            Debug.Log($"Started moving {buildingData.buildingName}");
+        }
     }
 }

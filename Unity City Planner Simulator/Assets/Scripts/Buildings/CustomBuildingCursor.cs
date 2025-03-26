@@ -47,6 +47,14 @@ public class CustomBuildingCursor : MonoBehaviour
         else if (show && GridCity.Instance != null)
         {
             activeBuildingType = GridCity.Instance.GetActiveBuildingType();
+            if (activeBuildingType == null)
+            {
+                activeBuildingType = BuildingMover.Instance.CurrentlyMovingBuilding.BuildingData;
+                if (activeBuildingType == null)
+                {
+                    return;
+                }
+            }
         }
 
         spriteRenderer.enabled = show;
