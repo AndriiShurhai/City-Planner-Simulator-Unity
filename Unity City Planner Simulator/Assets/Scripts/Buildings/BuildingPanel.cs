@@ -11,7 +11,7 @@ public class BuildingPanel : MonoBehaviour
     [SerializeField] private Button moveBuildingButton;
 
     private bool isShowing;
-    private Vector2Int currentPosition;
+    private Vector2 currentPosition;
     public static BuildingPanel Instance { get; private set; }
 
 
@@ -33,7 +33,7 @@ public class BuildingPanel : MonoBehaviour
         }
     }
 
-    public void ShowBuildingPanel(Building building, Vector2Int position)
+    public void ShowBuildingPanel(Building building, Vector2 position)
     {
         RemoveAllListeners();
         AddListeners(building);

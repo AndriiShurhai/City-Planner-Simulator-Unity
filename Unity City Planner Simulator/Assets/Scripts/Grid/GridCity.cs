@@ -37,7 +37,7 @@ public class GridCity : MonoBehaviour
     }
     private void Update()
     {
-        UpdateCursor(); 
+        UpdateCursor();
 
         if (BuildingMover.Instance.CurrentlyMovingBuilding != null)
         {
@@ -73,6 +73,25 @@ public class GridCity : MonoBehaviour
                 {
                     PlaceBuilding(_selectedBuilding, gridPosition);
                 }
+            }
+        }
+
+        else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = grid.WorldToCell(mouseWorldPos);
+            Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+
+            Building building = GetBuildingAt(gridPosition);
+
+            if (building != null)
+            {
+                Debug.Log("Building clicked at: " + gridPosition);
+                BuildingPanel.Instance.ShowBuildingPanel(building, building.OccupiedPositions[0] + new Vector2((float)building.Size.x / 2f, -2));
+            }
+            else
+            {
+                BuildingPanel.Instance.HideBuildingPanel();
             }
         }
     }
@@ -183,8 +202,11 @@ public class GridCity : MonoBehaviour
 
     public Building GetBuildingAt(Vector2Int position)
     {
-        buildings.TryGetValue(position, out Building building);
-        return building;
+        if (buildings.TryGetValue(position, out Building building))
+        {
+            return building;
+        }
+        return null;
     }
 
     public void SetActiveBuildingType(BuildingData data)

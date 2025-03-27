@@ -9,7 +9,7 @@ public class Building : MonoBehaviour
     private Vector2Int gridPosition;
     private Vector2Int size;
     private readonly List<BuildingEffectBase> buildingEffects = new List<BuildingEffectBase>();
-    protected List<Vector2Int> occupiedPositions;
+    protected List<Vector2Int> occupiedPositions = new List<Vector2Int>(); 
     protected Vector2Int lastGridPosition;
     private bool isInitialized; 
 
@@ -25,16 +25,7 @@ public class Building : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2Int cellPosition = (Vector2Int)ResidentsManager.Instance.groundTilemap.WorldToCell(mousePosition);
-
-            if (occupiedPositions != null && occupiedPositions.Contains(cellPosition))
-            {
-                BuildingPanel.Instance.ShowBuildingPanel(this, occupiedPositions[0] + new Vector2Int(size.x / 2, -2));
-            }
-        }
+        
     }
     public virtual void Initialize(BuildingData buildingData, Vector2Int size)
     {
