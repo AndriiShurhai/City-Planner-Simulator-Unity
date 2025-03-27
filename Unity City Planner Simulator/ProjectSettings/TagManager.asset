@@ -45,5 +45,8 @@ TagManager:
   - name: UI
     uniqueID: 1682184033
     locked: 0
+  - name: Overlay
+    uniqueID: 1451107989
+    locked: 0
   m_RenderingLayers:
   - Default

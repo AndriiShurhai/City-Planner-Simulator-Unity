@@ -104,6 +104,11 @@ public class Building : MonoBehaviour
         return buildingData.incomePerCycle - buildingData.maintenanceCost;
     }
 
+    public virtual void Upgrade()
+    {
+
+    }
+
     public bool AddBuildingEffect(BuildingEffectBase buildingEffect)
     {
         if (buildingEffect == null) return false;

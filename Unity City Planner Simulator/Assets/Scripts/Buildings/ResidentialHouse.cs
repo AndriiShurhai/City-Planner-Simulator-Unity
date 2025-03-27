@@ -62,8 +62,6 @@ public class ResidentialHouse : Building
             isPlaying = false;
 
             Debug.Log("Doing this");
-
-            HandleUpgrade();
         }
     }
 
@@ -80,14 +78,14 @@ public class ResidentialHouse : Building
             Debug.Log("There is no occupied positions");
         }
     }
-    private void HandleUpgrade()
+    public override void Upgrade()
     {
         if (currentLevel >= 3) return;
 
         currentLevel++;
         currentResidents++;
 
-        ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)occupiedPositions[0]);
+        ResidentsManager.Instance.SpawnResidents(1, (Vector3Int)occupiedPositions[0]);
     }
 
 }

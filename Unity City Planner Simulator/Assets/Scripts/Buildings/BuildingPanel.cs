@@ -67,6 +67,7 @@ public class BuildingPanel : MonoBehaviour
 
         infoBuildingButton.onClick.AddListener(HideBuildingPanel);
 
+        upgradeBuildingButton.onClick.AddListener(building.Upgrade);
         upgradeBuildingButton.onClick.AddListener(HideBuildingPanel);
 
         moveBuildingButton.onClick.AddListener(building.MoveBuilding);
