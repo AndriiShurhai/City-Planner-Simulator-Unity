@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "BuildingData", menuName = "City/BuildingData", order = 1)] 
 public class BuildingData : ScriptableObject
 {
