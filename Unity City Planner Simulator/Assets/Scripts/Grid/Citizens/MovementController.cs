@@ -118,29 +118,56 @@ public class MovementController
 
         currentPathIndex = 0;
 
-        if (resident is Policeman)
-        {
-            float currentPosition = Mathf.Abs(resident.transform.position.x) + Mathf.Abs(resident.transform.position.y) + Mathf.Abs(resident.transform.position.z);
-            for (int i = 0; i < path.Count; i++)
-            {
-                float currentPathPosition = Mathf.Abs(path[i].x) + Mathf.Abs(path[i].y) + Mathf.Abs(path[i].z); ;
-                if (currentPosition > currentPathPosition)
-                {
-                    currentPathIndex++;
-                }
-            }
-        }
+
         isMoving = true;
         isWaiting = false;
 
         Debug.Log($"Path for destination is found, path count: {path.Count}");
     }
 
+    public void SetDestinationWithoutBacktracking(Vector3 target)
+    {
+        Vector3 currentPosition = resident.transform.position;
+
+        Vector3Int startCell = pathFinder.WorldToCell(currentPosition);
+        Vector3Int targetCell = pathFinder.WorldToCell(target);
+
+        List<Vector3> newPath = pathFinder.FindPath(startCell, targetCell);
+        if (newPath == null || newPath.Count == 0)
+        {
+            return; 
+        }
+
+        int closestPointIndex = 0;
+        float closestDistance = float.MaxValue;
+
+        for (int i = 0; i < newPath.Count; i++)
+        {
+            float distance = Vector3.Distance(currentPosition, newPath[i]);
+
+            float distanceToTarget = Vector3.Distance(newPath[i], target);
+            float currentDistanceToTarget = Vector3.Distance(currentPosition, target);
+
+            if (distance < closestDistance && distanceToTarget <= currentDistanceToTarget)
+            {
+                closestDistance = distance;
+                closestPointIndex = i;
+            }
+        }
+
+        path = newPath;
+        currentPathIndex = closestPointIndex;
+        currentDestination = target;
+        isMoving = true;
+        isWaiting = false;
+
+        Debug.Log($"Recalculated chase path, starting from index {currentPathIndex} of {path.Count} points");
+    }
+
     private void UpdateSpriteDirection(Vector3 target)
     {
         Vector3 direction = target - resident.transform.position;
 
-        // If the movement is too small, use the last nonzero direction to avoid flickering.
         if (direction.sqrMagnitude < 0.001f)
         {
             direction = lastDirection;

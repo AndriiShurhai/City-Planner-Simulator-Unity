@@ -4,7 +4,7 @@ using UnityEngine;
 public class Policeman : AIResident
 {
     private Transform criminalTarget;
-    private float chasingRecalculationCooldown = 3f;
+    private float chasingRecalculationCooldown = 1f;
     private bool isChasing = false;
 
     private int pathIndex;
@@ -48,34 +48,46 @@ public class Policeman : AIResident
 
         criminal.ResetCriminal(true);
         PoliceStationManager.Instance.ResetCriminal();
-        movementController.SetChaseSpeed(false);
     }
     protected override void Update()
     {
         if (movementController == null)
         {
             Debug.LogError($"Movement controller is null in {gameObject.name}'s Update");
-            return; 
+            return;
         }
 
         if (isChasing && criminalTarget != null)
-        {          
+        {
             chasingRecalculationCooldown -= Time.deltaTime;
-
             if (chasingRecalculationCooldown <= 0)
             {
-                movementController.SetDestination(criminalTarget.position);
+                RecalculateChase(criminalTarget.position);
                 chasingRecalculationCooldown = 1f;
             }
         }
-
         else if (isChasing)
         {
             isChasing = false;
-            movementController.SetChaseSpeed(false);
         }
 
         movementController.UpdateMovement();
+    }
+
+    private void RecalculateChase(Vector3 targetPosition)
+    {
+        Vector3Int targetCell = pathFinder.WorldToCell(targetPosition);
+
+        if (!pathFinder.IsValidPosition(targetCell))
+        {
+            Vector3Int validCell = pathFinder.FindNearestValidPosition(targetCell);
+            targetPosition = pathFinder.GetCellCenterWorld(validCell);
+        }
+
+        if (movementController != null)
+        {
+            movementController.SetDestinationWithoutBacktracking(targetPosition);
+        }
     }
 
     internal void StartChasingCriminal(Transform target, AIResident criminalResident)
@@ -113,7 +125,6 @@ public class Policeman : AIResident
         criminalTarget = target;
         Debug.Log($"Calling set destination for the policeman. Target position: {criminalTarget.transform.position}  Current Position: {transform.position}");
 
-        movementController.SetChaseSpeed(true);
         movementController.SetDestination(criminalTarget.transform.position);
     }
 }

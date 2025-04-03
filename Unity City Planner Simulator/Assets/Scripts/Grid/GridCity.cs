@@ -157,6 +157,7 @@ public class GridCity : MonoBehaviour
         {
             for (int y = position.y; y < position.y + data.size.y; y++)
             {
+                Debug.Log(x + " " + y);
                 buildings[new Vector2Int(x, y)] = building;
             }
         }

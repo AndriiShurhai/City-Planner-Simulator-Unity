@@ -1,30 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Animations;
+using UnityEngine.Events;
 using UnityEngine.UI;
-
 
 public class Book : MonoBehaviour
 {
     public List<RectTransform> pages;
-
     public int pageIndex = 0;
 
-    PageFlipper flipper;
-
+    private PageFlipper flipper;
     [SerializeField] private Button backButton;
     [SerializeField] private Button forwardButton;
+    [SerializeField] private Button bookButton;
+    [SerializeField] private List<Bookmark> bookmarks;
 
     private Animator animator;
 
-
-    public static Book Instance {  get; private set; }
+    public static Book Instance { get; private set; }
 
     private void Awake()
     {
-        if(Instance != null &&  Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
@@ -33,115 +31,183 @@ public class Book : MonoBehaviour
 
     private void Start()
     {
-        InitialStart();
         flipper = new PageFlipper();
-
         animator = GetComponent<Animator>();
-        StartCoroutine(WaitForAnimation());
+        InitialStart();
+
+        foreach (var bookmark  in bookmarks)
+        {
+            bookmark.bookmarkButton.onClick.AddListener(() => MoveBookmark(bookmark));
+        }
+    }
+
+    private void MoveBookmark(Bookmark bookmark)
+    {
+        RotateToIndex(bookmark.bookmarkIndex);
     }
 
     private void InitialStart()
     {
-        for (int i =0; i < pages.Count; i++)
+        for (int i = 0; i < pages.Count; i++)
         {
-            pages[i].transform.rotation = Quaternion.identity;
+            pages[i].rotation = Quaternion.identity;
         }
-        pages[pageIndex].SetAsLastSibling();
-        //backButton.interactable = false;
+
+        if (pages.Count > 0)
+        {
+            pages[0].SetAsLastSibling();
+        }
+
+        UpdateButtonStates();
     }
 
-    public void ForwardButtonActions()
+    private void UpdateButtonStates()
     {
-        if (!backButton.interactable)
-        {
-            backButton.interactable = true;
-        }
+        backButton.interactable = (pageIndex > -1);
 
-        if (pageIndex == pages.Count - 1)
-        {
-            forwardButton.interactable = false;
-        }
-    }
-
-    public void BackButtonActions()
-    {
-        if (!forwardButton.interactable)
-        {
-            forwardButton.interactable = true;
-        }
-
-        if (pageIndex -1 == -1)
-        {
-            backButton.interactable = false;
-        }
+        forwardButton.interactable = (pageIndex < pages.Count);
     }
 
     public void HandleLeftButtonClick()
     {
-        if (flipper.isRotating) return;
-        pages[pageIndex].SetAsLastSibling();
-        BackButtonActions();
-        flipper.Rotate(pages[pageIndex], 0);
+        if (flipper.isRotating || pageIndex <= 0) return;
+
+        foreach (var bookmark in bookmarks)
+        {
+            if (bookmark.IsPlayingNow()) return;
+        }
+
         pageIndex--;
+        pages[pageIndex].SetAsLastSibling();
+        flipper.Rotate(pages[pageIndex], 0);
+        UpdateButtonStates();
+
+        foreach (var bookmark in bookmarks)
+        {
+            if (pageIndex == bookmark.bookmarkIndex)
+            {
+                bookmark.GoRight();
+            }
+        }
+
     }
 
     public void HandleRightButtonClick()
     {
-        if (flipper.isRotating) return;
-        pageIndex++;
-        ForwardButtonActions();
-        flipper.Rotate(pages[pageIndex], 180);
+        if (flipper.isRotating || pageIndex >= pages.Count) return;
+
+        foreach (var bookmark in bookmarks)
+        {
+            if (bookmark.IsPlayingNow()) return;
+        }
+
         pages[pageIndex].SetAsLastSibling();
+        flipper.Rotate(pages[pageIndex], 180);
+        pageIndex++;
+        UpdateButtonStates();
+
+        foreach (var bookmark in bookmarks)
+        {
+            if (pageIndex == bookmark.bookmarkIndex+1)
+            {
+                bookmark.GoLeft();
+            }
+        }
     }
 
     public void RotateToIndex(int index)
     {
+        if (index < -1 || index >= pages.Count) return;
         StartCoroutine(RotatePages(index));
+    }
+
+    public void OpenBook()
+    {
+        bookButton.gameObject.SetActive(false);
+        animator.enabled = true;
+        animator.SetBool("closeBook", false);
+        animator.SetBool("openBook", true);
+        StartCoroutine(OpenBookCoroutine());
     }
 
     public void CloseBook()
     {
-        if(flipper.isRotating) return;
-        StartCoroutine(RotatePages(-1));
-        StartCoroutine(WaitOnSec());
+        backButton.gameObject.SetActive(false);
+        forwardButton.gameObject.SetActive(false);
+        if (flipper.isRotating) return;
+        StartCoroutine(CloseBookSequence());
+    }
+
+    private IEnumerator CloseBookSequence()
+    {
+        if (pageIndex > 0)
+        {
+            float originalFlipDuration = flipper.flipDuration;
+            flipper.flipDuration = 0.2f;
+
+            yield return StartCoroutine(RotatePages(0));
+
+            flipper.flipDuration = originalFlipDuration;
+        }
+
+        bookButton.gameObject.SetActive(true);
         animator.enabled = true;
+        animator.SetBool("closeBook", true);
+        animator.SetBool("openBook", false);
     }
 
     private IEnumerator RotatePages(int index)
     {
         flipper.flipDuration = 0.2f;
+
         while (pageIndex < index)
         {
-            if (flipper.isRotating) yield return null; 
+            if (flipper.isRotating)
+            {
+                yield return null;
+                continue;
+            }
+
+            Debug.Log("Right click");
             HandleRightButtonClick();
-            yield return new WaitUntil(() => !flipper.isRotating); 
+            yield return new WaitUntil(() => !flipper.isRotating);
         }
 
         while (pageIndex > index)
         {
-            if (flipper.isRotating) yield return null;
+            if (flipper.isRotating)
+            {
+                yield return null;
+                continue;
+            }
+
+            Debug.Log("Left click");
             HandleLeftButtonClick();
             yield return new WaitUntil(() => !flipper.isRotating);
         }
+
         flipper.flipDuration = 0.8f;
     }
 
-    private IEnumerator WaitForAnimation()
+    private IEnumerator OpenBookCoroutine()
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        while (stateInfo.normalizedTime < 1.0f) // Wait until animation is 100% finished
-        {
-            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            yield return null;
-        }
-
-        animator.SetBool("closeBook", true);
+        yield return WaitForAnimation("New Animation");
+        pageIndex = 1;
         animator.enabled = false;
     }
 
-    private IEnumerator WaitOnSec()
+    private IEnumerator WaitForAnimation(string stateName)
     {
-        yield return new WaitForSeconds(1);
-    }
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            yield return null;
+        }
 
+        AnimatorStateInfo stateInfo;
+        do
+        {
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            yield return null;
+        } while (stateInfo.normalizedTime < 1.0f);
+    }
 }

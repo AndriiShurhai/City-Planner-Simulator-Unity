@@ -67,6 +67,7 @@ public class PathFinder
             {
                 Vector3Int next = current + direction;
                 if (!IsValidPosition(next)) continue;
+                if (!IsValidCell(next)) continue;
 
                 float newCost = costSoFar[current] + 1;
 
@@ -154,13 +155,15 @@ public class PathFinder
         if (tile == null) return false;
 
         return !ObstacleRemover.Instance.CheckLargeObstacle(position) &&
-               !ObstacleRemover.Instance.CheckMiddleObstacle(position);
+               !ObstacleRemover.Instance.CheckMiddleObstacle(position) &&
+               GridCity.Instance.GetBuildingAt(new Vector2Int(position.x, position.y)) == null &&
+               !GridCity.Instance.Buildings.ContainsKey(new Vector2Int(position.x, position.y));
     }
 
     public bool IsValidPoint(Vector3 position)
     {
         Vector2Int cellPosition = (Vector2Int) groundTilemap.WorldToCell(position);
-        return !GridCity.Instance.Buildings.ContainsKey(cellPosition);
+        return !GridCity.Instance.Buildings.ContainsKey(cellPosition) && GridCity.Instance.GetBuildingAt(cellPosition) == null;
     }
 
     public Vector3Int WorldToCell(Vector3 target) => groundTilemap.WorldToCell(target);
