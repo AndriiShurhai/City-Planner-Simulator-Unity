@@ -12,7 +12,7 @@ public class BookmarkAnimator
     private Sequence currentSequence;
     private bool isMoving = false; 
 
-    public void GoLeft(RectTransform buttonRect)
+    public void GoLeft(RectTransform buttonRect, float originalPositionY)
     {
         if (IsPlayingNow() || buttonRect == null) return;
 
@@ -22,23 +22,23 @@ public class BookmarkAnimator
 
         currentSequence = DOTween.Sequence()
             .Append(buttonRect.DOAnchorPos(
-                new Vector2(originalPosition.x, originalPosition.y - yMoveDistance),
+                new Vector2(originalPosition.x, originalPositionY - yMoveDistance),
                 yPosAnimationDuration))
             .Append(buttonRect.DOAnchorPos(
                 new Vector2(originalPosition.x - xMoveDistance, originalPosition.y - yMoveDistance),
                 xPosAnimationDuration))
             .Append(buttonRect.DOAnchorPos(
-                new Vector2(originalPosition.x - xMoveDistance, originalPosition.y),
+                new Vector2(originalPosition.x - xMoveDistance, originalPositionY),
                 yPosAnimationDuration))
             .OnComplete(() => {
                 currentSequence = null;
 
-                originalPosition = new Vector2(originalPosition.x - xMoveDistance, originalPosition.y);
+                originalPosition = new Vector2(originalPosition.x - xMoveDistance, originalPositionY);
                 isMoving = false;
             });
     }
 
-    public void GoRight(RectTransform buttonRect)
+    public void GoRight(RectTransform buttonRect, float originalPositionY)
     {
         if (IsPlayingNow() || buttonRect == null) return;
 
@@ -48,18 +48,18 @@ public class BookmarkAnimator
 
         currentSequence = DOTween.Sequence()
             .Append(buttonRect.DOAnchorPos(
-                new Vector2(originalPosition.x, originalPosition.y - yMoveDistance),
+                new Vector2(originalPosition.x, originalPositionY - yMoveDistance),
                 yPosAnimationDuration))
             .Append(buttonRect.DOAnchorPos(
                 new Vector2(originalPosition.x + xMoveDistance, originalPosition.y - yMoveDistance),
                 xPosAnimationDuration))
             .Append(buttonRect.DOAnchorPos(
-                new Vector2(originalPosition.x + xMoveDistance, originalPosition.y),
+                new Vector2(originalPosition.x + xMoveDistance, originalPositionY),
                 yPosAnimationDuration))
             .OnComplete(() => {
                 currentSequence = null;
 
-                originalPosition = new Vector2(originalPosition.x + xMoveDistance, originalPosition.y);
+                originalPosition = new Vector2(originalPosition.x + xMoveDistance, originalPositionY);
                 isMoving = false;
             });
     }

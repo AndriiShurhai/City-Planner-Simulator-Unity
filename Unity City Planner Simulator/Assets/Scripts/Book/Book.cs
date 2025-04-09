@@ -86,7 +86,10 @@ public class Book : MonoBehaviour
         {
             if (pageIndex == bookmark.bookmarkIndex)
             {
-                bookmark.GoRight();
+                if (!bookmark.isBookmarkRight)
+                {
+                    bookmark.GoRight();
+                } 
             }
         }
 
@@ -140,6 +143,14 @@ public class Book : MonoBehaviour
 
     private IEnumerator CloseBookSequence()
     {
+        foreach (var bookmark in bookmarks)
+        {
+            if (!bookmark.isBookmarkRight)
+            {
+                bookmark.GoRight();
+            }
+        }
+
         if (pageIndex > 0)
         {
             float originalFlipDuration = flipper.flipDuration;

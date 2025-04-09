@@ -7,6 +7,9 @@ public class Bookmark : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] public int bookmarkIndex;
     [SerializeField] public Button bookmarkButton;
     private BookmarkAnimator bookmarkAnimator;
+    private float originalPositionY;
+
+    public bool isBookmarkRight = true;
 
     private void Awake()
     {
@@ -19,14 +22,21 @@ public class Bookmark : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    private void Start()
+    {
+        originalPositionY = bookmarkTransform.anchoredPosition.y;
+    }
+
     public void GoLeft()
     {
-        bookmarkAnimator.GoLeft(bookmarkTransform);
+        isBookmarkRight = false;
+        bookmarkAnimator.GoLeft(bookmarkTransform, originalPositionY);
     }
 
     public void GoRight()
     {
-        bookmarkAnimator.GoRight(bookmarkTransform);
+        isBookmarkRight = true;
+        bookmarkAnimator.GoRight(bookmarkTransform, originalPositionY);
     }
 
     public bool IsPlayingNow()
