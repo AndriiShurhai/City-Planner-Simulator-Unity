@@ -9,13 +9,13 @@ public class Book : MonoBehaviour
 {
     public List<RectTransform> pages;
     public int pageIndex = 0;
-
-    private PageFlipper flipper;
     [SerializeField] private Button backButton;
     [SerializeField] private Button forwardButton;
     [SerializeField] private Button bookButton;
     [SerializeField] private List<Bookmark> bookmarks;
 
+
+    private PageFlipper flipper;
     private Animator animator;
 
     public static Book Instance { get; private set; }
@@ -25,6 +25,7 @@ public class Book : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
     }
@@ -34,18 +35,8 @@ public class Book : MonoBehaviour
         flipper = new PageFlipper();
         animator = GetComponent<Animator>();
         InitialStart();
-
-        foreach (var bookmark  in bookmarks)
-        {
-            bookmark.bookmarkButton.onClick.AddListener(() => MoveBookmark(bookmark));
-        }
+        RegisterBookmarksEvents();
     }
-
-    private void MoveBookmark(Bookmark bookmark)
-    {
-        RotateToIndex(bookmark.bookmarkIndex);
-    }
-
     private void InitialStart()
     {
         for (int i = 0; i < pages.Count; i++)
@@ -61,21 +52,23 @@ public class Book : MonoBehaviour
         UpdateButtonStates();
     }
 
+    private void RegisterBookmarksEvents()
+    {
+        foreach (var bookmark in bookmarks)
+        {
+            var currentBookmark = bookmark;
+            currentBookmark.bookmarkButton.onClick.AddListener(() => MoveBookmark(currentBookmark));
+        }
+    }
     private void UpdateButtonStates()
     {
         backButton.interactable = (pageIndex > -1);
 
         forwardButton.interactable = (pageIndex < pages.Count);
     }
-
     public void HandleLeftButtonClick()
     {
-        if (flipper.isRotating || pageIndex <= 0) return;
-
-        foreach (var bookmark in bookmarks)
-        {
-            if (bookmark.IsPlayingNow()) return;
-        }
+        if (flipper.isRotating || pageIndex <= 0 || AnyBookmarkPlaying()) return;
 
         pageIndex--;
         pages[pageIndex].SetAsLastSibling();
@@ -84,25 +77,16 @@ public class Book : MonoBehaviour
 
         foreach (var bookmark in bookmarks)
         {
-            if (pageIndex == bookmark.bookmarkIndex)
+            if (pageIndex == bookmark.bookmarkIndex && !bookmark.isBookmarkRight)
             {
-                if (!bookmark.isBookmarkRight)
-                {
-                    bookmark.GoRight();
-                } 
+                bookmark.GoRight();
             }
         }
 
     }
-
     public void HandleRightButtonClick()
     {
-        if (flipper.isRotating || pageIndex >= pages.Count) return;
-
-        foreach (var bookmark in bookmarks)
-        {
-            if (bookmark.IsPlayingNow()) return;
-        }
+        if (flipper.isRotating || pageIndex >= pages.Count || AnyBookmarkPlaying()) return;
 
         pages[pageIndex].SetAsLastSibling();
         flipper.Rotate(pages[pageIndex], 180);
@@ -118,12 +102,20 @@ public class Book : MonoBehaviour
         }
     }
 
+    private bool AnyBookmarkPlaying()
+    {
+        foreach (var bookmark in bookmarks)
+        {
+            if (bookmark.IsPlayingNow()) return true;
+        }
+        return false;
+    }
     public void RotateToIndex(int index)
     {
         if (index < -1 || index >= pages.Count) return;
         StartCoroutine(RotatePages(index));
-    }
 
+    }
     public void OpenBook()
     {
         bookButton.gameObject.SetActive(false);
@@ -132,7 +124,6 @@ public class Book : MonoBehaviour
         animator.SetBool("openBook", true);
         StartCoroutine(OpenBookCoroutine());
     }
-
     public void CloseBook()
     {
         backButton.gameObject.SetActive(false);
@@ -140,7 +131,6 @@ public class Book : MonoBehaviour
         if (flipper.isRotating) return;
         StartCoroutine(CloseBookSequence());
     }
-
     private IEnumerator CloseBookSequence()
     {
         foreach (var bookmark in bookmarks)
@@ -166,7 +156,6 @@ public class Book : MonoBehaviour
         animator.SetBool("closeBook", true);
         animator.SetBool("openBook", false);
     }
-
     private IEnumerator RotatePages(int index)
     {
         flipper.flipDuration = 0.2f;
@@ -179,7 +168,6 @@ public class Book : MonoBehaviour
                 continue;
             }
 
-            Debug.Log("Right click");
             HandleRightButtonClick();
             yield return new WaitUntil(() => !flipper.isRotating);
         }
@@ -192,21 +180,18 @@ public class Book : MonoBehaviour
                 continue;
             }
 
-            Debug.Log("Left click");
             HandleLeftButtonClick();
             yield return new WaitUntil(() => !flipper.isRotating);
         }
 
         flipper.flipDuration = 0.8f;
     }
-
     private IEnumerator OpenBookCoroutine()
     {
         yield return WaitForAnimation("New Animation");
         pageIndex = 1;
         animator.enabled = false;
     }
-
     private IEnumerator WaitForAnimation(string stateName)
     {
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
@@ -214,11 +199,15 @@ public class Book : MonoBehaviour
             yield return null;
         }
 
-        AnimatorStateInfo stateInfo;
         do
         {
-            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             yield return null;
-        } while (stateInfo.normalizedTime < 1.0f);
+        } while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
     }
+
+    private void MoveBookmark(Bookmark bookmark)
+    {
+        RotateToIndex(bookmark.bookmarkIndex);
+    }
+
 }

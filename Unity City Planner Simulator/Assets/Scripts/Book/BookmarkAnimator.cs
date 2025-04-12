@@ -7,6 +7,7 @@ public class BookmarkAnimator
     private float xPosAnimationDuration = 0.2f;
     private float xMoveDistance = 610f;
     private float yMoveDistance = 50f;
+
     private Vector2 originalPosition; 
     private bool isHovering = false;
     private Sequence currentSequence;
