@@ -18,7 +18,6 @@ public class AmusementParkStructure : Building
     public override void Initialize(BuildingData buildingData, Vector2Int size)
     {
         base.Initialize(buildingData, size);
-        AddBuildingEffect(new HappinessRateBoostEffect());
     }
 
     public override void ProcessTick()

@@ -8,6 +8,8 @@ public class CarPathfinding : MonoBehaviour
     [Header("References")]
     [SerializeField] public Tilemap roadTilemap;
     [SerializeField] private float moveSpeed = 7f;
+
+    [Header("Tile Definitions")]
     [SerializeField] private List<string> leftLaneTiles = new List<string> { "tilemap_288", "tilemap_313" };
     [SerializeField] private List<string> rightLaneTiles = new List<string> { "tilemap_290", "tilemap_265" };
     [SerializeField] private List<string> dividerLaneTiles = new List<string> { "tilemap_294", "tilemap_271"}; //"tilemap_296", "tilemap_319", "tilemap_295"
@@ -18,18 +20,22 @@ public class CarPathfinding : MonoBehaviour
 
     public event Action OnDestinationReached;
 
+    private HashSet<string> _leftLaneSet;
+    private HashSet<string> _rightLaneSet;
+    private HashSet<string> _dividerLaneSet;
+    private SpriteRenderer _spriteRenderer;
+
+    private List<Vector3> path = new List<Vector3>();
+    private int currentPathIndex = 0;
+    private bool isMoving = false;
+
+
     private Vector3Int[] directions = {
         new Vector3Int(1, 0, 0),
         new Vector3Int(-1, 0, 0),
         new Vector3Int(0, 1, 0),
         new Vector3Int(0, -1, 0)
     };
-
-    private List<Vector3> path = new List<Vector3>();
-    private int currentPathIndex = 0;
-    private bool isMoving = false;
-
-    private SpriteRenderer spriteRenderer;
 
     private enum RoadType
     {
@@ -39,9 +45,15 @@ public class CarPathfinding : MonoBehaviour
         Other
     }
 
+    private void Awake()
+    {
+        InitializeTileSets();
+    }
+
+
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -62,7 +74,12 @@ public class CarPathfinding : MonoBehaviour
         currentPathIndex = 0;
         isMoving = true;
     }
-
+    private void InitializeTileSets()
+    {
+        _leftLaneSet = new HashSet<string>(leftLaneTiles);
+        _rightLaneSet = new HashSet<string>(rightLaneTiles);
+        _dividerLaneSet = new HashSet<string>(dividerLaneTiles);
+    }
     private Vector3Int GetCorrectLane(Vector3Int cell)
     {
         foreach (Vector3Int direction in directions)
@@ -138,7 +155,10 @@ public class CarPathfinding : MonoBehaviour
 
                 float newCost = costSoFar[current] + 1;
 
-                if (GetRoadType(current) != GetRoadType(next) || !IsCorrectDrivingSide(current, next))
+                RoadType currentRoadType = GetRoadType(current);
+                RoadType nextRoadType = GetRoadType(next);
+
+                if (currentRoadType != nextRoadType || !IsCorrectDrivingSide(current, next))
                 {
                     newCost += 5;
                 }
@@ -238,22 +258,22 @@ public class CarPathfinding : MonoBehaviour
         {
             if (direction.x > 0)
             {
-                spriteRenderer.sprite = carSprites[0];  // right
+                _spriteRenderer.sprite = carSprites[0];  // right
             }
             else
             {
-                spriteRenderer.sprite = carSprites[2];  // left
+                _spriteRenderer.sprite = carSprites[2];  // left
             }
         }
         else
         {
             if (direction.y > 0)
             {
-                spriteRenderer.sprite = carSprites[3]; // up
+                _spriteRenderer.sprite = carSprites[3]; // up
             }
             else
             {
-                spriteRenderer.sprite = carSprites[1]; // down
+                _spriteRenderer.sprite = carSprites[1]; // down
             }
         }
 

@@ -110,10 +110,16 @@ public class EconomyManager : MonoBehaviour
         OnMoneyChanged?.Invoke();
     }
 
-    public void SubtractMoney(int amount)
+    public bool SubtractMoney(int amount)
     {
+        if (_currentMoney < amount)
+        {
+            return false;
+        }
         _currentMoney = Mathf.Max(0, _currentMoney - amount);
         OnMoneyChanged?.Invoke();
+
+        return true;
     }
 
     public void UpdateUI()

@@ -22,8 +22,6 @@ public class ResidentialHouse : Building
         currentResidents = START_RESIDENTS;
         currentLevel = 1;
 
-        AddBuildingEffect(new UpgradeBoostResidentialEffect(this));
-
         if (!isPlaying)
         {
             StartCoroutine(PlayParticlesWithDelay());
@@ -68,10 +66,9 @@ public class ResidentialHouse : Building
     public override void OnPlaced()
     {
         base.OnPlaced();
-        if (occupiedPositions != null && occupiedPositions.Count > 0 && !wasPlacedBefore)
+        if (OccupiedPositions != null && OccupiedPositions.Count > 0)
         {
-            ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)occupiedPositions[0]);
-            wasPlacedBefore = true;
+            ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)OccupiedPositions[0]);
         }
         else
         {
@@ -85,7 +82,7 @@ public class ResidentialHouse : Building
         currentLevel++;
         currentResidents++;
 
-        ResidentsManager.Instance.SpawnResidents(1, (Vector3Int)occupiedPositions[0]);
+        ResidentsManager.Instance.SpawnResidents(1, (Vector3Int)OccupiedPositions[0]);
     }
 
 }

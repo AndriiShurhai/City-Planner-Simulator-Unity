@@ -1,95 +1,187 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-public interface IBuildingEffects
+public interface IBuildingEffect
 {
-    void ProcessTick(Building building);
     void OnPlaced(Building building);
+    void ProcessTick(Building building);
     void Remove(Building building);
 }
 
-
-public abstract class BuildingEffectBase : IBuildingEffects
+public abstract class BuildingEffectBase : IBuildingEffect
 {
     public virtual void OnPlaced(Building building) { }
     public virtual void ProcessTick(Building building) { }
     public virtual void Remove(Building building) { }
 }
 
-public class PlacingBuildingOneTimeEffect : BuildingEffectBase
+public static class BuildingEffectFactory
 {
-    private bool hasRun;
-    public override void OnPlaced(Building building)
+    public static List<IBuildingEffect> CreateEffectsForBuilding(Building building)
     {
+        var effects = new List<IBuildingEffect>();
+
+        effects.Add(new CoreBuildingEffect());
+
         switch (building.buildingData.buildingType)
         {
             case BuildingType.Residential:
-                Debug.Log("This is boost for residential house");
+                effects.Add(new ResidentialEffect());
                 break;
-
-            case BuildingType.Flat:
-                Debug.Log("This is boost for flat");
-                break;
-
             case BuildingType.Commercial:
-                UnemploymentRateManager.Instance.DecreaseRate(1f);
+                effects.Add(new CommercialEffect());
+                effects.Add(new EmploymentEffect());
                 break;
-
             case BuildingType.Amusement:
-                HappinessRateManager.Instance.IncreaseRate(1f);
+                effects.Add(new AmusementEffect());
+                effects.Add(new HappinessEffect());
                 break;
-
             case BuildingType.Medical:
-                HealthRateManager.Instance.IncreaseRate(1f);
+                effects.Add(new MedicalEffect());
+                effects.Add(new HealthEffect());
                 break;
-
-            default:
-                Debug.Log("This is boost");
+            case BuildingType.Flat:
+                effects.Add(new FlatEffect());
                 break;
         }
 
-        if (!hasRun)
-        {
-            hasRun = true;
-            Debug.Log("This is an initialization boost");
-        }
+        effects.Add(new UpgradeEffect(building));
+
+        return effects;
     }
 }
 
-public class UpgradeBoostResidentialEffect : BuildingEffectBase
+public class CoreBuildingEffect : BuildingEffectBase
 {
-    public UpgradeBoostResidentialEffect(Building building)
-    {
-        building.OnUpgrade += HandleUpgrade;
-    }
+    private bool _hasProcessedInitialization = false;
 
-    private void HandleUpgrade()
+    public override void OnPlaced(Building building)
     {
-        Debug.Log("This is an upgrade");
+        if (!_hasProcessedInitialization)
+        {
+            _hasProcessedInitialization = true;
+            Debug.Log($"Core initialization for {building.buildingData.buildingType}");
+        }
     }
 }
 
-public class HappinessRateBoostEffect : BuildingEffectBase
+public class ResidentialEffect : BuildingEffectBase
 {
     public override void OnPlaced(Building building)
     {
-        foreach (var structure in EconomyManager.Instance.registeredBuildings)
-        {
-            if (structure.buildingData.buildingType == BuildingType.Amusement)
-            { 
-            }
-        }
+        Debug.Log("Applied boost for residential house");
     }
 }
 
-public class HospitalRateBoostEffect : BuildingEffectBase
+public class FlatEffect : BuildingEffectBase
 {
     public override void OnPlaced(Building building)
     {
-        base.OnPlaced(building);
+        Debug.Log("Applied boost for flat");
+    }
+}
+
+public class CommercialEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        Debug.Log("Applied commercial building effect");
+    }
+}
+
+public class AmusementEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        Debug.Log("Applied amusement building effect");
+    }
+}
+
+public class MedicalEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        Debug.Log("Applied medical building effect");
+    }
+}
+
+public class EmploymentEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        UnemploymentRateManager.Instance.DecreaseRate(1f);
+    }
+
+    public override void Remove(Building building)
+    {
+        UnemploymentRateManager.Instance.IncreaseRate(1f);
+    }
+}
+
+public class HappinessEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        HappinessRateManager.Instance.IncreaseRate(1f);
+    }
+
+    public override void Remove(Building building)
+    {
+        HappinessRateManager.Instance.DecreaseRate(1f);
     }
 
     public override void ProcessTick(Building building)
     {
-        base.ProcessTick(building);
+        // HappinessRateManager.Instance.IncreaseRate(0.1f * Time.deltaTime);
+    }
+}
+
+public class HealthEffect : BuildingEffectBase
+{
+    public override void OnPlaced(Building building)
+    {
+        HealthRateManager.Instance.IncreaseRate(1f);
+    }
+
+    public override void Remove(Building building)
+    {
+        HealthRateManager.Instance.DecreaseRate(1f);
+    }
+}
+
+public class UpgradeEffect : BuildingEffectBase
+{
+    private Building _building;
+
+    public UpgradeEffect(Building building)
+    {
+        _building = building;
+        _building.OnUpgrade += HandleUpgrade;
+    }
+
+    private void HandleUpgrade()
+    {
+        Debug.Log($"Building upgraded: {_building.buildingData.buildingType}");
+
+        switch (_building.buildingData.buildingType)
+        {
+            case BuildingType.Residential:
+                break;
+            case BuildingType.Commercial:
+                UnemploymentRateManager.Instance.DecreaseRate(0.5f); 
+                break;
+            case BuildingType.Amusement:
+                HappinessRateManager.Instance.IncreaseRate(0.5f);
+                break;
+            case BuildingType.Medical:
+                HealthRateManager.Instance.IncreaseRate(0.5f);
+                break;
+        }
+    }
+
+    public override void Remove(Building building)
+    {
+        _building.OnUpgrade -= HandleUpgrade;
     }
 }

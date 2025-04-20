@@ -17,6 +17,6 @@ public class HospitalBuilding : Building
     private void Start()
     {
         int doctorIndex = Random.Range(0, doctorsPrefabs.Count);
-        ResidentsManager.Instance.SpawnDoctors(1, (Vector3Int)occupiedPositions[0], doctorsPrefabs[doctorIndex]);
+        ResidentsManager.Instance.SpawnDoctors(1, (Vector3Int)OccupiedPositions[0], doctorsPrefabs[doctorIndex]);
     }
 }

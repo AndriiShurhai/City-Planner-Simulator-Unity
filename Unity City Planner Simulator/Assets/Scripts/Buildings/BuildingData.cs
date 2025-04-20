@@ -19,4 +19,7 @@ public class BuildingData : ScriptableObject
     public int incomePerResident;
 
     public int jobsAvailiable;
+    public int maxUpgradeLevel;
+    public int upgradeLevel;
+    public int upgradeCost;
 }

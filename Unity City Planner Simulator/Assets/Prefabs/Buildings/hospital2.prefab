@@ -125,7 +125,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 8.038462, y: 7.64}
+  m_Offset: {x: 8, y: 8}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -135,7 +135,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16.076923, y: 15}
+  m_Size: {x: 16, y: 15}
   m_EdgeRadius: 0
 --- !u!95 &5373750400069468181
 Animator:
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 7efef008c2c91fd4d8846bd3466e34e2, type: 2}
-  wasPlacedBefore: 0
   doctorsPrefabs:
   - {fileID: 99105146818192935, guid: 0de55ca4c1af4684bbd2e1fee7f1bf43, type: 3}
   - {fileID: 1642375130578730922, guid: 7e0421e072d59e849a394efb61a6e69a, type: 3}

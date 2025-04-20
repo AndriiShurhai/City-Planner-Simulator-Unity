@@ -6,8 +6,13 @@ using UnityEngine.Tilemaps;
 
 public class CarAgentManager : MonoBehaviour
 {
-    [SerializeField] private Tilemap roadTilemap;
 
+    [Header("References")]
+    [SerializeField] private Tilemap roadTilemap;
+    [SerializeField] private GameObject carPrefab;
+    [SerializeField] private List<GameObject> positions;
+
+    [Header("Car sprites")]
     [SerializeField] private List<Sprite> redCarSprites;
     [SerializeField] private List<Sprite> greenCarSprites;
     [SerializeField] private List<Sprite> pinkCarSprites;
@@ -16,24 +21,30 @@ public class CarAgentManager : MonoBehaviour
     [SerializeField] private List<Sprite> skyNewCarSprites;
     [SerializeField] private List<Sprite> greenNewCarSprites;
 
-
-    [SerializeField] private List<GameObject> positions;
-    [SerializeField] private GameObject carPrefab;
-    [SerializeField] private GameObject newCarPrefab; 
+    [Header("Settings")]
     [SerializeField] private float interval = 5f;
     [SerializeField] private int maxCarsAllowed = 100;  
 
     private List<GameObject> activeCars = new List<GameObject>();
+    private Coroutine spawnCoroutine;
 
     private void Start()
     {
-        StartCoroutine(SpawnCars());
+        spawnCoroutine = StartCoroutine(SpawnCars());
     }
 
+    private void OnDisable()
+    {
+        if (spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+        }
+    }
     private IEnumerator SpawnCars()
     {
         while (true)  
         {
+            CleanupDestroyedCars();
             if (activeCars.Count < maxCarsAllowed)
             {
                 SpawnNewCar();
@@ -43,6 +54,11 @@ public class CarAgentManager : MonoBehaviour
 
             yield return new WaitForSeconds(interval);
         }
+    }
+
+    private void CleanupDestroyedCars()
+    {
+        activeCars.RemoveAll(car => car == null);
     }
 
     private void SpawnNewCar()
@@ -78,16 +94,27 @@ public class CarAgentManager : MonoBehaviour
             spriteRenderer.sprite = carSprites[0];  
         }
 
-        CarPathfinding pathfinding = newCar.GetComponent<CarPathfinding>();
-        if (pathfinding != null)
-        {
-            pathfinding.carSprites = carSprites;
-            pathfinding.roadTilemap = roadTilemap;
-            pathfinding.SetDestination(positions[randomStartPositionIndex].transform.position, positions[randomEndPositionIndex].transform.position);
-            pathfinding.OnDestinationReached += () => OnCarReachedDestination(newCar);
-        }
+        ConfigureCar(newCar, carSprites, positions[randomStartPositionIndex].transform.position, positions[randomEndPositionIndex].transform.position);
 
         activeCars.Add(newCar);
+    }
+
+    private void ConfigureCar(GameObject car, List<Sprite> sprites, Vector3 startPosition, Vector3 endPosition)
+    {
+        SpriteRenderer spriteRenderer = car.GetComponent<SpriteRenderer>();   
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = sprites[0];
+        }
+
+        CarPathfinding pathfinding = car.GetComponent<CarPathfinding>();
+        if (pathfinding != null)
+        {
+            pathfinding.carSprites = sprites;
+            pathfinding.roadTilemap = roadTilemap;
+            pathfinding.SetDestination(startPosition, endPosition);
+            pathfinding.OnDestinationReached += () => OnCarReachedDestination(car);
+        }
     }
 
     private void OnCarReachedDestination(GameObject car)
