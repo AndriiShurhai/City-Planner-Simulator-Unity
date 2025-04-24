@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Unity.VisualScripting;
 
 public class ZoneManager : MonoBehaviour
 {
@@ -23,94 +24,82 @@ public class ZoneManager : MonoBehaviour
 
     private void Update()
     {
-        bool shouldShowTiles = GridCity.Instance.GetActiveBuildingType() != null ||
-                               BuildingMover.Instance.CurrentlyMovingBuilding != null;
+        bool shouldShowTiles = IsBuildingInteractionActive();
 
-        if (shouldShowTiles && !showTiles)
+        if (shouldShowTiles != showTiles)
         {
-            Debug.Log("Showing tiles");
-            BuildingType currentType = GridCity.Instance.GetActiveBuildingType()?.buildingType ??
-                                       BuildingMover.Instance.CurrentlyMovingBuilding.buildingData.buildingType;
-
-            foreach (var zone in _cityZones.Where(z => z.zoneTypes.Contains(currentType)))
-            {
-                foreach (var tile in zone._visualTiles)
-                {
-                    var renderer = tile.GetComponent<SpriteRenderer>();
-                    renderer.enabled = true;
-
-                    if (!tile.TryGetComponent<TileVisualEffect>(out var effect))
-                    {
-                        effect = tile.AddComponent<TileVisualEffect>();
-                    }
-                }
-            }
-            showTiles = true;
-            Debug.Log("Showing zone tiles.");
+            UpdateTileVisibility(shouldShowTiles);
+            showTiles = shouldShowTiles;
         }
-        else if (!shouldShowTiles && showTiles)
+    }
+
+
+    private bool IsBuildingInteractionActive()
+    {
+        return GridCity.Instance.GetActiveBuildingType() != null ||
+               BuildingMover.Instance.CurrentlyMovingBuilding != null;
+    }
+
+    private void UpdateTileVisibility(bool show)
+    {
+        BuildingType? currentType = show ? GetCurrentBuildingType() : null;
+
+        foreach (var zone in _cityZones)
         {
-            foreach (var zone in _cityZones)
+            bool shouldShowZone = show && currentType.HasValue && zone.zoneTypes.Contains(currentType.Value);
+            foreach (var tile in zone._visualTiles)
             {
-                foreach (var tile in zone._visualTiles)
+                var renderer = tile.GetComponent<SpriteRenderer>();
+                renderer.enabled = shouldShowZone;
+
+                if (shouldShowZone)
                 {
-                    if (tile.TryGetComponent<TileVisualEffect>(out var effect))
+                    renderer.enabled = true;
+                    var effect = tile.GetComponent<TileVisualEffect>() ?? tile.AddComponent<TileVisualEffect>();
+                    effect.enabled = true;
+                }
+                else
+                {
+                    renderer.enabled = false;
+                    if (tile.TryGetComponent(out TileVisualEffect effect))
                     {
                         effect.ResetEffect();
+                        effect.enabled = false;
                     }
-                    tile.GetComponent<SpriteRenderer>().enabled = false;
                 }
             }
-            showTiles = false;
-            Debug.Log("Hiding zone tiles.");
         }
-
-        Debug.Log($"Current number of city zones: {_cityZones.Count}");
     }
 
-    public void RegisterZone(CityZone zone)
+    private BuildingType GetCurrentBuildingType()
     {
-        if (!_cityZones.Contains(zone))
-        {
-            _cityZones.Add(zone);
-        }
+        return GridCity.Instance?.GetActiveBuildingType()?.buildingType ??
+               BuildingMover.Instance.CurrentlyMovingBuilding.buildingData.buildingType;
     }
+    public void RegisterZone(CityZone zone) => _cityZones.AddIfNotContains(zone);
 
-    public void UnregisterZone(CityZone zone)
-    {
-        if (_cityZones.Contains(zone))
-        {
-            _cityZones.Remove(zone);
-        }
-    }
+    public void UnregisterZone(CityZone zone) => _cityZones.Remove(zone);
 
     public void RegisterBuilding(Building building)
     {
-        foreach (CityZone zone in _cityZones)
-        {
-            zone.RegisterBuilding(building);
-        }
+        foreach (var zone in _cityZones) zone.RegisterBuilding(building);
     }
 
     public void ProcessTick()
     {
-        foreach (var zone in _cityZones)
-        {
-            zone.ProcessTick();
-        }
+        foreach (var zone in _cityZones) zone.ProcessTick();
     }
 
     public List<CityZone> GetZonesContainingPosition(Vector2Int position)
     {
-        List<CityZone> zones = new List<CityZone>();
+        return _cityZones.Where(zone => zone.ContainsPosition(position)).ToList();
+    }
+}
 
-        foreach (var zone in _cityZones)
-        {
-            if (zone.ContainsPosition(position))
-            {
-                zones.Add(zone);
-            }
-        }
-        return zones;
+public static class ListExtensions
+{
+    public static void AddIfNotContains<T>(this List<T> list, T item)
+    {
+        if (!list.Contains(item)) list.Add(item);
     }
 }
