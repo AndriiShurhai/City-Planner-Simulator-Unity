@@ -18,16 +18,15 @@ public class TileVisualEffect : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
         baseColor = spriteRenderer.color;
+        pulseColor = spriteRenderer .color;
         timeOffset = Random.Range(0f, 2f); // To avoid uniform movement
     }
 
     void Update()
     {
-        // Floating animation
         float yOffset = Mathf.Sin((Time.time + timeOffset) * floatSpeed) * floatAmplitude;
         transform.position = originalPosition + new Vector3(0, yOffset, 0);
 
-        // Color pulse effect
         float pulse = Mathf.Sin((Time.time + timeOffset) * colorPulseSpeed) * 0.5f + 0.5f;
         spriteRenderer.color = Color.Lerp(baseColor, pulseColor, pulse);
     }

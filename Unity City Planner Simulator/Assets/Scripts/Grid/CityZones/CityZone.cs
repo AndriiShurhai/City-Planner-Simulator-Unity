@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,16 +17,40 @@ public class CityZone : MonoBehaviour
 
     public List<BuildingType> zoneTypes = new List<BuildingType>(); 
 
+    private List<Vector2Int> positionsForMovingBuilding = new List<Vector2Int>();
+    private List<Vector2Int> _positionsForMoving;
+
+
     private void Awake()
     {
-        if (zoneTypes == null)
+        zoneTypes ??= new List<BuildingType>();
+    }
+
+    private void Start()
+    {
+        if (BuildingMover.Instance != null)
         {
-            zoneTypes = new List<BuildingType>();
+            BuildingMover.Instance.OnBuildingStartMove += HandleMovingBuilding;
         }
+
+        if (GridCity.Instance != null)
+        {
+            GridCity.Instance.OnBuildingMoved += HandleMovedBuilding;
+        }
+    }
+    private void OnDestroy()
+    {
+        if (BuildingMover.Instance != null)
+            BuildingMover.Instance.OnBuildingStartMove -= HandleMovingBuilding;
+        if (GridCity.Instance != null)
+            GridCity.Instance.OnBuildingMoved -= HandleMovedBuilding;
+
+        ClearVisualRepresentation();
     }
 
     public void DefineZoneArea(List<Vector2Int> gridPosition)
     {
+        _zoneGridPosition.Clear();
         _zoneGridPosition = new HashSet<Vector2Int>(gridPosition);
         CreateVisualRepresentation();
         UpdateVisualsColor();
@@ -33,40 +58,36 @@ public class CityZone : MonoBehaviour
 
     private void CreateVisualRepresentation()
     {
+        if (this == null || gameObject == null) return;
+
         ClearVisualRepresentation();
 
         foreach (var pos in _zoneGridPosition)
         {
-            Vector3 worldPosition = Vector3.zero;
+            Vector3 worldPosition = GridCity.Instance != null && GridCity.Instance.Grid != null
+                ? GridCity.Instance.Grid.CellToWorld(new Vector3Int(pos.x, pos.y, 0))
+                : new Vector3(pos.x, pos.y, 0);
 
-            if (GridCity.Instance != null && GridCity.Instance.Grid != null)
-            {
-                worldPosition = GridCity.Instance.Grid.CellToWorld(new Vector3Int(pos.x, pos.y, 0));
-            }
-            else
-            {
-                worldPosition = new Vector3(pos.x, pos.y, 0);
-                Debug.LogWarning("GridCity.Instance or Grid is null. Using fallback position calculation.");
-            }
+            if (GridCity.Instance == null || GridCity.Instance.Grid == null)
+                Debug.LogWarning("GridCity.Instance or Grid is null. Using fallback position.");
 
-            GameObject tile;
-
-            if (tilePrefab != null)
+            if (tilePrefab == null)
             {
-                tile = Instantiate(tilePrefab, transform);
-            }
-            else
-            {
-                tile = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                tile.transform.SetParent(transform);
+                Debug.LogWarning("tilePrefab is null in CityZone. Please assign a sprite prefab.");
+                continue; // Skip tile creation instead of using a cube
             }
 
+            GameObject tile = Instantiate(tilePrefab, transform);
             tile.transform.position = worldPosition + new Vector3(0.5f, 0.5f, 0);
             tile.transform.localScale = new Vector3(1, 1, 0.1f);
 
             if (!tile.TryGetComponent<SpriteRenderer>(out var renderer))
             {
                 renderer = tile.AddComponent<SpriteRenderer>();
+                renderer.color = zoneColor;
+            }
+            else
+            {
                 renderer.color = zoneColor;
             }
 
@@ -86,10 +107,6 @@ public class CityZone : MonoBehaviour
         _visualTiles.Clear();
     }
 
-    private void OnDestroy()
-    {
-        ClearVisualRepresentation();
-    }
 
     public bool ContainsPosition(Vector2Int position)
     {
@@ -130,30 +147,57 @@ public class CityZone : MonoBehaviour
                 zoneTypes.Add(type);
             }
 
-            building.OnBuildingDestroyed += OnBuildingDestroyed;
+            Building.OnBuildingDestroyed += OnBuildingDestroyed;
 
             EvaluateZoneEffects();
         }
     }
+
 
     private void OnBuildingDestroyed(Building building)
     {
-        BuildingType type = building.BuildingData.buildingType;
-
-        if (_buildingsByType.ContainsKey(type))
+        var type = building.BuildingData.buildingType;
+        if (_buildingsByType.TryGetValue(type, out var list))
         {
-            _buildingsByType[type].Remove(building);
-            building.OnBuildingDestroyed -= OnBuildingDestroyed;
-
-            if (_buildingsByType[type].Count == 0)
+            list.Remove(building);
+            Building.OnBuildingDestroyed -= OnBuildingDestroyed;
+            if (list.Count == 0) zoneTypes.Remove(type);
+            bool anyLeft = false;
+            foreach (var kv in _buildingsByType)
+                if (kv.Value.Count > 0) { anyLeft = true; break; }
+            if (!anyLeft)
             {
-                zoneTypes.Remove(type);
+                ZoneManager.Instance.UnregisterZone(this);
+                try
+                {
+                    Destroy(gameObject);
+                }
+                catch { }
+                return;
             }
-
             EvaluateZoneEffects();
         }
     }
 
+    private void HandleMovingBuilding(Building building)
+    {
+        _positionsForMoving = new List<Vector2Int>(building.OccupiedPositions);
+    }
+
+    private void HandleMovedBuilding(Building building)
+    {
+        var type = building.BuildingData.buildingType;
+        if (_buildingsByType.TryGetValue(type, out var list) && list.Contains(building))
+        {
+            bool stillInZone = building.OccupiedPositions.Any(pos => _zoneGridPosition.Contains(pos));
+            if (!stillInZone)
+            {
+                list.Remove(building);
+                if (list.Count == 0) zoneTypes.Remove(type);
+                EvaluateZoneEffects();
+            }
+        }
+    }
     public int GetBuildingCount(BuildingType buildingType)
     {
         if (_buildingsByType.TryGetValue(buildingType, out List<Building> buildings))
@@ -228,7 +272,9 @@ public class CityZone : MonoBehaviour
 
     public void SetZoneColor(Color color)
     {
+        Debug.Log($"Setting zone color to {color}");
         zoneColor = color;
+        Debug.Log($"Now zone color is {zoneColor}");
         UpdateVisualsColor();
     }
 
@@ -241,7 +287,9 @@ public class CityZone : MonoBehaviour
             SpriteRenderer renderer = tile.GetComponent<SpriteRenderer>();
             if (renderer != null)
             {
+                Debug.Log($"Changing renderer color: prev {renderer.color}; new: {zoneColor}");
                 renderer.color = zoneColor;
+                renderer.enabled = false;
             }
             else
             {
@@ -279,6 +327,13 @@ public class CityZone : MonoBehaviour
         if (changed)
         {
             CreateVisualRepresentation();
+        }
+    }
+    public void RegisterBuildingsInZone()
+    {
+        foreach (var building in FindObjectsByType<Building>(FindObjectsSortMode.None))
+        {
+            RegisterBuilding(building);
         }
     }
 }

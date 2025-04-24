@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 public class ZoneManager : MonoBehaviour
 {
@@ -22,50 +23,49 @@ public class ZoneManager : MonoBehaviour
 
     private void Update()
     {
-        if (GridCity.Instance.GetActiveBuildingType() == null && showTiles)
+        bool shouldShowTiles = GridCity.Instance.GetActiveBuildingType() != null ||
+                               BuildingMover.Instance.CurrentlyMovingBuilding != null;
+
+        if (shouldShowTiles && !showTiles)
+        {
+            Debug.Log("Showing tiles");
+            BuildingType currentType = GridCity.Instance.GetActiveBuildingType()?.buildingType ??
+                                       BuildingMover.Instance.CurrentlyMovingBuilding.buildingData.buildingType;
+
+            foreach (var zone in _cityZones.Where(z => z.zoneTypes.Contains(currentType)))
+            {
+                foreach (var tile in zone._visualTiles)
+                {
+                    var renderer = tile.GetComponent<SpriteRenderer>();
+                    renderer.enabled = true;
+
+                    if (!tile.TryGetComponent<TileVisualEffect>(out var effect))
+                    {
+                        effect = tile.AddComponent<TileVisualEffect>();
+                    }
+                }
+            }
+            showTiles = true;
+            Debug.Log("Showing zone tiles.");
+        }
+        else if (!shouldShowTiles && showTiles)
         {
             foreach (var zone in _cityZones)
             {
-                foreach(var tile in zone._visualTiles)
+                foreach (var tile in zone._visualTiles)
                 {
-
                     if (tile.TryGetComponent<TileVisualEffect>(out var effect))
                     {
                         effect.ResetEffect();
-                        Destroy(effect);
                     }
                     tile.GetComponent<SpriteRenderer>().enabled = false;
                 }
             }
             showTiles = false;
+            Debug.Log("Hiding zone tiles.");
         }
 
-        if (GridCity.Instance.GetActiveBuildingType() != null && !showTiles)
-        {
-            foreach( var zone in _cityZones)
-            {
-                if (zone.zoneTypes.Contains(GridCity.Instance.GetActiveBuildingType().buildingType))
-                {
-                    Debug.Log($"Zone neame: {zone.name}; Buildings in this zone: {zone.GetBuildingCount(GridCity.Instance.GetActiveBuildingType().buildingType)}");
-                    foreach (var tile in zone._visualTiles)
-                    {
-                        tile.GetComponent<SpriteRenderer>().enabled = true;
-
-                        var originalPosition = tile.transform.position;
-
-                        if (!tile.TryGetComponent<TileVisualEffect>(out var effect))
-                        {
-                            effect = tile.gameObject.AddComponent<TileVisualEffect>();
-                            effect.spriteRenderer = tile.GetComponent<SpriteRenderer>();
-                            effect.originalPosition = tile.transform.position; // 
-                            effect.baseColor = tile.GetComponent<SpriteRenderer>().color;
-                            effect.timeOffset = Random.Range(0f, 2f);
-                        }
-                    }
-                }
-            }
-            showTiles = true;
-        }
+        Debug.Log($"Current number of city zones: {_cityZones.Count}");
     }
 
     public void RegisterZone(CityZone zone)

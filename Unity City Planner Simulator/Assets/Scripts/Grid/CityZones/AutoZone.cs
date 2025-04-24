@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,8 +13,9 @@ public class AutoZoneManager : MonoBehaviour
     [SerializeField] private int maxSearchDistance = 10;
     [SerializeField] private int paddingSize = 2;
 
-    private Dictionary<BuildingType, List<Vector2Int>> _typeToPositions = new Dictionary<BuildingType, List<Vector2Int>>();
+    private Dictionary<BuildingType, Dictionary<Vector2Int, int>> _typeToPositions = new Dictionary<BuildingType, Dictionary<Vector2Int, int>>();
     private Dictionary<BuildingType, List<CityZone>> _typeToZones = new Dictionary<BuildingType, List<CityZone>>();
+    private Dictionary<Building, List<Vector2Int>> _buildingToPositions = new Dictionary<Building, List<Vector2Int>>();
 
     public static AutoZoneManager Instance { get; private set; }
 
@@ -26,7 +30,7 @@ public class AutoZoneManager : MonoBehaviour
 
         foreach (BuildingType type in System.Enum.GetValues(typeof(BuildingType)))
         {
-            _typeToPositions[type] = new List<Vector2Int>();
+            _typeToPositions[type] = new Dictionary<Vector2Int, int>();
             _typeToZones[type] = new List<CityZone>();
         }
     }
@@ -34,115 +38,174 @@ public class AutoZoneManager : MonoBehaviour
     private void Start()
     {
         Building.OnBuildingPlaced += HandleBuildingPlaced;
+        Building.OnBuildingDestroyed += OnBuildingDestroyed;
+
+        if (BuildingMover.Instance != null)
+        {
+            BuildingMover.Instance.OnBuildingStartMove += HandleBuildingStartMove;
+        }
+
+        if (GridCity.Instance != null)
+        {
+            GridCity.Instance.OnBuildingMoved += HandleBuildingMoved;
+        }
 
         foreach (var building in FindObjectsByType<Building>(FindObjectsSortMode.None))
         {
-            RegisterBuildingPositions(building);
+            UpdateBuildingPositions(building);
         }
 
         foreach (BuildingType type in System.Enum.GetValues(typeof(BuildingType)))
         {
             ProcessZoningForType(type);
         }
-
-        foreach (var zone in FindObjectsByType<CityZone>(FindObjectsSortMode.None))
-        {
-            foreach (var building in FindObjectsByType<Building>(FindObjectsSortMode.None))
-            {
-                zone.RegisterBuilding(building);
-            }
-        }
     }
 
     private void OnDestroy()
     {
         Building.OnBuildingPlaced -= HandleBuildingPlaced;
+        Building.OnBuildingDestroyed -= OnBuildingDestroyed;
+
+        if (BuildingMover.Instance != null)
+        {
+            BuildingMover.Instance.OnBuildingStartMove -= HandleBuildingStartMove;
+        }
+
+        if (GridCity.Instance != null)
+        {
+            GridCity.Instance.OnBuildingMoved -= HandleBuildingMoved;
+        }
+    }
+
+    private void HandleBuildingStartMove(Building building)
+    {
+    }
+
+    private void HandleBuildingMoved(Building building)
+    {
+        UpdateBuildingPositions(building);
+        ProcessZoningForType(building.BuildingData.buildingType);
+
+        foreach (var zone in _typeToZones[building.BuildingData.buildingType])
+        {
+            zone.RegisterBuilding(building);
+        }
     }
 
     private void HandleBuildingPlaced(Building building)
     {
-        RegisterBuildingPositions(building);
+        UpdateBuildingPositions(building);
         ProcessZoningForType(building.BuildingData.buildingType);
     }
 
-    private void RegisterBuildingPositions(Building building)
+    private void UpdateBuildingPositions(Building building)
     {
-        BuildingType type = building.BuildingData.buildingType;
+        var type = building.BuildingData.buildingType;
 
-        for (int i = 0; i < building.OccupiedPositions.Count; i++)
+        if (_buildingToPositions.TryGetValue(building, out var oldPositions))
         {
-            Vector2Int position = building.OccupiedPositions[i];
-            if (!_typeToPositions[type].Contains(position))
+            foreach (var position in oldPositions)
             {
-                _typeToPositions[type].Add(position);
-            }
-
-            for (int dx = -paddingSize; dx <= paddingSize; dx++)
-            {
-                for (int dy = -paddingSize; dy <= paddingSize; dy++)
+                if (_typeToPositions[type].ContainsKey(position))
                 {
-                    position = new Vector2Int(building.OccupiedPositions[i].x + dx, building.OccupiedPositions[i].y + dy);
-
-                    if (!_typeToPositions[type].Contains(position))
+                    _typeToPositions[type][position]--;
+                    if (_typeToPositions[type][position] <= 0)
                     {
-                        _typeToPositions[type].Add(position);
+                        _typeToPositions[type].Remove(position);
                     }
                 }
             }
         }
 
-        //foreach (var position in building.OccupiedPositions)
-        //{
-        //    if (!_typeToPositions[type].Contains(position))
-        //    {
-        //        _typeToPositions[type].Add(position);
-        //        Debug.Log($"{position}");
-        //    }
-        //}
+        var newPositions = new List<Vector2Int>();
+        foreach (var cell in building.OccupiedPositions)
+        {
+            for (int dx = -paddingSize; dx <= paddingSize; dx++)
+            {
+                for (int dy = -paddingSize; dy <= paddingSize; dy++)
+                {
+                    var p = new Vector2Int(cell.x + dx, cell.y + dy);
+                    if (!newPositions.Contains(p))
+                    {
+                        newPositions.Add(p);
+                    }
+                }
+            }
+        }
+
+        foreach (var position in newPositions)
+        {
+            if (_typeToPositions[type].ContainsKey(position))
+            {
+                _typeToPositions[type][position]++;
+            }
+            else
+            {
+                _typeToPositions[type][position] = 1;
+            }
+        }
+
+        _buildingToPositions[building] = newPositions;
     }
 
     private void ProcessZoningForType(BuildingType type)
     {
-        List<Vector2Int> positions = _typeToPositions[type];
-        if (positions.Count < minBuildingsForZone) return;
+        List<Vector2Int> positions = _typeToPositions[type].Keys.ToList();
 
-        List<List<Vector2Int>> clusters = FindClusters(positions);
-
-        // Process each cluster
-        foreach (var cluster in clusters)
+        if (positions.Count == 0)
         {
-            // Skip small clusters
-            if (cluster.Count < minBuildingsForZone) continue;
-
-            bool clusterHandled = false;
-
-            // Check if cluster is already in a zone of this type
             foreach (var zone in _typeToZones[type])
             {
-                bool shouldExtendZone = false;
-                foreach (var pos in cluster)
+                ZoneManager.Instance.UnregisterZone(zone);
+                try
                 {
-                    if (zone.ContainsPosition(pos))
-                    {
-                        shouldExtendZone = true;
-                        break;
-                    }
+                    Destroy(zone.gameObject);
                 }
+                catch { }
+            }
+            _typeToZones[type].Clear();
+            return;
+        }
 
-                if (shouldExtendZone)
+        List<List<Vector2Int>> clusters = FindClusters(positions);
+        var handledZones = new HashSet<CityZone>();
+
+        foreach (var cluster in clusters)
+        {
+            if (cluster.Count < minBuildingsForZone) continue;
+
+            CityZone matchingZone = null;
+            foreach (var zone in _typeToZones[type])
+            {
+                if (cluster.Any(pos => zone.ContainsPosition(pos)))
                 {
-                    // Extend existing zone
-                    ExtendZone(zone, cluster);
-                    clusterHandled = true;
+                    matchingZone = zone;
                     break;
                 }
             }
 
-            if (!clusterHandled)
+            if (matchingZone != null)
             {
-                // Create a new zone for this cluster
-                CreateZoneForCluster(type, cluster);
+                matchingZone.DefineZoneArea(cluster);
+                handledZones.Add(matchingZone);
             }
+            else
+            {
+                CreateZoneForCluster(type, cluster);
+                handledZones.Add(_typeToZones[type].Last());
+            }
+        }
+
+        var toRemove = _typeToZones[type].Except(handledZones).ToList();
+        foreach (var zone in toRemove)
+        {
+            _typeToZones[type].Remove(zone);
+            ZoneManager.Instance.UnregisterZone(zone);
+            try
+            {
+                Destroy(zone.gameObject);
+            }
+            catch { }
         }
     }
 
@@ -166,44 +229,19 @@ public class AutoZoneManager : MonoBehaviour
                 Vector2Int current = queue.Dequeue();
                 cluster.Add(current);
 
-                for (int dx = -1; dx <= 1; dx++)
+                foreach (var other in positions)
                 {
-                    for (int dy = -1; dy <= 1; dy++)
+                    if (!visited.Contains(other)
+                        && Mathf.Abs(other.x - current.x) + Mathf.Abs(other.y - current.y) <= maxSearchDistance)
                     {
-                        if (dx != 0 && dy != 0) continue;
-
-                        Vector2Int neighbor = new Vector2Int(current.x + dx, current.y + dy);
-
-                        if (positions.Contains(neighbor) && !visited.Contains(neighbor))
-                        {
-                            queue.Enqueue(neighbor);
-                            visited.Add(neighbor);
-                        }
-                    }
-                }
-
-                for (int dx = -maxSearchDistance; dx <= maxSearchDistance; dx++)
-                {
-                    for (int dy = -maxSearchDistance; dy <= maxSearchDistance; dy++)
-                    {
-                        if (dx == 0 && dy == 0) continue;
-
-                        Vector2Int checkPos = new Vector2Int(current.x + dx, current.y + dy);
-
-                        if (positions.Contains(checkPos) && !visited.Contains(checkPos) &&
-                            Mathf.Abs(dx) + Mathf.Abs(dy) <= maxSearchDistance)
-                        {
-                            queue.Enqueue(checkPos);
-                            visited.Add(checkPos);
-                        }
+                        queue.Enqueue(other);
+                        visited.Add(other);
                     }
                 }
             }
 
-            if (cluster.Count > 0)
-            {
-                clusters.Add(cluster);
-            }
+            clusters.Add(cluster);
+
         }
 
         return clusters;
@@ -228,34 +266,11 @@ public class AutoZoneManager : MonoBehaviour
 
             _typeToZones[type].Add(zone);
 
-            RegisterBuildingsToZone(zone);
+            zone.RegisterBuildingsInZone();
 
             Debug.Log($"Created new {type} zone with {cluster.Count} cells");
         }
     }
-
-    private void ExtendZone(CityZone zone, List<Vector2Int> newPositions)
-    {
-        List<Vector2Int> positionsToAdd = new List<Vector2Int>();
-
-        foreach (var pos in newPositions)
-        {
-            if (!zone.ContainsPosition(pos))
-            {
-                positionsToAdd.Add(pos);
-            }
-        }
-
-        if (positionsToAdd.Count == 0) return;
-
-        List<Vector2Int> allPositions = zone.GetAllPositions();
-        allPositions.AddRange(positionsToAdd);
-
-        zone.DefineZoneArea(allPositions);
-
-        Debug.Log($"Extended zone with {positionsToAdd.Count} new cells");
-    }
-
     private void SetZoneColor(CityZone zone, BuildingType type)
     {
         int typeIndex = (int)type;
@@ -265,11 +280,27 @@ public class AutoZoneManager : MonoBehaviour
         }
     }
 
-    private void RegisterBuildingsToZone(CityZone zone)
+    private void OnBuildingDestroyed(Building building)
     {
-        foreach (var building in FindObjectsByType<Building>(FindObjectsSortMode.None))
+        BuildingType type = building.BuildingData.buildingType;
+
+        if (_buildingToPositions.TryGetValue(building, out var positions))
         {
-            zone.RegisterBuilding(building);
+            foreach (var position in positions)
+            {
+                if (_typeToPositions[type].ContainsKey(position))
+                {
+                    _typeToPositions[type][position]--;
+                    if (_typeToPositions[type][position] <= 0)
+                    {
+                        _typeToPositions[type].Remove(position);
+                    }
+                }
+            }
+
+            _buildingToPositions.Remove(building);
+
+            ProcessZoningForType(type);
         }
     }
 }

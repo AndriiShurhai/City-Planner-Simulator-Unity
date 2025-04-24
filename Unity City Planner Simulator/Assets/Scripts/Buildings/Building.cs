@@ -7,8 +7,6 @@ public class Building : MonoBehaviour
     [Header("Building Configuration")]
     [SerializeField] public BuildingData buildingData;
 
-    public event Action OnUpgrade;
-    public event Action<Building> OnBuildingDestroyed;
 
     public BuildingData BuildingData => buildingData;
     public Vector2Int GridPosition => _gridPosition;
@@ -28,7 +26,9 @@ public class Building : MonoBehaviour
     private bool _isPlaced;
 
     public static event Action<Building> OnBuildingPlaced;
+    public static event Action<Building> OnBuildingDestroyed;
 
+    public event Action OnUpgrade;
     private void Awake()
     {
     }

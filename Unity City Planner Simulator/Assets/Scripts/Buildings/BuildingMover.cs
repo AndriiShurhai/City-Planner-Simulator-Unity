@@ -1,3 +1,4 @@
+using System;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,7 @@ public class BuildingMover : MonoBehaviour
     private Building currentlyMovingBuilding;
     private Vector2Int originalGridPosition;
 
+    public Action<Building> OnBuildingStartMove;
     public Building CurrentlyMovingBuilding { 
         get 
         {
@@ -43,6 +45,7 @@ public class BuildingMover : MonoBehaviour
         GridCity.Instance.RemoveBuilding(building, building.OccupiedPositions);
 
         DisactivateCurrentlyMovingBuilding();
+        OnBuildingStartMove?.Invoke(building);
 
         return true;
     }

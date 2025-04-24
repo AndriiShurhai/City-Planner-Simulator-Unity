@@ -14,6 +14,8 @@ public class GridCity : MonoBehaviour
 
     private Dictionary<Vector2Int, Building> buildings = new Dictionary<Vector2Int, Building>();
     private BuildingData _selectedBuilding;
+
+    public Action<Building> OnBuildingMoved;
     public static GridCity Instance { get; private set; }
     public BuildingData SelectedBuilding { get;}
 
@@ -184,6 +186,7 @@ public class GridCity : MonoBehaviour
         building.transform.position = worldPosition;
 
         BuildingMover.Instance.ActivateCurrentlyMovingBuilding();
+        OnBuildingMoved?.Invoke(building);
     }
     public void RemoveBuilding(Building building, List<Vector2Int> occupiedPositions)
     {
