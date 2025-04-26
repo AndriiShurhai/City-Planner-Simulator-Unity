@@ -66,6 +66,8 @@ public class ResidentialHouse : Building
     public override void OnPlaced()
     {
         base.OnPlaced();
+        if (State != BuildingState.Active) return; 
+
         if (OccupiedPositions != null && OccupiedPositions.Count > 0)
         {
             ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)OccupiedPositions[0]);

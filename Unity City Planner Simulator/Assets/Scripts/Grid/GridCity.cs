@@ -153,7 +153,7 @@ public class GridCity : MonoBehaviour
 
         building.Initialize(data, data.size); 
         building.SetGridPosition(position);
-        building.OnPlaced();
+        //building.OnPlaced();
 
         for (int x = position.x; x < position.x + data.size.x; x++)
         {
@@ -163,11 +163,9 @@ public class GridCity : MonoBehaviour
             }
         }
 
-        EconomyManager.Instance.SubtractMoney(building.buildingData.cost);
-
+        EconomyManager.Instance.SubtractMoney(building.BuildingData.cost);
         customBuildingCursor.ToggleCursor(false, null);
         _selectedBuilding = null;
-
     }
 
     private void MoveBuilding(Building building, Vector2Int newPosition)

@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
+public enum BuildingState { Constructing, Active}
 public class Building : MonoBehaviour
 {
     [Header("Building Configuration")]
@@ -16,6 +19,8 @@ public class Building : MonoBehaviour
     public bool IsInitialized => _isInitialized;
     public bool WasPlacedBefore => _wasPlacedBefore;
 
+    public BuildingState State { get; private set; } = BuildingState.Constructing;
+
     private Vector2Int _gridPosition;
     private Vector2Int _size;
     private readonly List<IBuildingEffect> _buildingEffects = new List<IBuildingEffect>();
@@ -24,9 +29,14 @@ public class Building : MonoBehaviour
     private bool _isInitialized;
     private bool _wasPlacedBefore;
     private bool _isPlaced;
+    private Coroutine _constructionCoroutine;
+
 
     public static event Action<Building> OnBuildingPlaced;
     public static event Action<Building> OnBuildingDestroyed;
+    public static event Action<Building> OnBuildingConstruction;
+    public event Action<BuildingState> OnStateChanged;
+
 
     public event Action OnUpgrade;
     private void Awake()
@@ -39,6 +49,11 @@ public class Building : MonoBehaviour
 
     private void Update()
     {
+        if (State  == BuildingState.Constructing)
+        {
+            float pulse = Mathf.Sin((Time.time + 1f) * 1f) * 0.5f + 0.5f;
+            GetComponent<SpriteRenderer>().color = Color.Lerp(Color.gray, Color.cyan, pulse);
+        }
     }
 
     private void OnDestroy()
@@ -71,33 +86,60 @@ public class Building : MonoBehaviour
         }
     }
 
+    private void StartConstruction()
+    {
+        if (buildingData.constructionDuration <= 0)
+        {
+            CompleteConstruction();
+            return;
+        }
+        OnStateChanged?.Invoke(State);
+        OnBuildingConstruction?.Invoke(this);
+        _constructionCoroutine = StartCoroutine(Construct());
+    }
 
+    private IEnumerator Construct()
+    {
+        yield return new WaitForSeconds(buildingData.constructionDuration);
+        CompleteConstruction();
+    }
+
+    private void CompleteConstruction()
+    {
+        _constructionCoroutine = null;
+        State = BuildingState.Active;
+        OnStateChanged?.Invoke(State);
+        GetComponent<SpriteRenderer>().color = Color.white;
+        OnPlaced();
+        Debug.Log("Building placed");
+    }
 
     public void SetGridPosition(Vector2Int gridPosition)
     {
         _lastGridPosition = _gridPosition;
         _gridPosition = gridPosition;
         UpdateOccupiedPositions();
+        StartConstruction();
     }
 
     private void UpdateOccupiedPositions()
     {
+        Debug.Log("Updating occupied positions");
         _occupiedPositions.Clear();
 
         for (int x = 0; x < _size.x; x++)
         {
             for (int y = 0; y < _size.y; y++)
             {
+                Debug.Log("pos");
                 _occupiedPositions.Add(new Vector2Int(_gridPosition.x + x, _gridPosition.y + y));
             }
         }
     }
 
-
-
     public virtual void OnPlaced()
     {
-        if (!_isInitialized || _wasPlacedBefore) return;
+        if (_isInitialized || _wasPlacedBefore) return;
 
         _isPlaced = true;
         _wasPlacedBefore = true;

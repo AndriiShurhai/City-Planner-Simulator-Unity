@@ -8,9 +8,19 @@ public class PoliceStation : Building
     private void Awake()
     {
     }
-    void Start()
+    public override void OnPlaced()
     {
+        base.OnPlaced();
+        if (State != BuildingState.Active) return;
+
         int policePrefabIndex = Random.Range(0, policePrefabs.Count);
-        ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)OccupiedPositions[0], policePrefabs[policePrefabIndex]);
+        if (OccupiedPositions != null && OccupiedPositions.Count > 0)
+        {
+            ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)OccupiedPositions[0], policePrefabs[policePrefabIndex]);
+        }
+        else
+        {
+            Debug.Log("There is no occupied positions");
+        }
     }
 }

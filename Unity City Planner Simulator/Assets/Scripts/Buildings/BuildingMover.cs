@@ -39,6 +39,12 @@ public class BuildingMover : MonoBehaviour
             return false;
         }
 
+        if (building.State != BuildingState.Active)
+        {
+            Debug.LogWarning($"Cannot move {building.BuildingData.buildingName} while in {building.State} state.");
+            return false;
+        }
+
         currentlyMovingBuilding = building;
         originalGridPosition = building.GridPosition;
 
@@ -94,6 +100,6 @@ public class BuildingMover : MonoBehaviour
         if (currentlyMovingBuilding == null) return;
 
         currentlyMovingBuilding.GetComponent<SpriteRenderer>().enabled = true;
-        currentlyMovingBuilding.GetComponent<SpriteRenderer>().enabled = true;
+        currentlyMovingBuilding.GetComponent<BoxCollider2D>().enabled = true;
     }
 }

@@ -14,6 +14,7 @@ public class BuildingData : ScriptableObject
     public Vector2Int size;
     public int cost;
     public int maintenanceCost;
+    public int constructionDuration;
 
     public int incomePerCycle;
     public int incomePerResident;

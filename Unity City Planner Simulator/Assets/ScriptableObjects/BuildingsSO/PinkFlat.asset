@@ -18,8 +18,9 @@ MonoBehaviour:
   buildingPrefab: {fileID: 463793761022909502, guid: e0399ee8a84a1a44a82dc553c6635e98, type: 3}
   buildingType: 0
   size: {x: 4, y: 7}
-  cost: 0
+  cost: 10
   maintenanceCost: 500
+  constructionDuration: 10
   incomePerCycle: 1000
   incomePerResident: 30
   jobsAvailiable: 0
