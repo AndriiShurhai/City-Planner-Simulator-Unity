@@ -102,7 +102,7 @@ public class AudioManager : MonoBehaviour
     {
         if (_musicSource == null) return;
         _musicSource.Stop();
-    }
+    }    
     public void PlayButtonPress() => PlaySound(gameSounds.buttonPress);
     public void PlayHoverSound() => PlaySound(gameSounds.hover);
     public void PlayRemoveObstacleSound() => PlaySound(gameSounds.removeObstacle);
