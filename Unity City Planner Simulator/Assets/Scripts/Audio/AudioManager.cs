@@ -1,34 +1,26 @@
 using System;
-using System.Diagnostics.Tracing;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
+    [Header("SFX Settings")]
     [SerializeField] private GameSounds gameSounds;
-    [SerializeField] private AudioClip pressedButtonSound;
+    [SerializeField] private AudioMixerGroup sfxMixerGroup;
     [SerializeField] private int audioSourcePoolSize = 10;
 
-    private AudioSource[] _audioSourcePool;
-    private int _currentAudioSourceIndex = 0;
+    [Header("Music Settings")]
+    [SerializeField] private AudioClip[] backgroundMusicClips;
+    [SerializeField] private AudioMixerGroup musicMixerGroup;
+    [SerializeField] private bool playMusicOnStart = true;
+    [SerializeField, Range(0f, 1f)] private float musicVolume = 1f;
 
-    private void Start()
-    {
-        InitializePool();
-    }
-
-    private void InitializePool()
-    {
-        _audioSourcePool = new AudioSource[audioSourcePoolSize];
-
-        for (int i = 0; i < audioSourcePoolSize; i++)
-        {
-            GameObject audioSourceObj = new GameObject($"Audiosource_{i}");
-            audioSourceObj.transform.parent = transform;
-            _audioSourcePool[i] = audioSourceObj.AddComponent<AudioSource>();
-        }
-    }
+    private AudioSource[] _sfxPool;
+    private int _currentSfxIndex = 0;
+    private AudioSource _musicSource;
 
     private void Awake()
     {
@@ -39,43 +31,82 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        InitializeSfxPool();
+        InitializeMusicSource();
     }
 
-    public void PlaySound(AudioClip clip, float volume = 1.0f)
+    private void InitializeSfxPool()
     {
-        if (clip == null) return;
-
-        AudioSource audioSource = GetNextAudioSource();
-        audioSource.clip = clip;
-        audioSource.volume = volume;
-        audioSource.Play();
-    }
-
-    private AudioSource GetNextAudioSource()
-    {
-
+        _sfxPool = new AudioSource[audioSourcePoolSize];
         for (int i = 0; i < audioSourcePoolSize; i++)
         {
-            int index = (_currentAudioSourceIndex + i) % audioSourcePoolSize;
-            if (!_audioSourcePool[index].isPlaying)
+            var obj = new GameObject($"SFX_Source_{i}");
+            obj.transform.SetParent(transform);
+            var src = obj.AddComponent<AudioSource>();
+            src.outputAudioMixerGroup = sfxMixerGroup;
+            src.playOnAwake = false;
+            _sfxPool[i] = src;
+        }
+    }
+
+    private void InitializeMusicSource()
+    {
+        var obj = new GameObject("Music_Source");
+        obj.transform.SetParent(transform);
+        _musicSource = obj.AddComponent<AudioSource>();
+        _musicSource.outputAudioMixerGroup = musicMixerGroup;
+        _musicSource.loop = true;
+        _musicSource.playOnAwake = false;
+
+        if (playMusicOnStart && backgroundMusicClips.Length > 0)
+            PlayMusic(backgroundMusicClips[0], musicVolume);
+    }
+
+    private AudioSource GetNextSfxSource()
+    {
+        for (int i = 0; i < _sfxPool.Length; i++)
+        {
+            int idx = (_currentSfxIndex + i) % _sfxPool.Length;
+            if (!_sfxPool[idx].isPlaying)
             {
-                _currentAudioSourceIndex = (index + 1) % audioSourcePoolSize;
-                return _audioSourcePool[index];
+                _currentSfxIndex = (idx + 1) % _sfxPool.Length;
+                return _sfxPool[idx];
             }
         }
-        AudioSource audioSource = _audioSourcePool[_currentAudioSourceIndex];
-        _currentAudioSourceIndex = (_currentAudioSourceIndex + 1) % audioSourcePoolSize;
-
-        return audioSource;
+        var fallback = _sfxPool[_currentSfxIndex];
+        _currentSfxIndex = (_currentSfxIndex + 1) % _sfxPool.Length;
+        return fallback;
     }
-
-    public void PlayHoverSound()
+    public void PlaySound(AudioClip clip, float volume = 1f)
     {
-        PlaySound(gameSounds.hover);
+        if (clip == null) return;
+        var src = GetNextSfxSource();
+        src.volume = volume;
+        src.PlayOneShot(clip);
     }
-
-    public void PlayRemoveObstacleSound()
+    public void PlayMusic(AudioClip clip, float volume = 1f)
     {
-        PlaySound(gameSounds.removeObstacle);
+        if (clip == null || _musicSource == null) return;
+        _musicSource.clip = clip;
+        _musicSource.volume = volume;
+        _musicSource.Play();
     }
-}   
+    public void PlayRandomMusic()
+    {
+        if (backgroundMusicClips.Length == 0) return;
+        var choice = UnityEngine.Random.Range(0, backgroundMusicClips.Length);
+        PlayMusic(backgroundMusicClips[choice], musicVolume);
+    }
+    public void StopMusic()
+    {
+        if (_musicSource == null) return;
+        _musicSource.Stop();
+    }
+    public void PlayButtonPress() => PlaySound(gameSounds.buttonPress);
+    public void PlayHoverSound() => PlaySound(gameSounds.hover);
+    public void PlayRemoveObstacleSound() => PlaySound(gameSounds.removeObstacle);
+    public void PlayGunShot() => PlaySound(gameSounds.gunShot);
+    public void PlayPeopleScream() => PlaySound(gameSounds.peopleScream);
+    public void PlayHeartBeat() => PlaySound(gameSounds.heartBeat);
+}

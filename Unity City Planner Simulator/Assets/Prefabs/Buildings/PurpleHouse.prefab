@@ -4974,7 +4974,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: e1c951f7541b65448b36a731fa2a8468, type: 2}
-  wasPlacedBefore: 0
   ps: {fileID: 9052695552804783792}
 --- !u!1 &4045370046025255467
 GameObject:
@@ -4989,7 +4988,6 @@ GameObject:
   - component: {fileID: 5900896382919998156}
   - component: {fileID: 962988078140815663}
   - component: {fileID: 6926343815377704149}
-  - component: {fileID: 6283105779885589794}
   m_Layer: 0
   m_Name: PinkHouse
   m_TagString: Untagged
@@ -9889,18 +9887,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6283105779885589794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4045370046025255467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 521c2dbc69d006c4288776b9947769e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: a3e6ecd1fbbb08b47b700623fed181b0, type: 2}
-  wasPlacedBefore: 0
-  ps: {fileID: 5900896382919998156}

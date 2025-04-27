@@ -139,10 +139,9 @@ public class Building : MonoBehaviour
 
     public virtual void OnPlaced()
     {
-        if (_isInitialized || _wasPlacedBefore) return;
+        if (!_isInitialized) return;
 
         _isPlaced = true;
-        _wasPlacedBefore = true;
 
         foreach (var effect in _buildingEffects)
         {

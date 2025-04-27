@@ -79,6 +79,7 @@ public class AutoZoneManager : MonoBehaviour
 
     private void UpdateAndProcess(Building building)
     {
+        Debug.Log("Building placed event received");
         UpdateBuildingPositions(building);
         ProcessZoningForType(building.BuildingData.buildingType);
     }
@@ -212,19 +213,13 @@ public class AutoZoneManager : MonoBehaviour
     {
         GameObject zoneObject = Instantiate(zonePrefab);
         zoneObject.name = $"Auto_{type}Zone_{System.DateTime.Now.Ticks}";
-
         var zone = zoneObject.GetComponent<CityZone>();
-
+        Debug.Log($"Created zone {zoneObject.name} for type {type} with {cluster.Count} positions");
         SetZoneColor(zone, type);
-
         ZoneManager.Instance?.RegisterZone(zone);
-
         _typeToZones[type].Add(zone);
-
         zone.RegisterBuildingsInZone();
-
         return zone;
-
     }
     private void SetZoneColor(CityZone zone, BuildingType type)
     {

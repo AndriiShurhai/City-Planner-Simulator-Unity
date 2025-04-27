@@ -24,7 +24,7 @@ MonoBehaviour:
   size: {x: 4, y: 7}
   cost: 10
   maintenanceCost: 500
-  constructionDuration: 100
+  constructionDuration: 0
   incomePerCycle: 1000
   incomePerResident: 30
   jobsAvailiable: 0
