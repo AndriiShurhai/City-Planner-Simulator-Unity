@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: PurpleFlat
   m_EditorClassIdentifier: 
   buildingName: Purple flat
-  buildingDescription: Purple general flat.
+  buildingDescription: '_________________________  This is residential Flat. Works
+    just as residential house except of bigger amount of residetns spawned, cost
+    is more expensive and gives more profit.   Level 1:  2 RESIDENTS spawned Profit:
+    20 dollars  LEVEL 2:  4 RESIDENTS spawned profit: 40 dollars  LEVEL 3:  6 RESIDENTS
+    profit: 80 dollars _________________________'
   buildingSprite: {fileID: 21300000, guid: 4cc62615463b77b4aaf05e707bd507e6, type: 3}
   buildingPrefab: {fileID: 4428906684350208622, guid: df42bf444f2695948b8aac0d1040a631, type: 3}
   buildingType: 0
   size: {x: 4, y: 7}
   cost: 0
   maintenanceCost: 1000
+  constructionDuration: 100
   incomePerCycle: 1100
   incomePerResident: 50
   jobsAvailiable: 0

@@ -20,6 +20,10 @@ MonoBehaviour:
   size: {x: 3, y: 6}
   cost: 0
   maintenanceCost: 100
+  constructionDuration: 100
   incomePerCycle: 200
   incomePerResident: 50
   jobsAvailiable: 0
+  maxUpgradeLevel: 0
+  upgradeLevel: 0
+  upgradeCost: 0

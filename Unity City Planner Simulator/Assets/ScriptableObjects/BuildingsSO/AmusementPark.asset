@@ -13,13 +13,17 @@ MonoBehaviour:
   m_Name: AmusementPark
   m_EditorClassIdentifier: 
   buildingName: House
-  buildingDescription: Common good-looking and cosy residential house.
+  buildingDescription: "_________________________ \nThis is amusement park. This
+    place brings joy and happiness to people.\n\nLevel 1:\n+5% happiness rate\n+
+    impact to happiness rate calculation\n\nLevel 2:\n+ 7% happiness rate\n\nLevel
+    3:\n+ 8% happiness rate\n\n_____________________________________"
   buildingSprite: {fileID: 21300000, guid: e736c4f972e3463418d14e906453e46f, type: 3}
   buildingPrefab: {fileID: 190154463320851615, guid: ef15bbe290b64e74886a05d0c3dbd7f8, type: 3}
   buildingType: 3
   size: {x: 14, y: 14}
   cost: 0
   maintenanceCost: 900
+  constructionDuration: 100
   incomePerCycle: 1000
   incomePerResident: 50
   jobsAvailiable: 0

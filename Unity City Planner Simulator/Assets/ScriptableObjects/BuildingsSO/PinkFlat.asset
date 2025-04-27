@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: PinkFlat
   m_EditorClassIdentifier: 
   buildingName: Pink Flat
-  buildingDescription: Good-looking and cute flat.
+  buildingDescription: "\n_________________________ \nThis is residential Flat. Works
+    just as residential house except of bigger amount of residetns spawned, cost
+    is more expensive and gives more profit.\n\n\nLevel 1:  2 RESIDENTS spawned \nProfit:
+    20 dollars  \n\nLEVEL 2:  4 RESIDENTS spawned \nprofit: 40 dollars  \n\nLEVEL
+    3:  6 RESIDENTS \nprofit: 80 dollars\n_________________________ "
   buildingSprite: {fileID: 21300000, guid: e3e72686e6552ca4f87c165faafabbb1, type: 3}
   buildingPrefab: {fileID: 463793761022909502, guid: e0399ee8a84a1a44a82dc553c6635e98, type: 3}
   buildingType: 0
   size: {x: 4, y: 7}
   cost: 10
   maintenanceCost: 500
-  constructionDuration: 10
+  constructionDuration: 100
   incomePerCycle: 1000
   incomePerResident: 30
   jobsAvailiable: 0

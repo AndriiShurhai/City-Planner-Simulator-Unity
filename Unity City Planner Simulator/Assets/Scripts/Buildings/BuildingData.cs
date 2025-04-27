@@ -1,11 +1,14 @@
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [CreateAssetMenu(fileName = "BuildingData", menuName = "City/BuildingData", order = 1)] 
 public class BuildingData : ScriptableObject
 {
     public string buildingName;
+    [TextArea(3, 10)]
     public string buildingDescription;
 
     public Sprite buildingSprite;
