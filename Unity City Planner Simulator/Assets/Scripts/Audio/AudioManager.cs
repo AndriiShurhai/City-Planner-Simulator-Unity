@@ -144,6 +144,7 @@ public class AudioManager : MonoBehaviour
 
         if (_musicSource != null)
         {
+            _musicSource.mute = !enabled;
             if (enabled && !_musicSource.isPlaying && backgroundMusicClips.Length > 0)
             {
                 PlayMusic(_musicSource.clip != null ? _musicSource.clip : backgroundMusicClips[0]);

@@ -11,6 +11,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Button[] _purchaseButtons;
     [SerializeField] private BuildingInfoTemplate[] _buildingInfoTemplates;
 
+    [SerializeField] private Button closeButton;
     private void Awake()
     {
         if (EconomyManager.Instance != null)
@@ -35,6 +36,8 @@ public class ShopManager : MonoBehaviour
         LoadPanels();
         LoadInfoPanels();
         CheckPurchasable();
+
+        closeButton.onClick.AddListener(() => SceneManagerController.Instance.CloseShopScene());
     }
 
     private void HandleMoneyChange()
@@ -90,7 +93,7 @@ public class ShopManager : MonoBehaviour
 
         BuildingData selectedBuilding = _shopItemsSO[buttonIndex];
         int buildingCost = selectedBuilding.cost;
-        
+
         if (EconomyManager.Instance.CanAfford(buildingCost))
         {
             GridCity.Instance.SetActiveBuildingType(_shopItemsSO[buttonIndex]);
