@@ -8,7 +8,7 @@ public enum BuildingState { Constructing, Active}
 public class Building : MonoBehaviour
 {
     [Header("Building Configuration")]
-    [SerializeField] public BuildingData buildingData;
+    [SerializeField] protected BuildingData buildingData;
 
 
     public BuildingData BuildingData => buildingData;

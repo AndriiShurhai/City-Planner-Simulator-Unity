@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -18,9 +19,23 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private bool playMusicOnStart = true;
     [SerializeField, Range(0f, 1f)] private float musicVolume = 1f;
 
+    private const string SOUND_ENABLED_KEY = "SoundEnabled";
+    private const string MUSIC_ENABLED_KEY = "MusicEnabled";
+    private const string SOUND_VOLUME_KEY = "SoundVolume";
+    private const string MUSIC_VOLUME_KEY = "MusicVolume";
+
+    private const bool DEFAULT_SOUND_ENABLED = true;
+    private const bool DEFAULT_MUSIC_ENABLED = true;
+    private const float DEFAULT_SOUND_VOLUME = 1f;
+    private const float DEFAULT_MUSIC_VOLUME = 1f;
+
     private AudioSource[] _sfxPool;
     private int _currentSfxIndex = 0;
     private AudioSource _musicSource;
+    private bool _soundEnabled;
+    private bool _musicEnabled;
+    private float _soundVolume;
+    private float _musicVolume;
 
     private void Awake()
     {
@@ -32,8 +47,17 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        LoadSavedSettings();
         InitializeSfxPool();
         InitializeMusicSource();
+    }
+
+    private void LoadSavedSettings()
+    {
+        _soundEnabled = PlayerPrefs.GetInt(SOUND_ENABLED_KEY, DEFAULT_SOUND_ENABLED ? 1 : 0) == 1;
+        _musicEnabled = PlayerPrefs.GetInt(MUSIC_ENABLED_KEY, DEFAULT_MUSIC_ENABLED ? 1 : 0) == 1;
+        _soundVolume = PlayerPrefs.GetFloat(SOUND_VOLUME_KEY, DEFAULT_SOUND_VOLUME);
+        _musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_MUSIC_VOLUME);
     }
 
     private void InitializeSfxPool()
@@ -58,8 +82,10 @@ public class AudioManager : MonoBehaviour
         _musicSource.outputAudioMixerGroup = musicMixerGroup;
         _musicSource.loop = true;
         _musicSource.playOnAwake = false;
+        _musicSource.mute = !_musicEnabled;
+        _musicSource.volume = _musicVolume;
 
-        if (playMusicOnStart && backgroundMusicClips.Length > 0)
+        if (playMusicOnStart && backgroundMusicClips.Length > 0 && _musicEnabled)
             PlayMusic(backgroundMusicClips[0], musicVolume);
     }
 
@@ -80,21 +106,21 @@ public class AudioManager : MonoBehaviour
     }
     public void PlaySound(AudioClip clip, float volume = 1f)
     {
-        if (clip == null) return;
+        if (clip == null || !_soundEnabled) return;
         var src = GetNextSfxSource();
-        src.volume = volume;
+        src.volume = _soundVolume * volume;
         src.PlayOneShot(clip);
     }
     public void PlayMusic(AudioClip clip, float volume = 1f)
     {
-        if (clip == null || _musicSource == null) return;
+        if (clip == null || _musicSource == null || !_musicEnabled) return;
         _musicSource.clip = clip;
-        _musicSource.volume = volume;
+        _musicSource.volume = _musicVolume * volume;
         _musicSource.Play();
     }
     public void PlayRandomMusic()
     {
-        if (backgroundMusicClips.Length == 0) return;
+        if (backgroundMusicClips.Length == 0 || !_musicEnabled) return;
         var choice = UnityEngine.Random.Range(0, backgroundMusicClips.Length);
         PlayMusic(backgroundMusicClips[choice], musicVolume);
     }
@@ -102,7 +128,59 @@ public class AudioManager : MonoBehaviour
     {
         if (_musicSource == null) return;
         _musicSource.Stop();
-    }    
+    }
+
+    public void SetSoundEnabled(bool enabled)
+    {
+        _soundEnabled = enabled;
+        PlayerPrefs.SetInt(SOUND_ENABLED_KEY, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public void SetMusicEnabled(bool enabled)
+    {
+        _musicEnabled = enabled;
+        PlayerPrefs.SetInt(MUSIC_ENABLED_KEY, enabled ? 1 : 0); 
+
+        if (_musicSource != null)
+        {
+            if (enabled && !_musicSource.isPlaying && backgroundMusicClips.Length > 0)
+            {
+                PlayMusic(_musicSource.clip != null ? _musicSource.clip : backgroundMusicClips[0]);
+            }
+            else if (!enabled && _musicSource.isPlaying)
+            {
+                _musicSource.Pause();
+            }
+        }
+        PlayerPrefs.Save();
+    }
+
+    public void SetSoundVolume(float volume)
+    {
+        _soundVolume = volume;
+        PlayerPrefs.SetFloat(SOUND_VOLUME_KEY, volume);
+        PlayerPrefs.Save();
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        _musicVolume = volume;
+
+        if (_musicSource != null)
+        {
+            _musicSource.volume = volume;
+        }
+
+        PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, volume);
+        PlayerPrefs.Save();
+    }
+
+    public bool IsSoundEnabled() => _soundEnabled;
+    public bool IsMusicEnabled() => _musicEnabled;  
+    public float GetSoundVolume() => _soundVolume;
+    public float GetMusicVolume() => _musicVolume;
+
     public void PlayButtonPress() => PlaySound(gameSounds.buttonPress);
     public void PlayHoverSound() => PlaySound(gameSounds.hover);
     public void PlayRemoveObstacleSound() => PlaySound(gameSounds.removeObstacle);

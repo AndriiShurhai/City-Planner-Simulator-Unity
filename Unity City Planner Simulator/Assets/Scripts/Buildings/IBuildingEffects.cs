@@ -24,7 +24,7 @@ public static class BuildingEffectFactory
 
         effects.Add(new CoreBuildingEffect());
 
-        switch (building.buildingData.buildingType)
+        switch (building.BuildingData.buildingType)
         {
             case BuildingType.Residential:
                 effects.Add(new ResidentialEffect());
@@ -61,7 +61,7 @@ public class CoreBuildingEffect : BuildingEffectBase
         if (!_hasProcessedInitialization)
         {
             _hasProcessedInitialization = true;
-            Debug.Log($"Core initialization for {building.buildingData.buildingType}");
+            Debug.Log($"Core initialization for {building.BuildingData.buildingType}");
         }
     }
 }
@@ -162,9 +162,9 @@ public class UpgradeEffect : BuildingEffectBase
 
     private void HandleUpgrade()
     {
-        Debug.Log($"Building upgraded: {_building.buildingData.buildingType}");
+        Debug.Log($"Building upgraded: {_building.BuildingData.buildingType}");
 
-        switch (_building.buildingData.buildingType)
+        switch (_building.BuildingData.buildingType)
         {
             case BuildingType.Residential:
                 break;

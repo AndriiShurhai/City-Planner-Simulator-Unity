@@ -64,7 +64,7 @@ public class Book : MonoBehaviour
     {
         backButton.interactable = (pageIndex > -1);
 
-        forwardButton.interactable = (pageIndex < pages.Count);
+        forwardButton.interactable = (pageIndex < pages.Count-1);
     }
     public void HandleLeftButtonClick()
     {

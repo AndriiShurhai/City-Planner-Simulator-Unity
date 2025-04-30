@@ -74,7 +74,7 @@ public class ZoneManager : MonoBehaviour
     private BuildingType GetCurrentBuildingType()
     {
         return GridCity.Instance?.GetActiveBuildingType()?.buildingType ??
-               BuildingMover.Instance.CurrentlyMovingBuilding.buildingData.buildingType;
+               BuildingMover.Instance.CurrentlyMovingBuilding.BuildingData.buildingType;
     }
     public void RegisterZone(CityZone zone) => _cityZones.AddIfNotContains(zone);
 

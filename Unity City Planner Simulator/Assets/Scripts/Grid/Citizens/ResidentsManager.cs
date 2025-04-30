@@ -186,11 +186,11 @@ public class ResidentsManager : MonoBehaviour
         }
         if (criminal == null) return;
 
-        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.buildingData.buildingType == BuildingType.Commercial).Count()}");
+        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.BuildingData.buildingType == BuildingType.Commercial).Count()}");
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
             Vector3 distance = criminal.transform.position - building.transform.position;
-            if (building.buildingData.buildingType == BuildingType.Commercial)
+            if (building.BuildingData.buildingType == BuildingType.Commercial)
             {
                 float cells = Mathf.Abs(distance.x) + Mathf.Abs(distance.y) + Mathf.Abs(distance.z);
 
