@@ -37,31 +37,15 @@ public class Building : MonoBehaviour
     public static event Action<Building> OnBuildingConstruction;
     public event Action<BuildingState> OnStateChanged;
     public event Action OnUpgrade;
-    private void Awake()
-    {
-    }
-
-    private void Start()
-    {
-    }
 
     private void Update()
     {
-        if (State  == BuildingState.Constructing)
+        if (State == BuildingState.Constructing)
         {
             float pulse = Mathf.Sin((Time.time + 1f) * 1f) * 0.5f + 0.5f;
             GetComponent<SpriteRenderer>().color = Color.Lerp(Color.gray, Color.cyan, pulse);
         }
     }
-
-    private void OnDestroy()
-    {
-        CleanupEffects();
-        OnBuildingDestroyed?.Invoke(this);
-    }
-
-
-
     public virtual void Initialize(BuildingData data, Vector2Int size)
     {
         if (_isInitialized || _wasPlacedBefore) return;
@@ -72,9 +56,11 @@ public class Building : MonoBehaviour
 
         name = $"{data.buildingName} ({GetInstanceID()})";
 
+        OnInitialize();
+
         SetupBuildingEffects();
     }
-
+    protected virtual void OnInitialize() { }
     private void SetupBuildingEffects()
     {
         var effects = BuildingEffectFactory.CreateEffectsForBuilding(this);
@@ -83,7 +69,6 @@ public class Building : MonoBehaviour
             AddBuildingEffect(effect);
         }
     }
-
     private void StartConstruction()
     {
         if (buildingData.constructionDuration <= 0)
@@ -95,7 +80,6 @@ public class Building : MonoBehaviour
         OnBuildingConstruction?.Invoke(this);
         _constructionCoroutine = StartCoroutine(Construct());
     }
-
     private IEnumerator Construct()
     {
         yield return new WaitForSeconds(buildingData.constructionDuration);
@@ -119,7 +103,6 @@ public class Building : MonoBehaviour
         UpdateOccupiedPositions();
         StartConstruction();
     }
-
     private void UpdateOccupiedPositions()
     {
         Debug.Log("Updating occupied positions");
@@ -134,7 +117,6 @@ public class Building : MonoBehaviour
             }
         }
     }
-
     public virtual void OnPlaced()
     {
         if (!_isInitialized) return;
@@ -146,6 +128,19 @@ public class Building : MonoBehaviour
             effect.OnPlaced(this);
         }
 
+        RegisterWithManagers();
+
+        AfterPlacement();
+
+        OnBuildingPlaced?.Invoke(this);
+
+        Debug.Log($"Building {buildingData.buildingName} placed at positions: {string.Join(", ", _occupiedPositions)}");
+    }
+
+    protected virtual void AfterPlacement() { }
+
+    private void RegisterWithManagers()
+    {
         if (ZoneManager.Instance != null)
         {
             Debug.Log("Registring Building");
@@ -156,10 +151,6 @@ public class Building : MonoBehaviour
         {
             EconomyManager.Instance.RegisterBuilding(this);
         }
-
-        OnBuildingPlaced?.Invoke(this);
-
-        Debug.Log($"Building {buildingData.buildingName} placed at positions: {string.Join(", ", _occupiedPositions)}");
     }
 
     public virtual void ProcessTick()
@@ -177,7 +168,11 @@ public class Building : MonoBehaviour
         {
             effect.ProcessTick(this);
         }
+
+        OnProcessTick();
     }
+
+    protected virtual void OnProcessTick() { }
 
     public virtual int CalculateIncome()
     {
@@ -194,7 +189,7 @@ public class Building : MonoBehaviour
             return;
         }
 
-        if (EconomyManager.Instance != null && !EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost))
+        if (!TryPayForUpgrade())
         {
             Debug.Log("Not enough money for upgrade");
             return;
@@ -202,14 +197,26 @@ public class Building : MonoBehaviour
 
         buildingData.upgradeLevel++;
 
-        buildingData.incomePerCycle = Mathf.RoundToInt(buildingData.incomePerCycle * 1.5f);
-        buildingData.upgradeCost = Mathf.RoundToInt(buildingData.upgradeCost * 2f);
+        ApplyStandartUpgrades();
+
+        OnUpgraded();
 
         Debug.Log($"Upgraded {buildingData.buildingName} to level {buildingData.upgradeLevel}");
 
         OnUpgrade?.Invoke();
     }
+    private bool TryPayForUpgrade()
+    {
+        return (EconomyManager.Instance != null && !EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost));
+    }
 
+    private void ApplyStandartUpgrades()
+    {
+        buildingData.incomePerCycle = Mathf.RoundToInt(buildingData.incomePerCycle * 1.5f);
+        buildingData.upgradeCost = Mathf.RoundToInt(buildingData.upgradeCost * 2f);
+    }
+
+    protected virtual void OnUpgraded() { }
 
     public bool AddBuildingEffect(IBuildingEffect buildingEffect)
     {
@@ -258,6 +265,14 @@ public class Building : MonoBehaviour
     {
         Debug.Log($"Destroying building: {buildingData.buildingName}");
 
+        UnregisterFromManagers();
+        CleanupEffects();
+
+        Destroy(gameObject);
+    }
+
+    private void UnregisterFromManagers()
+    {
         if (GridCity.Instance != null)
         {
             GridCity.Instance.RemoveBuilding(this, _occupiedPositions);
@@ -268,8 +283,6 @@ public class Building : MonoBehaviour
         {
             EconomyManager.Instance.registeredBuildings.Remove(this);
         }
-
-        Destroy(gameObject);
     }
 
     public virtual void MoveBuilding()
@@ -285,5 +298,11 @@ public class Building : MonoBehaviour
             Debug.Log($"Started moving {buildingData.buildingName}");
 
         }
+    }
+
+    private void OnDestroy()
+    {
+        CleanupEffects();
+        OnBuildingDestroyed?.Invoke(this);
     }
 }
