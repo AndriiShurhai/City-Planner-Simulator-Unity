@@ -25,4 +25,14 @@ public class AmusementParkStructure : Building
         base.ProcessTick();
         HappinessRateManager.Instance.IncreaseRate(happinessBonus);
     }
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
+        {
+            return;
+        }
+        happinessBonus += 0.5f;
+    }
 }

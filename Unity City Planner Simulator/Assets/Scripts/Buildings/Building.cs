@@ -21,23 +21,21 @@ public class Building : MonoBehaviour
 
     public BuildingState State { get; private set; } = BuildingState.Constructing;
 
-    private Vector2Int _gridPosition;
-    private Vector2Int _size;
-    private readonly List<IBuildingEffect> _buildingEffects = new List<IBuildingEffect>();
-    private readonly List<Vector2Int> _occupiedPositions = new List<Vector2Int>();
-    private Vector2Int _lastGridPosition;
-    private bool _isInitialized;
-    private bool _wasPlacedBefore;
-    private bool _isPlaced;
-    private Coroutine _constructionCoroutine;
+    protected Vector2Int _gridPosition;
+    protected Vector2Int _size;
+    protected readonly List<IBuildingEffect> _buildingEffects = new List<IBuildingEffect>();
+    protected readonly List<Vector2Int> _occupiedPositions = new List<Vector2Int>();
+    protected Vector2Int _lastGridPosition;
+    protected bool _isInitialized;
+    protected bool _wasPlacedBefore;
+    protected bool _isPlaced;
+    protected Coroutine _constructionCoroutine;
 
 
     public static event Action<Building> OnBuildingPlaced;
     public static event Action<Building> OnBuildingDestroyed;
     public static event Action<Building> OnBuildingConstruction;
     public event Action<BuildingState> OnStateChanged;
-
-
     public event Action OnUpgrade;
     private void Awake()
     {
@@ -193,6 +191,7 @@ public class Building : MonoBehaviour
         if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
         {
             Debug.Log($"Building {buildingData.buildingName} is already at max level");
+            return;
         }
 
         if (EconomyManager.Instance != null && !EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost))

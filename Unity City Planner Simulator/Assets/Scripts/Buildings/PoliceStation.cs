@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 public class PoliceStation : Building
 {
     [SerializeField] private List<GameObject> policePrefabs;
+    private int policeCount;
     private void Awake()
     {
     }
@@ -22,5 +23,17 @@ public class PoliceStation : Building
         {
             Debug.Log("There is no occupied positions");
         }
+    }
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
+        {
+            return;
+        }
+        policeCount++;
+        int policePrefabIndex = Random.Range(0, policePrefabs.Count);
+        ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)OccupiedPositions[0], policePrefabs[policePrefabIndex]);
     }
 }

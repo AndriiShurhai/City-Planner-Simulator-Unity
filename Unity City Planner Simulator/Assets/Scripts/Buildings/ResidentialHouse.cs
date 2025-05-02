@@ -10,7 +10,6 @@ public class ResidentialHouse : Building
 
     [SerializeField] private ParticleSystem ps;
 
-    private int currentLevel;
     private int currentResidents;
     private bool isPlaying = false;
 
@@ -20,7 +19,6 @@ public class ResidentialHouse : Building
     {
         base.Initialize(buildingData, size);
         currentResidents = START_RESIDENTS;
-        currentLevel = 1;
 
         if (!isPlaying)
         {
@@ -79,11 +77,12 @@ public class ResidentialHouse : Building
     }
     public override void Upgrade()
     {
-        if (currentLevel >= 3) return;
-
-        currentLevel++;
+        base.Upgrade();
+        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
+        {
+            return;
+        }
         currentResidents++;
-
         ResidentsManager.Instance.SpawnResidents(1, (Vector3Int)OccupiedPositions[0]);
     }
 

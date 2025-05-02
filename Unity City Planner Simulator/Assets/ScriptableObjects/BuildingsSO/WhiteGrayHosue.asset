@@ -24,6 +24,6 @@ MonoBehaviour:
   incomePerCycle: 200
   incomePerResident: 50
   jobsAvailiable: 0
-  maxUpgradeLevel: 0
+  maxUpgradeLevel: 3
   upgradeLevel: 0
   upgradeCost: 0
