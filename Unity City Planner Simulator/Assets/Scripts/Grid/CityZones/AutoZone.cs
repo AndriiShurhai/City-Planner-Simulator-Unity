@@ -79,6 +79,7 @@ public class AutoZoneManager : MonoBehaviour
 
     private void UpdateAndProcess(Building building)
     {
+        if (building is not IZonable) return;
         Debug.Log("Building placed event received");
         UpdateBuildingPositions(building);
         ProcessZoningForType(building.BuildingData.buildingType);

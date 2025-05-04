@@ -4,48 +4,32 @@ using Unity.IO.LowLevel.Unsafe;
 using JetBrains.Annotations;
 using System;
 
-public class ResidentialHouse : Building
+public class ResidentialHouse : ResidentialBuildingBase, IZonable
 {
-    private const int START_RESIDENTS = 1;
-
     [SerializeField] private ParticleSystem ps;
-
-    private int currentResidents;
     private bool isPlaying = false;
 
     public new event Action<int, Vector3> OnUpgrade;
 
-    public override void Initialize(BuildingData buildingData, Vector2Int size)
+    protected override int GetInitialResidentCount()
     {
-        base.Initialize(buildingData, size);
-        currentResidents = START_RESIDENTS;
+        return 1;
+    }
+
+    protected override int GetMaxResidentCount()
+    {
+        return 5 + buildingData.upgradeLevel * 2;
+    }
+
+    protected override void OnInitialize()
+    {
+        base.OnInitialize();
 
         if (!isPlaying)
         {
             StartCoroutine(PlayParticlesWithDelay());
         }
     }
-
-    public override int CalculateIncome()
-    {
-
-        int taxIncome = buildingData.incomePerResident * currentResidents;
-        int netIncome = taxIncome - buildingData.maintenanceCost;
-
-        return netIncome;
-    }
-
-    public override void ProcessTick()
-    {
-        base.ProcessTick();
-
-        Debug.Log("This what you can do after base process tick");
-        // additional affects
-
-    }
-
-
-    
     private IEnumerator PlayParticlesWithDelay()
     {
         while (true)
@@ -56,34 +40,17 @@ public class ResidentialHouse : Building
 
             ps.Play();
             isPlaying = false;
-
-            Debug.Log("Doing this");
         }
     }
 
-    public override void OnPlaced()
+    protected override void OnUpgraded()
     {
-        base.OnPlaced();
-        if (State != BuildingState.Active) return; 
+        base.OnUpgraded();
 
-        if (OccupiedPositions != null && OccupiedPositions.Count > 0)
+        if (OnUpgrade != null && OccupiedPositions.Count > 0)
         {
-            ResidentsManager.Instance.SpawnResidents(currentResidents, (Vector3Int)OccupiedPositions[0]);
-        }
-        else
-        {
-            Debug.Log("There is no occupied positions");
+            Vector3 position = new Vector3(OccupiedPositions[0].x, OccupiedPositions[0].y, 0);
+            OnUpgrade.Invoke(buildingData.upgradeLevel, position);
         }
     }
-    public override void Upgrade()
-    {
-        base.Upgrade();
-        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
-        {
-            return;
-        }
-        currentResidents++;
-        ResidentsManager.Instance.SpawnResidents(1, (Vector3Int)OccupiedPositions[0]);
-    }
-
 }

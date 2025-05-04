@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 463793761022909502}
   - component: {fileID: -930118042649651758}
   - component: {fileID: 3623466012074998499}
-  - component: {fileID: 5353714070582508826}
   - component: {fileID: 1014467872768034616}
+  - component: {fileID: 482015377977876252}
   m_Layer: 0
   m_Name: PinkFlat
   m_TagString: Untagged
@@ -137,20 +137,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 7}
   m_EdgeRadius: 0
---- !u!114 &5353714070582508826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120994004975756543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586bd70420fb74d479ae3707b810b7ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: db1e9febc518cab45aa8327456d69b5b, type: 2}
-  wasPlacedBefore: 0
 --- !u!95 &1014467872768034616
 Animator:
   serializedVersion: 7
@@ -173,6 +159,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &482015377977876252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120994004975756543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c46f8f6f1b40b5c4687953ac129c26e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: db1e9febc518cab45aa8327456d69b5b, type: 2}
 --- !u!1 &1426701804831709526
 GameObject:
   m_ObjectHideFlags: 0

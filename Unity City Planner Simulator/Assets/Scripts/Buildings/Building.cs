@@ -207,7 +207,7 @@ public class Building : MonoBehaviour
     }
     private bool TryPayForUpgrade()
     {
-        return (EconomyManager.Instance != null && !EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost));
+        return (EconomyManager.Instance != null && EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost));
     }
 
     private void ApplyStandartUpgrades()

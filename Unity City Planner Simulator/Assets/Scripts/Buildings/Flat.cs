@@ -1,32 +1,24 @@
 using System.Collections;
 using UnityEngine;
 
-public class Flat : Building
+public class Flat : ResidentialBuildingBase, IZonable
 {
-    private int startResidents = 5;
-
-    private int currentLevel;
-    private int currentResidents;
-
-    public override void Initialize(BuildingData buildingData, Vector2Int size)
+    protected override int GetInitialResidentCount()
     {
-        base.Initialize(buildingData, size);
-        currentResidents = startResidents;
-        currentLevel = 1;
+        return 5;
     }
 
-    public override int CalculateIncome()
+    protected override int GetMaxResidentCount()
     {
-        int taxIncome = buildingData.incomePerResident * currentResidents;
-        int netIncome = taxIncome - buildingData.maintenanceCost;
-
-        return netIncome;
+        return 10 + buildingData.upgradeLevel * 5;
     }
 
-    public override void ProcessTick()
+    protected override void OnProcessTick()
     {
-        base.ProcessTick();
+        base.OnProcessTick();
 
-        // additional affects
+        // something else
     }
+
+
 }
