@@ -2,38 +2,44 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public class PoliceStation : Building
+public class PoliceStation : ServiceBuildingBase
 {
     [SerializeField] private List<GameObject> policePrefabs;
-    private int policeCount;
-    private void Awake()
+    [SerializeField] private float crimeSuppression = 1.0f;
+
+    private int policeCount = 1;
+
+    protected override void AfterPlacement()
     {
-    }
-    public override void OnPlaced()
-    {
-        base.OnPlaced();
+        base.AfterPlacement();
+
         if (State != BuildingState.Active) return;
 
-        int policePrefabIndex = Random.Range(0, policePrefabs.Count);
+        SpawnPolice();
+    }
+
+    private void SpawnPolice()
+    {
         if (OccupiedPositions != null && OccupiedPositions.Count > 0)
         {
+            int policePrefabIndex = UnityEngine.Random.Range(0, policePrefabs.Count);
             ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)OccupiedPositions[0], policePrefabs[policePrefabIndex]);
-        }
-        else
-        {
-            Debug.Log("There is no occupied positions");
         }
     }
 
-    public override void Upgrade()
+    protected override void ApplyServiceEffect()
     {
-        base.Upgrade();
-        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
-        {
-            return;
-        }
+        CrimeRateManager.Instance.DecreaseRate(crimeSuppression);
+    }
+
+    protected override void OnUpgraded()
+    {
+        base.OnUpgraded();
+
+        crimeSuppression += 0.5f;
+
         policeCount++;
-        int policePrefabIndex = Random.Range(0, policePrefabs.Count);
+        int policePrefabIndex = UnityEngine.Random.Range(0, policePrefabs.Count);
         ResidentsManager.Instance.SpawnPolicemans(1, (Vector3Int)OccupiedPositions[0], policePrefabs[policePrefabIndex]);
     }
 }
