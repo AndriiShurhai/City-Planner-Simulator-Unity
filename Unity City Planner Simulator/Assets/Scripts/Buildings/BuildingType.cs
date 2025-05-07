@@ -3,7 +3,7 @@ public enum BuildingType
 {
     Residential,
     Commercial,
-    Industrial,
+    Employment,
     Amusement,
     Flat,
     Medical,

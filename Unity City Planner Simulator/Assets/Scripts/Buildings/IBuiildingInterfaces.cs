@@ -19,11 +19,12 @@ public interface IPopulationProvider
 public interface IEmploymentProvider
 {
     int GetAvailableJobs();
-    int GetFilledJobs();
-    void FillJobs();
-    void VacateJobs();
 }
 
+public interface IEducationProvider
+{
+    float GetEducationContribution();
+}
 
 public interface IZonable
 {

@@ -46,15 +46,16 @@ public class EducationRateManager : MonoBehaviour, IRate
         {
             if (building.BuildingData.buildingType == BuildingType.Education)
             {
-                _educationFacilities++;
+                IEducationProvider educationProvider = building as IEducationProvider;
+                if (educationProvider != null)
+                {
+                    _educationFacilities += educationProvider.GetEducationContribution();
+                }
             }
         }
-        _educationFacilities *= 10;
 
         _targetEducation = Mathf.Clamp(_baseEducation + _educationFacilitiesMultiplier * _educationFacilities, 0, 100);
-
         _currentEducationRate = _currentEducationRate + _alphaEducation * (_targetEducation - _currentEducationRate);
-
         _currentEducationRate = Mathf.Clamp(_currentEducationRate, 0, 100);
 
         UpdateUI();

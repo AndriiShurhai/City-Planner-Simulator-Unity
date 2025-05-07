@@ -38,9 +38,10 @@ public class UnemploymentRateManager : MonoBehaviour, IRate
 
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
-            if (building.BuildingData.buildingType == BuildingType.Industrial)
+            IEmploymentProvider employmentProvider = building as IEmploymentProvider;
+            if (employmentProvider != null)
             {
-                jobsAvailable += building.BuildingData.jobsAvailiable;
+                jobsAvailable += employmentProvider.GetAvailableJobs();
             }
         }
 
