@@ -1,38 +1,45 @@
 using UnityEngine;
 
-public class AmusementParkStructure : Building
+public class AmusementParkStructure : EntertainmentBuildingBase
 {
-    [SerializeField] private float happinessBonus = 2f;
+    private float visitorCapacity;
+    private int currentVisitors;
 
-    public float HappinessBonus
+    protected override void OnInitialize()
     {
-        get { return happinessBonus; }
-        set
+        base.OnInitialize();
+
+        happinessBonus = 2f;
+        visitorCapacity = 50f * Size.x * Size.y;
+        currentVisitors = 0;
+    }
+
+    protected override void OnProcessTick()
+    {
+        base.OnProcessTick();
+
+        SimulateVisitors();
+    }
+
+    private void SimulateVisitors()
+    {
+        float cityHappiness = HappinessRateManager.Instance.HapppinessRate;
+        float attractionFactor = happinessBonus * cityHappiness * 0.1f;
+
+        int newVisitors = Mathf.RoundToInt(attractionFactor);
+        currentVisitors = Mathf.Min(currentVisitors + newVisitors, Mathf.RoundToInt(visitorCapacity));
+
+        if (EconomyManager.Instance != null && currentVisitors > 0)
         {
-            if (value > 0)
-            {
-                happinessBonus += value;
-            }
+            int visitorIncome = Mathf.RoundToInt(currentVisitors * 0.1f);
+            EconomyManager.Instance.AddMoney(visitorIncome);
         }
     }
-    public override void Initialize(BuildingData buildingData, Vector2Int size)
-    {
-        base.Initialize(buildingData, size);
-    }
 
-    public override void ProcessTick()
+    protected override void OnUpgraded()
     {
-        base.ProcessTick();
-        HappinessRateManager.Instance.IncreaseRate(happinessBonus);
-    }
+        base.OnUpgraded();
 
-    public override void Upgrade()
-    {
-        base.Upgrade();
-        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
-        {
-            return;
-        }
-        happinessBonus += 0.5f;
+        visitorCapacity *= 1.5f;
     }
 }
