@@ -155,7 +155,7 @@ public class Building : MonoBehaviour
 
     public virtual void ProcessTick()
     {
-        if (!_isInitialized || !_isPlaced) return;
+        if (!_isInitialized || !_isPlaced || State == BuildingState.Constructing) return;
 
         int netIncome = CalculateIncome();
 

@@ -9,7 +9,7 @@ public class AutoZoneManager : MonoBehaviour
 {
     [SerializeField] private GameObject zonePrefab;
     [SerializeField] private Color[] zoneColorsByType;
-    [SerializeField] private int minBuildingsForZone = 1;
+    [SerializeField] private int minBuildingsForZone = 2;
     [SerializeField] private int maxSearchDistance = 10;
     [SerializeField] private int paddingSize = 2;
 

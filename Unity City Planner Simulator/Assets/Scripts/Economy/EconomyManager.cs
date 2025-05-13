@@ -85,8 +85,10 @@ public class EconomyManager : MonoBehaviour
     private void CalculateExpenses()
     {
         _monthlyExpenses = 0;
-        foreach (var building in registeredBuildings)
-        {
+        foreach (var building in registeredBuildings) 
+        { 
+
+            Debug.Log("Building process tick");
             building.ProcessTick();
         }
     }

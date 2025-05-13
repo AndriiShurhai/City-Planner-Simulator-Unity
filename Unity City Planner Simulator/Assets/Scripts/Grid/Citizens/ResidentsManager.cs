@@ -14,10 +14,10 @@ public class ResidentsManager : MonoBehaviour
 
     private bool isResidentSpawned = false;
 
-    private float crimeCheckInterval = 40f;
-    private float crimeCheckTimer = 10f;
-    private float healthAttackInterval = 40f;
-    private float healthAttackTimer = 40f;
+    private float crimeCheckInterval = 10f;
+    private float crimeCheckTimer = 40f;
+    private float healthAttackInterval = 10f;
+    private float healthAttackTimer = 10f;
 
     public event Action<AIResident> OnResidentGoingToCrime;
     public event Action<AIResident> OnResidentGoingToDie;

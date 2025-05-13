@@ -13,6 +13,7 @@ public class Book : MonoBehaviour
     [SerializeField] private Button forwardButton;
     [SerializeField] private Button bookButton;
     [SerializeField] private List<Bookmark> bookmarks;
+    [SerializeField] private List<PageVideo> pageVideos;
 
 
     private PageFlipper flipper;
@@ -36,6 +37,7 @@ public class Book : MonoBehaviour
         animator = GetComponent<Animator>();
         InitialStart();
         RegisterBookmarksEvents();
+        HandleVideoPlayback();
     }
     private void InitialStart()
     {
@@ -66,6 +68,37 @@ public class Book : MonoBehaviour
 
         forwardButton.interactable = (pageIndex < pages.Count-1);
     }
+    private void HandleVideoPlayback()
+    {
+        foreach (var pageVideo in pageVideos)
+        {
+            bool isCurrentPage = pageVideo.pageIndex == pageIndex;
+            if (pageVideo.videoDisplay != null)
+            {
+                if (isCurrentPage)
+                {
+                    pageVideo.videoDisplay.SetActive(isCurrentPage);
+                }
+                else
+                {
+                    StartCoroutine(DisactivateVideoPlayer(pageVideo));
+                }
+            }
+
+            if (pageVideo.videoPlayer != null)
+            {
+                if (isCurrentPage) pageVideo.videoPlayer.Play();
+                else pageVideo.videoPlayer.Stop();
+            }
+        }
+    }
+
+    private IEnumerator DisactivateVideoPlayer(PageVideo video)
+    {
+        yield return new WaitUntil(() => !flipper.isRotating);
+        video.videoDisplay.SetActive(false);
+    }
+
     public void HandleLeftButtonClick()
     {
         if (flipper.isRotating || pageIndex <= 0 || AnyBookmarkPlaying()) return;
@@ -74,6 +107,7 @@ public class Book : MonoBehaviour
         pages[pageIndex].SetAsLastSibling();
         flipper.Rotate(pages[pageIndex], 0);
         UpdateButtonStates();
+        HandleVideoPlayback();
 
         foreach (var bookmark in bookmarks)
         {
@@ -92,14 +126,16 @@ public class Book : MonoBehaviour
         flipper.Rotate(pages[pageIndex], 180);
         pageIndex++;
         UpdateButtonStates();
+        StartCoroutine(DelayedVideoPlayback());
 
         foreach (var bookmark in bookmarks)
         {
-            if (pageIndex == bookmark.bookmarkIndex+1)
+            if (pageIndex == bookmark.bookmarkIndex+1 && bookmark.isBookmarkRight)
             {
                 bookmark.GoLeft();
             }
         }
+        HandleVideoPlayback();
     }
 
     private bool AnyBookmarkPlaying()
@@ -113,7 +149,19 @@ public class Book : MonoBehaviour
     public void RotateToIndex(int index)
     {
         if (index < -1 || index >= pages.Count) return;
+
         StartCoroutine(RotatePages(index));
+        foreach (var bookmark in bookmarks)
+        {
+            if (bookmark.bookmarkIndex > index && !bookmark.isBookmarkRight)
+            {
+                bookmark.GoRight();
+            }
+            else if (bookmark.bookmarkIndex < index && bookmark.isBookmarkRight)
+            {
+                bookmark.GoLeft();
+            } 
+        }
 
     }
     public void OpenBook()
@@ -192,6 +240,12 @@ public class Book : MonoBehaviour
         pageIndex = 1;
         animator.enabled = false;
     }
+
+    private IEnumerator DelayedVideoPlayback()
+    {
+        yield return new WaitUntil(() => !flipper.isRotating);
+        HandleVideoPlayback();
+    }
     private IEnumerator WaitForAnimation(string stateName)
     {
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
@@ -207,6 +261,7 @@ public class Book : MonoBehaviour
 
     private void MoveBookmark(Bookmark bookmark)
     {
+        if (animator.enabled) return;
         RotateToIndex(bookmark.bookmarkIndex);
     }
 

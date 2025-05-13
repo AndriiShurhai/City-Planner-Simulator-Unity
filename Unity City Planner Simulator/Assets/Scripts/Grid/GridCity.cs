@@ -153,7 +153,6 @@ public class GridCity : MonoBehaviour
 
         building.Initialize(data, data.size); 
         building.SetGridPosition(position);
-        building.OnPlaced();
 
         for (int x = position.x; x < position.x + data.size.x; x++)
         {
