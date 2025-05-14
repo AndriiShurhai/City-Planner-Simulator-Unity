@@ -1,124 +1,148 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+# Enhanced and Commented Unity Scene File
+# Original objects and their settings are preserved.
+# Comments added for clarity, understanding, and potential areas of improvement.
+
+# --- Occlusion Culling Settings ---
+# Defines settings for Unity's occlusion culling system, which disables rendering
+# of objects obscured by other objects from the camera's viewpoint.
 --- !u!29 &1
 OcclusionCullingSettings:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
+  m_ObjectHideFlags: 0 # Standard Unity internal flag.
+  serializedVersion: 2 # Version of the OcclusionCullingSettings format.
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
-    smallestHole: 0.25
-    backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+    smallestOccluder: 5 # The minimum size (in units) an object must be to be considered an occluder during baking.
+    smallestHole: 0.25 # The smallest radius (in units) of a hole/gap the occlusion culling system will try to see through.
+    backfaceThreshold: 100 # A value from 0-100. Higher values mean backfaces are more likely to be culled. 100 means backfaces are aggressively tested.
+  m_SceneGUID: 00000000000000000000000000000000 # GUID of the scene, usually 0 unless explicitly set or managed by version control.
+  m_OcclusionCullingData: {fileID: 0} # Reference to the baked OcclusionCullingData asset. {fileID: 0} means no data is currently baked or assigned.
+                                      # Suggestion: Bake Occlusion Culling (Window > Rendering > Occlusion Culling) if you have complex scenes.
+
+# --- Render Settings ---
+# Defines global rendering settings for the scene, such as fog, ambient light, skybox, etc.
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
-  m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: 0.5
-  m_FlareStrength: 1
-  m_FlareFadeSpeed: 3
-  m_HaloTexture: {fileID: 0}
-  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 128
-  m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
-  m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_UseRadianceAmbientProbe: 0
+  serializedVersion: 10 # Version of the RenderSettings format.
+  m_Fog: 0 # Fog enabled (1) or disabled (0). Currently: Disabled.
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1} # Color of the fog if enabled.
+  m_FogMode: 3 # Fog mode: 1 (Linear), 2 (Exponential), 3 (ExponentialSquared). Currently: ExponentialSquared.
+  m_FogDensity: 0.01 # Density of the fog for exponential modes.
+  m_LinearFogStart: 0 # Start distance for linear fog.
+  m_LinearFogEnd: 300 # End distance for linear fog.
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1} # Ambient light color from the sky.
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1} # Ambient light color from the equator (for Gradient ambient mode).
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1} # Ambient light color from the ground (for Gradient ambient mode).
+  m_AmbientIntensity: 1 # Intensity of the ambient light.
+  m_AmbientMode: 3 # Ambient lighting mode: 0 (Skybox), 1 (Gradient), 3 (Color). Currently: Skybox (but color values suggest Gradient or Color might have been intended or previously used). If Skybox, m_SkyboxMaterial is used.
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1} # Color of shadows in Subtractive lighting mode.
+  m_SkyboxMaterial: {fileID: 0} # Reference to the Skybox material. {fileID: 0} means no skybox assigned.
+                                # Suggestion: Assign a Skybox material if using Skybox ambient mode or clear flags.
+  m_HaloStrength: 0.5 # Strength of light halos.
+  m_FlareStrength: 1 # Strength of lens flares.
+  m_FlareFadeSpeed: 3 # Speed at which lens flares fade.
+  m_HaloTexture: {fileID: 0} # Texture used for light halos. {fileID: 0} means no halo texture assigned.
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0} # Default cookie texture for SpotLights (usually a soft circle).
+  m_DefaultReflectionMode: 0 # How default reflections are generated: 0 (Skybox), 1 (Custom). Currently: Skybox.
+  m_DefaultReflectionResolution: 128 # Resolution of the default reflection cubemap.
+  m_ReflectionBounces: 1 # Number of bounces for reflections.
+  m_ReflectionIntensity: 1 # Intensity of reflections.
+  m_CustomReflection: {fileID: 0} # Reference to a custom reflection cubemap. {fileID: 0} means no custom reflection assigned.
+  m_Sun: {fileID: 0} # Reference to the primary Directional Light acting as the sun. {fileID: 0} means no sun source linked.
+                    # Suggestion: Assign your main directional light here for skybox procedural effects and certain lighting features.
+  m_UseRadianceAmbientProbe: 0 # Whether to use Radiance Ambient Probes (part of advanced GI). Currently: Disabled.
+
+# --- Lightmap Settings ---
+# Configures settings related to global illumination (GI), light baking, and lightmaps.
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 13
-  m_BakeOnSceneLoad: 0
-  m_GISettings:
+  serializedVersion: 13 # Version of the LightmapSettings format.
+  m_BakeOnSceneLoad: 0 # Whether to bake lightmaps when the scene is loaded in the editor. Currently: Disabled.
+  m_GISettings: # Global Illumination Settings
     serializedVersion: 2
-    m_BounceScale: 1
-    m_IndirectOutputScale: 1
-    m_AlbedoBoost: 1
-    m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 0
-    m_EnableRealtimeLightmaps: 0
-  m_LightmapEditorSettings:
+    m_BounceScale: 1 # Multiplier for indirect light bounce intensity.
+    m_IndirectOutputScale: 1 # Scale for the intensity of indirect light stored in lightmaps/probes.
+    m_AlbedoBoost: 1 # Boosts the albedo contribution to GI calculations.
+    m_EnvironmentLightingMode: 0 # How environment lighting contributes to GI. 0 = Realtime, 1 = Baked.
+    m_EnableBakedLightmaps: 0 # Enable baked lightmaps. Currently: Disabled.
+    m_EnableRealtimeLightmaps: 0 # Enable realtime lightmaps (deprecated in favor of Enlighten Realtime GI or Progressive Lightmapper). Currently: Disabled.
+                                # Suggestion: If using static geometry and lights, consider enabling Baked Lightmaps for better performance and visuals.
+  m_LightmapEditorSettings: # Settings specific to the lightmap baking process.
     serializedVersion: 12
-    m_Resolution: 2
-    m_BakeResolution: 40
-    m_AtlasSize: 1024
-    m_AO: 0
-    m_AOMaxDistance: 1
-    m_CompAOExponent: 1
-    m_CompAOExponentDirect: 0
-    m_ExtractAmbientOcclusion: 0
-    m_Padding: 2
-    m_LightmapParameters: {fileID: 0}
-    m_LightmapsBakeMode: 1
-    m_TextureCompression: 1
-    m_ReflectionCompression: 2
-    m_MixedBakeMode: 2
-    m_BakeBackend: 1
-    m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
-    m_PVRSampleCount: 512
-    m_PVRBounces: 2
-    m_PVREnvironmentSampleCount: 256
-    m_PVREnvironmentReferencePointCount: 2048
-    m_PVRFilteringMode: 1
-    m_PVRDenoiserTypeDirect: 1
-    m_PVRDenoiserTypeIndirect: 1
-    m_PVRDenoiserTypeAO: 1
-    m_PVRFilterTypeDirect: 0
-    m_PVRFilterTypeIndirect: 0
-    m_PVRFilterTypeAO: 0
-    m_PVREnvironmentMIS: 1
-    m_PVRCulling: 1
-    m_PVRFilteringGaussRadiusDirect: 1
-    m_PVRFilteringGaussRadiusIndirect: 1
-    m_PVRFilteringGaussRadiusAO: 1
-    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
-    m_PVRFilteringAtrousPositionSigmaIndirect: 2
-    m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ExportTrainingData: 0
-    m_TrainingDataDestination: TrainingData
-    m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+    m_Resolution: 2 # Resolution of lightmaps in texels per unit.
+    m_BakeResolution: 40 # Resolution used for baking individual lightmap charts.
+    m_AtlasSize: 1024 # Maximum size of the lightmap atlas (texture).
+    m_AO: 0 # Ambient Occlusion enabled (1) or disabled (0) for baked lightmaps. Currently: Disabled.
+    m_AOMaxDistance: 1 # Maximum distance for AO rays.
+    m_CompAOExponent: 1 # Exponent for AO compression.
+    m_CompAOExponentDirect: 0 # Exponent for direct AO compression.
+    m_ExtractAmbientOcclusion: 0 # Whether to extract AO into a separate texture mask.
+    m_Padding: 2 # Padding (in texels) between charts in the lightmap atlas.
+    m_LightmapParameters: {fileID: 0} # Reference to a LightmapParameters asset for fine-grained control. {fileID: 0} uses default parameters.
+    m_LightmapsBakeMode: 1 # Lightmap baking mode: 0 (Non-Directional), 1 (Directional). Currently: Directional.
+    m_TextureCompression: 1 # Enable texture compression for lightmaps. Currently: Enabled.
+    m_ReflectionCompression: 2 # Compression quality for reflection probes.
+    m_MixedBakeMode: 2 # Mode for mixed lighting: 1 (Subtractive), 2 (Shadowmask). Currently: Shadowmask.
+    m_BakeBackend: 1 # Lightmap baking backend: 0 (Enlighten - deprecated), 1 (Progressive CPU/GPU). Currently: Progressive.
+    m_PVRSampling: 1 # Progressive Lightmapper (PVR) sampling mode.
+    m_PVRDirectSampleCount: 32 # Number of samples for direct lighting in PVR.
+    m_PVRSampleCount: 512 # Number of samples for indirect lighting in PVR.
+    m_PVRBounces: 2 # Number of light bounces in PVR.
+    m_PVREnvironmentSampleCount: 256 # Number of environment samples in PVR.
+    m_PVREnvironmentReferencePointCount: 2048 # Reference points for environment PVR.
+    m_PVRFilteringMode: 1 # PVR filtering mode.
+    m_PVRDenoiserTypeDirect: 1 # Denoiser type for direct PVR lighting.
+    m_PVRDenoiserTypeIndirect: 1 # Denoiser type for indirect PVR lighting.
+    m_PVRDenoiserTypeAO: 1 # Denoiser type for PVR AO.
+    m_PVRFilterTypeDirect: 0 # Filter type for direct PVR.
+    m_PVRFilterTypeIndirect: 0 # Filter type for indirect PVR.
+    m_PVRFilterTypeAO: 0 # Filter type for PVR AO.
+    m_PVREnvironmentMIS: 1 # Multiple Importance Sampling for PVR environment.
+    m_PVRCulling: 1 # Culling for PVR.
+    m_PVRFilteringGaussRadiusDirect: 1 # Gauss filter radius for direct PVR.
+    m_PVRFilteringGaussRadiusIndirect: 1 # Gauss filter radius for indirect PVR.
+    m_PVRFilteringGaussRadiusAO: 1 # Gauss filter radius for PVR AO.
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5 # Atrous filter sigma for direct PVR.
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2 # Atrous filter sigma for indirect PVR.
+    m_PVRFilteringAtrousPositionSigmaAO: 1 # Atrous filter sigma for PVR AO.
+    m_ExportTrainingData: 0 # Export training data for machine learning denoiser.
+    m_TrainingDataDestination: TrainingData # Destination folder for training data.
+    m_LightProbeSampleCountMultiplier: 4 # Multiplier for light probe sample counts.
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0} # Reference to the LightingDataAsset (stores baked data). GUID of all zeros means it's likely a placeholder or no data.
+  m_LightingSettings: {fileID: 0} # Reference to a LightingSettings asset (not commonly used directly, settings are usually part of LightmapSettings).
+
+# --- NavMesh Settings ---
+# Configures settings for Unity's NavMesh navigation system, used for AI pathfinding.
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
-  m_BuildSettings:
+  m_BuildSettings: # Settings for baking the NavMesh.
     serializedVersion: 3
-    agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
-    minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666667
-    manualTileSize: 0
-    tileSize: 256
-    buildHeightMesh: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
-    debug:
-      m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+    agentTypeID: 0 # ID of the agent type these settings apply to (0 is usually default 'Humanoid').
+    agentRadius: 0.5 # Radius of the navigation agent.
+    agentHeight: 2 # Height of the navigation agent.
+    agentSlope: 45 # Maximum slope (in degrees) the agent can walk on.
+    agentClimb: 0.4 # Maximum height the agent can step up.
+    ledgeDropHeight: 0 # How far an agent can drop down. (0 implies cannot drop, requires explicit off-mesh links).
+    maxJumpAcrossDistance: 0 # How far an agent can jump. (0 implies cannot jump).
+    minRegionArea: 2 # Minimum area of a NavMesh region to not be discarded.
+    manualCellSize: 0 # Use manual cell size (1) or automatic (0). Currently: Automatic.
+    cellSize: 0.16666667 # Size of NavMesh voxels if manualCellSize is 1.
+    manualTileSize: 0 # Use manual tile size (1) or automatic (0). Currently: Automatic.
+    tileSize: 256 # Size of NavMesh tiles if manualTileSize is 1.
+    buildHeightMesh: 0 # Whether to build a detailed height mesh (can be performance intensive).
+    maxJobWorkers: 0 # Max number of threads for baking (0 for default).
+    preserveTilesOutsideBounds: 0 # Whether to keep NavMesh tiles outside defined bounds.
+    debug: # Debug visualization settings for NavMesh.
+      m_Flags: 0 # Debug flags (e.g., draw polys, boundaries). 0 means no debug drawing.
+  m_NavMeshData: {fileID: 0} # Reference to the baked NavMeshData asset. {fileID: 0} means no data is currently baked or assigned.
+                            # Suggestion: Bake NavMesh (Window > AI > Navigation) if AI agents need to navigate the scene.
+
+# --- GameObject: Canvas ---
+# The root GameObject for the UI. Contains Canvas, CanvasScaler, and GraphicRaycaster components.
 --- !u!1 &76080504
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,103 +150,125 @@ GameObject:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
-  m_Component:
-  - component: {fileID: 76080505}
-  - component: {fileID: 76080508}
-  - component: {fileID: 76080507}
-  - component: {fileID: 76080506}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &76080505
+  m_Component: # List of components attached to this GameObject.
+  - component: {fileID: 76080505} # RectTransform
+  - component: {fileID: 76080508} # Canvas
+  - component: {fileID: 76080507} # CanvasScaler (MonoBehaviour)
+  - component: {fileID: 76080506} # GraphicRaycaster (MonoBehaviour)
+  m_Layer: 5 # UI Layer.
+  m_Name: Canvas # Name of the GameObject.
+  m_TagString: Untagged # Tag of the GameObject.
+  m_Icon: {fileID: 0} # Custom icon for the GameObject in the hierarchy.
+  m_NavMeshLayer: 0 # Navigation layer for this object.
+  m_StaticEditorFlags: 0 # Flags for static batching, lightmap static, etc. 0 means not static.
+  m_IsActive: 1 # GameObject is active (1) or inactive (0).
+
+# --- RectTransform (for Canvas) ---
+# Defines the position, rotation, scale, and anchoring for the Canvas GameObject.
+--- !u!224 &76080505 # This is the RectTransform component for the Canvas GameObject (ID: 76080504)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76080504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1049060289}
-  - {fileID: 410939538}
-  - {fileID: 2111944776}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!114 &76080506
+  m_GameObject: {fileID: 76080504} # Link back to the GameObject this component is on.
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1} # Local rotation (Quaternion).
+  m_LocalPosition: {x: 0, y: 0, z: 0} # Local position.
+  m_LocalScale: {x: 0, y: 0, z: 0} # Local scale. Note: Scale 0,0,0 makes it invisible. This might be overridden by Canvas or an error.
+                                    # For a Screen Space Overlay canvas, its RectTransform's scale is often driven by the Canvas itself.
+                                    # If RenderMode is ScreenSpace-Camera or WorldSpace, this scale matters more.
+  m_ConstrainProportionsScale: 0 # Whether to constrain proportions when scaling in the editor.
+  m_Children: # List of child RectTransforms.
+  - {fileID: 1049060289} # Child: Panel (ID: 1049060288's RectTransform)
+  - {fileID: 410939538}  # Child: Image (ID: 410939537's RectTransform)
+  - {fileID: 2111944776} # Child: Panel (ID: 2111944775's RectTransform, for Text)
+  m_Father: {fileID: 0} # Parent RectTransform. {fileID: 0} means it's a root UI element or its parent is a regular Transform.
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0} # Editor hint for Euler angles.
+  m_AnchorMin: {x: 0, y: 0} # Minimum anchor point (normalized 0-1) relative to parent.
+  m_AnchorMax: {x: 0, y: 0} # Maximum anchor point (normalized 0-1) relative to parent.
+  m_AnchoredPosition: {x: 0, y: 0} # Position of the pivot relative to anchors.
+  m_SizeDelta: {x: 0, y: 0} # Size of the RectTransform relative to the space defined by anchors.
+                            # For a ScreenSpace - Overlay canvas, these values often represent the screen size or reference resolution.
+  m_Pivot: {x: 0, y: 0} # Pivot point (normalized 0-1) of the RectTransform itself. (0,0) is bottom-left.
+
+# --- GraphicRaycaster (MonoBehaviour, on Canvas) ---
+# Allows the Canvas to intercept input events (clicks, touches) for UI elements.
+# Script GUID: dc42784cf147c0c48a680349fa168899 (UnityEditor.UI.GraphicRaycaster)
+--- !u!114 &76080506 # This is a MonoBehaviour: GraphicRaycaster
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76080504}
-  m_Enabled: 1
+  m_GameObject: {fileID: 76080504} # Attached to Canvas.
+  m_Enabled: 1 # Component is enabled.
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3} # Script reference (GraphicRaycaster).
+  m_Name: # Optional name for the component instance.
+  m_EditorClassIdentifier: # Editor class identifier.
+  m_IgnoreReversedGraphics: 1 # Whether to ignore graphics facing away from the raycaster.
+  m_BlockingObjects: 0 # Types of 3D objects that can block UI raycasts: 0 (None), 1 (TwoD), 2 (ThreeD), 3 (All). Currently: None.
+  m_BlockingMask: # LayerMask for 3D objects that can block UI raycasts.
     serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &76080507
+    m_Bits: 4294967295 # All layers selected.
+
+# --- CanvasScaler (MonoBehaviour, on Canvas) ---
+# Controls the overall scale and pixel density of UI elements within the Canvas.
+# Script GUID: 0cd44c1031e13a943bb63640046fad76 (UnityEngine.UI.CanvasScaler)
+--- !u!114 &76080507 # This is a MonoBehaviour: CanvasScaler
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76080504}
+  m_GameObject: {fileID: 76080504} # Attached to Canvas.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &76080508
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3} # Script reference (CanvasScaler).
+  m_Name:
+  m_EditorClassIdentifier:
+  m_UiScaleMode: 0 # UI Scale Mode: 0 (Constant Pixel Size), 1 (Scale With Screen Size), 2 (Constant Physical Size). Currently: Constant Pixel Size.
+                   # Suggestion: Consider 'Scale With Screen Size' for responsive UI across different resolutions.
+  m_ReferencePixelsPerUnit: 100 # Pixels per unit for sprites used in the UI.
+  m_ScaleFactor: 1 # Scale factor if m_UiScaleMode is Constant Pixel Size.
+  m_ReferenceResolution: {x: 800, y: 600} # Reference resolution if m_UiScaleMode is Scale With Screen Size.
+  m_ScreenMatchMode: 0 # How to match screen resolution: 0 (Match Width Or Height), 1 (Expand), 2 (Shrink).
+  m_MatchWidthOrHeight: 0 # If ScreenMatchMode is MatchWidthOrHeight: 0 (Width), 0.5 (Halfway), 1 (Height).
+  m_PhysicalUnit: 3 # Physical unit for Constant Physical Size: 0 (Centimeters), 1 (Millimeters), 2 (Inches), 3 (Points), 4 (Picas).
+  m_FallbackScreenDPI: 96 # Fallback DPI if device DPI is unavailable.
+  m_DefaultSpriteDPI: 96 # Default DPI for sprites.
+  m_DynamicPixelsPerUnit: 1 # Used by TextMeshPro for dynamic font sizing.
+  m_PresetInfoIsWorld: 0 # Internal flag for editor presets.
+
+# --- Canvas (Component, on Canvas GameObject) ---
+# The main component that defines a UI drawing area.
+--- !u!223 &76080508 # This is the Canvas component itself, attached to GameObject 76080504
 Canvas:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76080504}
+  m_GameObject: {fileID: 76080504} # Attached to Canvas.
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 107
-  m_TargetDisplay: 0
+  m_RenderMode: 0 # Render Mode: 0 (Screen Space - Overlay), 1 (Screen Space - Camera), 2 (World Space). Currently: Screen Space - Overlay.
+  m_Camera: {fileID: 0} # Target camera if RenderMode is Screen Space - Camera or World Space. {fileID: 0} for Overlay.
+  m_PlaneDistance: 100 # Distance from camera if RenderMode is Screen Space - Camera.
+  m_PixelPerfect: 0 # Enable pixel perfect rendering. Can have performance implications. Currently: Disabled.
+  m_ReceivesEvents: 1 # Whether this canvas receives input events.
+  m_OverrideSorting: 0 # Whether to override the sorting layer and order.
+  m_OverridePixelPerfect: 0 # Whether to override pixel perfect setting on child canvases.
+  m_SortingBucketNormalizedSize: 0 # Internal sorting value.
+  m_VertexColorAlwaysGammaSpace: 0 # If vertex colors are in gamma space. Usually 0 for linear color space workflow.
+  m_AdditionalShaderChannelsFlag: 25 # Bitmask for additional shader channels (e.g., TexCoord1, Normal, Tangent). 25 = TexCoord1 + Tangent.
+  m_UpdateRectTransformForStandalone: 0 # Internal editor flag.
+  m_SortingLayerID: 0 # ID of the sorting layer. 0 is usually 'Default'.
+  m_SortingOrder: 107 # Order within the sorting layer. Higher numbers render on top. This is a relatively high value.
+  m_TargetDisplay: 0 # Which display to render to (for multi-display setups). 0 is primary.
+
+# --- GameObject: Image ---
+# A UI Image element, likely a background or decorative image.
+# Child of the main Canvas.
 --- !u!1 &410939537
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,73 +277,88 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 410939538}
-  - component: {fileID: 410939540}
-  - component: {fileID: 410939539}
-  m_Layer: 5
+  - component: {fileID: 410939538} # RectTransform
+  - component: {fileID: 410939540} # CanvasRenderer
+  - component: {fileID: 410939539} # Image (MonoBehaviour)
+  m_Layer: 5 # UI Layer.
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &410939538
+
+# --- RectTransform (for Image) ---
+# Anchored to stretch across its parent (Canvas), but with a negative X SizeDelta, making it narrower.
+--- !u!224 &410939538 # RectTransform for Image GameObject (ID: 410939537)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410939537}
+  m_GameObject: {fileID: 410939537} # Attached to Image.
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0} # Positioned at (0,0,0) relative to its anchors within the parent.
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 76080505}
+  m_Children: [] # No children.
+  m_Father: {fileID: 76080505} # Parent is the Canvas's RectTransform.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -772.5363, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &410939539
+  m_AnchorMin: {x: 0, y: 0} # Anchored to bottom-left of parent.
+  m_AnchorMax: {x: 1, y: 1} # Anchored to top-right of parent (stretches).
+  m_AnchoredPosition: {x: 0, y: 0} # Pivot is at the center of the anchored area.
+  m_SizeDelta: {x: -772.5363, y: 0} # Width is ParentWidth - 772.5363. Height is ParentHeight + 0.
+                                    # This creates an image that is narrower than the parent, centered horizontally.
+  m_Pivot: {x: 0.5, y: 0.5} # Pivot is at the center of this RectTransform.
+
+# --- Image (MonoBehaviour, on Image GameObject) ---
+# The actual Image component that displays a sprite.
+# Script GUID: fe87c0e1cc204ed48ad3b37840f39efc (UnityEngine.UI.Image)
+--- !u!114 &410939539 # MonoBehaviour: Image component
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410939537}
+  m_GameObject: {fileID: 410939537} # Attached to Image.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3} # Script reference (Image).
+  m_Name:
+  m_EditorClassIdentifier:
+  m_Material: {fileID: 0} # Custom material for the image. {fileID: 0} uses default UI material.
+  m_Color: {r: 1, g: 1, b: 1, a: 1} # Tint color (White, opaque).
+  m_RaycastTarget: 1 # Whether this image blocks raycasts (e.g., for clicks). Currently: Yes.
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0} # Padding for raycast interaction.
+  m_Maskable: 1 # Whether this image can be masked by a UI Mask component.
+  m_OnCullStateChanged: # UnityEvent triggered when culling state changes.
     m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: -675791031188208443, guid: 1d8c50fae0b828d4fa928e2aa6a5d8b3, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &410939540
+      m_Calls: [] # No persistent listeners.
+  m_Sprite: {fileID: -675791031188208443, guid: 1d8c50fae0b828d4fa928e2aa6a5d8b3, type: 3} # Source Sprite asset.
+  m_Type: 0 # Image type: 0 (Simple), 1 (Sliced), 2 (Tiled), 3 (Filled). Currently: Simple.
+  m_PreserveAspect: 0 # Whether to maintain the sprite's aspect ratio. Currently: No.
+  m_FillCenter: 1 # For Sliced/Tiled images, whether to fill the center.
+  m_FillMethod: 4 # For Filled images, method of filling: 0 (Horizontal), 1 (Vertical), 2 (Radial90), 3 (Radial180), 4 (Radial360). Currently: Radial360.
+  m_FillAmount: 1 # For Filled images, how much of the image is filled (0-1).
+  m_FillClockwise: 1 # For Filled images, direction of fill.
+  m_FillOrigin: 0 # For Filled images, origin point of the fill.
+  m_UseSpriteMesh: 0 # Whether to use the sprite's tight mesh for rendering (good for non-rectangular sprites).
+  m_PixelsPerUnitMultiplier: 1 # Multiplier for the sprite's pixels per unit.
+
+# --- CanvasRenderer (on Image GameObject) ---
+# Component required for UI elements to be drawn on a Canvas.
+--- !u!222 &410939540 # CanvasRenderer for Image GameObject
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410939537}
-  m_CullTransparentMesh: 1
+  m_GameObject: {fileID: 410939537} # Attached to Image.
+  m_CullTransparentMesh: 1 # Optimization: cull mesh if it's completely transparent.
+
+# --- GameObject: DialogueManager ---
+# (Typo: "DialogeManager", corrected to "DialogueManager" in comments for clarity)
+# A non-UI GameObject likely containing a custom script to manage dialogue.
 --- !u!1 &602671406
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,47 +367,59 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 602671408}
-  - component: {fileID: 602671407}
-  m_Layer: 0
-  m_Name: DialogeManager
+  - component: {fileID: 602671408} # Transform
+  - component: {fileID: 602671407} # DialogueManager (Custom MonoBehaviour)
+  m_Layer: 0 # Default Layer.
+  m_Name: DialogeManager # Original name with typo. Suggest renaming to "DialogueManager" in Unity Editor.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &602671407
+
+# --- DialogueManager (Custom MonoBehaviour, on DialogueManager GameObject) ---
+# Custom script for handling dialogue logic.
+# Script GUID: a9e903c75add19748b4db76c24558021 (This is your custom script)
+--- !u!114 &602671407 # MonoBehaviour: Custom DialogueManager script
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602671406}
+  m_GameObject: {fileID: 602671406} # Attached to DialogueManager.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e903c75add19748b4db76c24558021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueText: {fileID: 1799510610}
-  dialogueLines:
+  m_Script: {fileID: 11500000, guid: a9e903c75add19748b4db76c24558021, type: 3} # Reference to your custom script.
+  m_Name:
+  m_EditorClassIdentifier:
+  dialogueText: {fileID: 1799510610} # Reference to the TextMeshProUGUI component that will display dialogue. (Points to Text (TMP)'s TextMeshProUGUI component)
+  dialogueLines: # Array of dialogue strings.
   - Residents can't stand the medical care in the city...
-  sceneName: MedicalAttackScene
-  typingSpeed: 0.05
---- !u!4 &602671408
+  sceneName: MedicalAttackScene # Name of the scene to load, likely after dialogue.
+  typingSpeed: 0.05 # Speed for the typing effect.
+
+# --- Transform (for DialogueManager GameObject) ---
+# Position, rotation, and scale of the DialogueManager GameObject in the scene.
+# Its position (795, 520, -6) seems specific; may or may not be relevant for a manager object.
+--- !u!4 &602671408 # Transform for DialogueManager GameObject
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602671406}
+  m_GameObject: {fileID: 602671406} # Attached to DialogueManager.
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 795.37396, y: 520.8383, z: -6.299158}
+  m_LocalPosition: {x: 795.37396, y: 520.8383, z: -6.299158} # Position in world space.
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 0} # Root GameObject.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
+# --- GameObject: Main Camera ---
+# The primary camera for rendering the scene. Tagged "MainCamera".
+# Configured as an orthographic camera. AudioListener is disabled.
 --- !u!1 &959362488
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,135 +428,159 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 959362491}
-  - component: {fileID: 959362490}
-  - component: {fileID: 959362489}
-  - component: {fileID: 959362492}
-  m_Layer: 0
+  - component: {fileID: 959362491} # Transform
+  - component: {fileID: 959362490} # Camera
+  - component: {fileID: 959362489} # AudioListener
+  - component: {fileID: 959362492} # UniversalAdditionalCameraData (MonoBehaviour, for URP)
+  m_Layer: 0 # Default Layer.
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: MainCamera # Correctly tagged as MainCamera.
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &959362489
+
+# --- AudioListener (on Main Camera) ---
+# Receives audio from AudioSources in the scene.
+# Note: It's currently disabled (m_Enabled: 0). A scene should typically have one active AudioListener.
+--- !u!81 &959362489 # AudioListener component
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959362488}
-  m_Enabled: 0
---- !u!20 &959362490
+  m_GameObject: {fileID: 959362488} # Attached to Main Camera.
+  m_Enabled: 0 # Currently disabled. Ensure one AudioListener is enabled in your scene.
+
+# --- Camera (Component, on Main Camera) ---
+# Defines camera properties like projection, field of view, culling, etc.
+# This is an orthographic camera. HDR is enabled. Occlusion Culling is enabled.
+--- !u!20 &959362490 # Camera component
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959362488}
+  m_GameObject: {fileID: 959362488} # Attached to Main Camera.
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
+  m_ClearFlags: 1 # How the camera clears the screen: 1 (Skybox), 2 (Solid Color), 3 (Depth Only), 4 (Nothing). Currently: Skybox.
+                   # If no Skybox material is set in RenderSettings, it might fall back to a solid color.
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0} # Background color if ClearFlags is Solid Color. Alpha is 0 (transparent), which is unusual for a main camera background.
+  m_projectionMatrixMode: 1 # 0 = Perspective, 1 = Orthographic. Currently: Orthographic.
+  m_GateFitMode: 2 # Physical camera gate fit mode.
+  m_FOVAxisMode: 0 # Which axis Field of View applies to (for perspective).
+  m_Iso: 200 # Physical camera ISO.
+  m_ShutterSpeed: 0.005 # Physical camera shutter speed.
+  m_Aperture: 16 # Physical camera aperture.
+  m_FocusDistance: 10 # Physical camera focus distance.
+  m_FocalLength: 50 # Physical camera focal length.
+  m_BladeCount: 5 # Physical camera aperture blade count.
+  m_Curvature: {x: 2, y: 11} # Physical camera lens curvature.
+  m_BarrelClipping: 0.25 # Physical camera barrel clipping.
+  m_Anamorphism: 0 # Physical camera anamorphism.
+  m_SensorSize: {x: 36, y: 24} # Physical camera sensor size (mm).
+  m_LensShift: {x: 0, y: 0} # Physical camera lens shift.
+  m_NormalizedViewPortRect: # Viewport rectangle (normalized 0-1 screen coordinates).
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
+    width: 1 # Full width.
+    height: 1 # Full height.
+  near clip plane: 0.3 # Near clipping plane distance.
+  far clip plane: 1000 # Far clipping plane distance.
+  field of view: 60 # Field of view (for perspective cameras).
+  orthographic: 1 # Orthographic (1) or perspective (0). Currently: Orthographic.
+  orthographic size: 5 # Vertical size of the orthographic camera's view.
+  m_Depth: -1 # Rendering order for multiple cameras. -1 is typical for the main camera.
+  m_CullingMask: # LayerMask defining which layers are rendered by this camera.
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &959362491
+    m_Bits: 4294967295 # All layers selected (renders everything).
+  m_RenderingPath: -1 # Rendering Path: -1 (Use Graphics Settings), 1 (Forward), 2 (DeferredShading), 3 (Legacy Vertex Lit), 4 (Legacy Deferred).
+  m_TargetTexture: {fileID: 0} # RenderTexture to render to. {fileID: 0} means render to screen.
+  m_TargetDisplay: 0 # Target display index.
+  m_TargetEye: 3 # Target eye for XR: 0 (None), 1 (Left), 2 (Right), 3 (Both). Currently: Both.
+  m_HDR: 1 # High Dynamic Range rendering enabled (1) or disabled (0). Currently: Enabled.
+  m_AllowMSAA: 1 # Allow Multi-Sample Anti-Aliasing. Currently: Enabled (but actual MSAA depends on quality settings or URP asset).
+  m_AllowDynamicResolution: 0 # Allow dynamic resolution scaling. Currently: Disabled.
+  m_ForceIntoRT: 0 # Force rendering into a RenderTexture.
+  m_OcclusionCulling: 1 # Enable occlusion culling for this camera. Currently: Enabled.
+  m_StereoConvergence: 10 # Stereo convergence distance for XR.
+  m_StereoSeparation: 0.022 # Stereo separation distance for XR.
+
+# --- Transform (for Main Camera) ---
+# Standard camera position for 2D or UI-focused scenes.
+--- !u!4 &959362491 # Transform for Main Camera
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959362488}
+  m_GameObject: {fileID: 959362488} # Attached to Main Camera.
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10} # Standard Z position for a camera looking at XY plane.
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 0} # Root GameObject.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &959362492
+
+# --- UniversalAdditionalCameraData (MonoBehaviour, on Main Camera) ---
+# Settings for the Universal Render Pipeline (URP) specific to this camera.
+# Script GUID: a79441f348de89743a2939f4d699eac1 (UnityEngine.Rendering.Universal.UniversalAdditionalCameraData)
+# Post-processing and Anti-aliasing are currently disabled here.
+--- !u!114 &959362492 # MonoBehaviour: UniversalAdditionalCameraData
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959362488}
+  m_GameObject: {fileID: 959362488} # Attached to Main Camera.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3} # Script reference.
+  m_Name:
+  m_EditorClassIdentifier:
+  m_RenderShadows: 1 # Whether this camera renders shadows. Currently: Enabled.
+  m_RequiresDepthTextureOption: 2 # When to generate depth texture: 0 (Off), 1 (On), 2 (Auto). Currently: Auto.
+  m_RequiresOpaqueTextureOption: 2 # When to generate opaque texture: 0 (Off), 1 (On), 2 (Auto). Currently: Auto.
+  m_CameraType: 0 # Camera type for URP: 0 (Base), 1 (Overlay).
+  m_Cameras: [] # Stack of overlay cameras (if this is a Base camera).
+  m_RendererIndex: -1 # Index of the URP Renderer to use (-1 for default).
+  m_VolumeLayerMask: # LayerMask for Post-processing Volumes.
     serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
+    m_Bits: 1 # Only Layer 0 (Default) selected for volumes.
+  m_VolumeTrigger: {fileID: 0} # Transform to use as the trigger for local volumes (null uses camera position).
+  m_VolumeFrameworkUpdateModeOption: 2 # How volumes are updated.
+  m_RenderPostProcessing: 0 # Enable Post-processing for this camera. Currently: Disabled.
+                            # Suggestion: Enable this if you want to use post-processing effects (bloom, color grading etc.).
+  m_Antialiasing: 0 # Anti-aliasing mode for URP: 0 (None), 1 (FXAA), 2 (SMAA), 3 (TAA - not always available). Currently: None.
+                    # Suggestion: Enable FXAA or SMAA for smoother edges.
+  m_AntialiasingQuality: 2 # Quality level for SMAA: 0 (Low), 1 (Medium), 2 (High).
+  m_StopNaN: 0 # Enable Stop NaN (Not a Number) pass to prevent issues with invalid math.
+  m_Dithering: 0 # Enable Dithering to reduce banding.
+  m_ClearDepth: 1 # Whether the camera should clear its depth buffer (usually true for Base cameras).
+  m_AllowXRRendering: 1 # Allow XR rendering.
+  m_AllowHDROutput: 1 # Allow HDR output to supported displays.
+  m_UseScreenCoordOverride: 0 # Internal URP flag.
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0} # Internal URP value.
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0} # Internal URP value.
+  m_RequiresDepthTexture: 0 # Explicitly requires depth texture (derived from Option).
+  m_RequiresColorTexture: 0 # Explicitly requires opaque color texture (derived from Option).
+  m_Version: 2 # Version of this URP data component.
+  m_TaaSettings: # Temporal Anti-Aliasing (TAA) settings (if TAA is enabled and supported).
     m_Quality: 3
     m_FrameInfluence: 0.1
     m_JitterScale: 1
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+
+# --- GameObject: Panel ---
+# A UI Panel, child of the main Canvas. Displays a black, opaque background image.
+# Its RectTransform setup makes it larger than its parent anchors and then offsets it.
+# This might be an unusual setup; check its appearance in the editor.
 --- !u!1 &1049060288
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,73 +589,89 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1049060289}
-  - component: {fileID: 1049060291}
-  - component: {fileID: 1049060290}
-  m_Layer: 5
+  - component: {fileID: 1049060289} # RectTransform
+  - component: {fileID: 1049060291} # CanvasRenderer
+  - component: {fileID: 1049060290} # Image (MonoBehaviour)
+  m_Layer: 5 # UI Layer.
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1049060289
+
+# --- RectTransform (for Panel) ---
+# This Panel is anchored to stretch to parent, then its SizeDelta makes it larger,
+# and AnchoredPosition offsets it.
+--- !u!224 &1049060289 # RectTransform for the first Panel (ID: 1049060288)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049060288}
+  m_GameObject: {fileID: 1049060288} # Attached to Panel.
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0} # Relative to anchors.
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 76080505}
+  m_Children: [] # No children for this Panel.
+  m_Father: {fileID: 76080505} # Parent is the Canvas's RectTransform.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.397095, y: -62.138794}
-  m_SizeDelta: {x: 366.1145, y: 231.7609}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1049060290
+  m_AnchorMin: {x: 0, y: 0} # Anchored to bottom-left.
+  m_AnchorMax: {x: 1, y: 1} # Anchored to top-right (stretches to parent size initially).
+  m_AnchoredPosition: {x: 8.397095, y: -62.138794} # Pivot is offset by this amount from the center of the anchor box.
+                                                  # Shifts right by 8.4 units, down by 62.1 units.
+  m_SizeDelta: {x: 366.1145, y: 231.7609} # Added to the size defined by anchors.
+                                          # Width = ParentWidth + 366.1. Height = ParentHeight + 231.8.
+                                          # This makes the panel larger than its parent area, then offset.
+  m_Pivot: {x: 0.5, y: 0.5} # Pivot is at its center.
+
+# --- Image (MonoBehaviour, on Panel) ---
+# Displays a black, opaque, sliced sprite (likely default UI background).
+# Script GUID: fe87c0e1cc204ed48ad3b37840f39efc (UnityEngine.UI.Image)
+--- !u!114 &1049060290 # MonoBehaviour: Image component for the first Panel
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049060288}
+  m_GameObject: {fileID: 1049060288} # Attached to Panel.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3} # Script reference (Image).
+  m_Name:
+  m_EditorClassIdentifier:
+  m_Material: {fileID: 0} # Default UI material.
+  m_Color: {r: 0, g: 0, b: 0, a: 1} # Color: Black, Opaque.
+  m_RaycastTarget: 1 # Blocks raycasts.
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0} # Sprite reference (likely default UI "Background" sprite).
+  m_Type: 1 # Image type: Sliced. Good for resizable panels with borders.
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 4 # Radial360 (but Type is Sliced, so Fill properties are mostly irrelevant).
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &1049060291
+
+# --- CanvasRenderer (on Panel) ---
+--- !u!222 &1049060291 # CanvasRenderer for the first Panel
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049060288}
+  m_GameObject: {fileID: 1049060288} # Attached to Panel.
   m_CullTransparentMesh: 1
+
+# --- GameObject: Text (TMP) ---
+# TextMeshPro UGUI element for displaying dialogue text. Child of the second Panel.
 --- !u!1 &1799510609
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,134 +680,153 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1799510612}
-  - component: {fileID: 1799510611}
-  - component: {fileID: 1799510610}
-  m_Layer: 5
+  - component: {fileID: 1799510612} # RectTransform
+  - component: {fileID: 1799510611} # CanvasRenderer
+  - component: {fileID: 1799510610} # TextMeshProUGUI (MonoBehaviour)
+  m_Layer: 5 # UI Layer.
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1799510610
+
+# --- TextMeshProUGUI (MonoBehaviour, on Text (TMP) GameObject) ---
+# The TextMeshPro component for rendering rich text.
+# Script GUID: f4688fdb7df04437aeb418b961361dc5 (TMPro.TextMeshProUGUI)
+# Uses auto-sizing. Margins seem very large, potentially making text area narrow.
+--- !u!114 &1799510610 # MonoBehaviour: TextMeshProUGUI component
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799510609}
+  m_GameObject: {fileID: 1799510609} # Attached to Text (TMP).
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3} # Script reference (TextMeshProUGUI).
+  m_Name:
+  m_EditorClassIdentifier:
+  m_Material: {fileID: 0} # Material used (can be instance of font material).
+  m_Color: {r: 1, g: 1, b: 1, a: 1} # Vertex color (White, Opaque).
+  m_RaycastTarget: 1 # Blocks raycasts.
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
+  m_text: New Text # Default text. This will likely be updated by the DialogueManager script.
+  m_isRightToLeft: 0 # Right-to-left text direction disabled.
+  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2} # TMP Font Asset. This GUID points to a specific font asset in your project.
+  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2} # Shared material associated with the font asset.
+  m_fontSharedMaterials: [] # Array of shared materials.
+  m_fontMaterial: {fileID: 0} # Instance of font material (if unique).
+  m_fontMaterials: [] # Array of font material instances.
+  m_fontColor32: # Vertex color as 32-bit RGBA.
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
+    rgba: 4294967295 # Corresponds to White (255,255,255,255).
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1} # Vertex color (float).
+  m_enableVertexGradient: 0 # Vertex color gradient disabled.
+  m_colorMode: 3 # Color mode: 0 (Single), 1 (Horizontal Gradient), 2 (Vertical Gradient), 3 (Four Corners Gradient). Currently: Four Corners Gradient (but all corners are white).
+  m_fontColorGradient: # Colors for vertex gradient.
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
+  m_fontColorGradientPreset: {fileID: 0} # Preset for color gradient.
+  m_spriteAsset: {fileID: 0} # TMP Sprite Asset for inline sprites.
+  m_tintAllSprites: 0 # Tint all inline sprites with vertex color.
+  m_StyleSheet: {fileID: 0} # TMP Style Sheet.
+  m_TextStyleHashCode: -1183493901 # Hash code for the current text style.
+  m_overrideHtmlColors: 0 # Override HTML color tags.
+  m_faceColor: # Face color for outline/effects.
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 5.08
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
+    rgba: 4294967295 # White.
+  m_fontSize: 72 # Font size. If auto-sizing is off, this is the size. If on, this is the max size.
+  m_fontSizeBase: 36 # Base font size for relative sizing.
+  m_fontWeight: 400 # Font weight (e.g., 400 for Regular, 700 for Bold).
+  m_enableAutoSizing: 1 # Auto-sizing enabled. Text will resize to fit its RectTransform.
+  m_fontSizeMin: 18 # Minimum font size for auto-sizing.
+  m_fontSizeMax: 72 # Maximum font size for auto-sizing. (Matches m_fontSize).
+  m_fontStyle: 0 # Font style flags (Bold, Italic, etc.). 0 = Normal.
+  m_HorizontalAlignment: 1 # Horizontal alignment: 0 (Left), 1 (Center), 2 (Right), 3 (Justified), 4 (Flush). Currently: Center.
+                           # In previous comment said Left (1), it should be Center. Double checking values: 0=Left, 1=Center, 2=Right. This is Center.
+  m_VerticalAlignment: 256 # Vertical alignment: 0 (Top), 256 (Middle), 512 (Bottom), etc. Currently: Middle.
+                           # In previous comment said Top (256), it should be Middle. Double checking: 0=Top, 256=Middle, 512=Bottom. This is Middle.
+  m_textAlignment: 65535 # Combined alignment flags (deprecated, use Horizontal/VerticalAlignment).
+  m_characterSpacing: 5.08 # Spacing between characters.
+  m_wordSpacing: 0 # Spacing between words.
+  m_lineSpacing: 0 # Spacing between lines.
+  m_lineSpacingMax: 0 # Maximum line spacing.
+  m_paragraphSpacing: 0 # Spacing between paragraphs.
+  m_charWidthMaxAdj: 0 # Maximum character width adjustment for justification.
+  m_TextWrappingMode: 1 # Text wrapping: 0 (Normal - deprecated), 1 (Preserve White Space - default), 2 (No Wrap), 3 (Truncate). Currently: Preserve White Space.
+  m_wordWrappingRatios: 0.4 # Ratio for word wrapping overflow.
+  m_overflowMode: 0 # Overflow mode: 0 (Overflow), 1 (Ellipsis), 2 (Truncate), etc. Currently: Overflow.
+  m_linkedTextComponent: {fileID: 0} # Linked TextMeshPro component for text overflow.
   parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
+  m_enableKerning: 0 # Kerning disabled.
+  m_ActiveFontFeatures: 6e72656b # Active OpenType font features (hex for "kern").
+  m_enableExtraPadding: 0 # Extra padding around text disabled.
   checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 386.268, y: 0, z: 396.34717, w: 0}
+  m_isRichText: 1 # Rich text (HTML-like tags) enabled.
+  m_EmojiFallbackSupport: 1 # Support for emoji fallbacks.
+  m_parseCtrlCharacters: 1 # Parse control characters like \n, \t.
+  m_isOrthographic: 1 # Orthographic rendering mode (sharper text, common for UI).
+  m_isCullingEnabled: 0 # Vertex culling disabled.
+  m_horizontalMapping: 0 # UV mapping for X axis: 0 (Character), 1 (Line), 2 (Paragraph), 3 (Match Aspect).
+  m_verticalMapping: 0 # UV mapping for Y axis.
+  m_uvLineOffset: 0 # UV offset per line for texture mapping.
+  m_geometrySortingOrder: 0 # Sorting order for geometry.
+  m_IsTextObjectScaleStatic: 0 # Is text object scale static.
+  m_VertexBufferAutoSizeReduction: 0 # Vertex buffer auto size reduction.
+  m_useMaxVisibleDescender: 1 # Use max visible descender.
+  m_pageToDisplay: 1 # Page number to display for multi-page text.
+  m_margin: {x: 386.268, y: 0, z: 396.34717, w: 0} # Margins: Left (x), Top (y), Right (z), Bottom (w).
+                                                  # Current: Left: 386.2, Top: 0, Right: 396.3, Bottom: 0.
+                                                  # These horizontal margins are very large and might make the text area extremely narrow. Review this.
   m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
+  m_isVolumetricText: 0 # Volumetric text disabled.
   m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1799510611
+  m_baseMaterial: {fileID: 0} # Base material for the font.
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0} # Mask offset.
+
+# --- CanvasRenderer (on Text (TMP) GameObject) ---
+--- !u!222 &1799510611 # CanvasRenderer for Text (TMP)
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799510609}
+  m_GameObject: {fileID: 1799510609} # Attached to Text (TMP).
   m_CullTransparentMesh: 1
---- !u!224 &1799510612
+
+# --- RectTransform (for Text (TMP) GameObject) ---
+# Stretches to fill its parent Panel. This is standard for text within a container.
+--- !u!224 &1799510612 # RectTransform for Text (TMP)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799510609}
+  m_GameObject: {fileID: 1799510609} # Attached to Text (TMP).
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2111944776}
+  m_Father: {fileID: 2111944776} # Parent is the second Panel's RectTransform.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0} # Anchored to fill parent.
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0} # Size delta 0,0 with stretch anchors means it matches parent size.
   m_Pivot: {x: 0.5, y: 0.5}
+
+# --- GameObject: Panel (This is the parent of Text (TMP)) ---
+# A UI Panel, child of the main Canvas. Likely serves as a background for the dialogue text.
+# Displays a black, semi-transparent background image.
+# Positioned towards the bottom of the screen.
 --- !u!1 &2111944775
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,58 +835,66 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2111944776}
-  - component: {fileID: 2111944778}
-  - component: {fileID: 2111944777}
-  m_Layer: 5
-  m_Name: Panel
+  - component: {fileID: 2111944776} # RectTransform
+  - component: {fileID: 2111944778} # CanvasRenderer
+  - component: {fileID: 2111944777} # Image (MonoBehaviour)
+  m_Layer: 5 # UI Layer.
+  m_Name: Panel # Generic name. Consider renaming (e.g., "DialogueBackgroundPanel") for clarity.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2111944776
+
+# --- RectTransform (for the second Panel, parent of Text (TMP)) ---
+# This Panel is full width, but its height is reduced, and it's positioned towards the bottom.
+--- !u!224 &2111944776 # RectTransform for the second Panel (ID: 2111944775)
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111944775}
+  m_GameObject: {fileID: 2111944775} # Attached to this Panel.
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1799510612}
-  m_Father: {fileID: 76080505}
+  - {fileID: 1799510612} # Child: Text (TMP)'s RectTransform.
+  m_Father: {fileID: 76080505} # Parent is the Canvas's RectTransform.
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0} # Anchored to stretch full parent initially.
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -434.97156}
-  m_SizeDelta: {x: 0, y: -869.9431}
+  m_AnchoredPosition: {x: 0, y: -434.97156} # Pivot is shifted down by 435 units from parent center.
+  m_SizeDelta: {x: 0, y: -869.9431} # Width = ParentWidth + 0. Height = ParentHeight - 869.9.
+                                     # This creates a full-width panel, but shorter in height, positioned lower on the screen.
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2111944777
+
+# --- Image (MonoBehaviour, on the second Panel) ---
+# Displays a black, semi-transparent background for the dialogue text.
+# Script GUID: fe87c0e1cc204ed48ad3b37840f39efc (UnityEngine.UI.Image)
+--- !u!114 &2111944777 # MonoBehaviour: Image component for the second Panel
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111944775}
+  m_GameObject: {fileID: 2111944775} # Attached to this Panel.
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3} # Script reference (Image).
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
-  m_RaycastTarget: 1
+  m_Color: {r: 0, g: 0, b: 0, a: 0.392} # Color: Black, Semi-Transparent (Alpha ~39%).
+  m_RaycastTarget: 1 # Blocks raycasts.
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0} # Default UI "Background" sprite.
+  m_Type: 1 # Sliced Image.
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -763,18 +903,53 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &2111944778
+
+# --- CanvasRenderer (on the second Panel) ---
+--- !u!222 &2111944778 # CanvasRenderer for the second Panel
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111944775}
+  m_GameObject: {fileID: 2111944775} # Attached to this Panel.
   m_CullTransparentMesh: 1
---- !u!1660057539 &9223372036854775807
+
+# --- SceneRoots ---
+# Defines the root GameObjects in the scene's hierarchy.
+# All GameObjects not parented to another GameObject will have their Transform listed here.
+--- !u!1660057539 &9223372036854775807 # This is a special object type for scene root management.
 SceneRoots:
   m_ObjectHideFlags: 0
-  m_Roots:
-  - {fileID: 959362491}
-  - {fileID: 76080505}
-  - {fileID: 602671408}
+  m_Roots: # List of root Transforms in the scene.
+  - {fileID: 959362491}  # Transform of Main Camera (GameObject ID: 959362488)
+  - {fileID: 76080505}   # RectTransform of Canvas (GameObject ID: 76080504)
+  - {fileID: 602671408}  # Transform of DialogueManager (GameObject ID: 602671406)
+
+# --- General Summary & Suggestions ---
+#
+# Overall Structure:
+# - The scene contains essential settings objects (Occlusion, Render, Lightmap, NavMesh).
+# - A UI Canvas with several elements: an Image, two Panels, and a TextMeshPro text object.
+# - A Main Camera configured for orthographic rendering (likely URP).
+# - A DialogueManager GameObject with a custom script.
+#
+# Potential Areas for Review/Improvement:
+# 1. Occlusion Culling: Data is not baked. Bake if scene complexity warrants it.
+# 2. Render Settings:
+#    - Fog is disabled.
+#    - No Skybox material is assigned, though Camera clear flags and Ambient Mode might expect one.
+#    - No Sun source is linked.
+# 3. Lightmap Settings: Baked and Realtime GI are disabled. If static lighting is desired, enable and bake.
+# 4. NavMesh Settings: Data is not baked. Bake if AI navigation is required.
+# 5. Canvas RectTransform Scale: The main Canvas's RectTransform has localScale (0,0,0). For ScreenSpace-Overlay, this is usually fine as its size is driven differently. Verify if it's intended if using other Canvas render modes.
+# 6. CanvasScaler: Currently 'Constant Pixel Size'. 'Scale With Screen Size' is often better for multi-resolution support.
+# 7. DialogueManager Name: Typo "DialogeManager". Rename to "DialogueManager" in Unity for consistency.
+# 8. Main Camera AudioListener: Currently disabled. Ensure one AudioListener is active in the scene.
+# 9. Main Camera (URP):
+#    - Post-processing is disabled. Enable if visual effects are desired.
+#    - Anti-aliasing is set to None. Consider FXAA or SMAA for better visual quality.
+# 10. First Panel (ID 1049060288) RectTransform: Its SizeDelta and AnchoredPosition make it larger than its parent anchors and offset. Verify its intended layout.
+# 11. TextMeshProUGUI Margins: The `m_margin` values (Left: 386, Right: 396) are very large. This will significantly constrain the text area. Review these values to ensure text is displayed as intended.
+# 12. Naming Conventions: Some UI elements have generic names like "Panel" or "Image". More descriptive names can improve scene organization (e.g., "DialogueBackgroundPanel", "CharacterPortraitImage").
+#
+# This enhanced file should provide a much clearer understanding of your scene's setup.
