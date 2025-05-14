@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49, y: 0.49, z: 0.49}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   citizenSprites: []
   carDetectionRadius: 3
   isCommitingCrime: 0
-  isChasing: 0
+  isHavingHeartAttack: 0
 --- !u!58 &-6168558722474418318
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49, y: 0.49, z: 0.49}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -130,14 +130,14 @@ MonoBehaviour:
   maxIdleWait: 10
   groundTilemap: {fileID: 0}
   roadTilemap: {fileID: 0}
+  animator: {fileID: 4277194254415661104}
   carLayer:
     serializedVersion: 2
     m_Bits: 0
   citizenSprites: []
-  animator: {fileID: 4277194254415661104}
   carDetectionRadius: 3
   isCommitingCrime: 0
-  isChasing: 0
+  isHavingHeartAttack: 0
 --- !u!58 &-959330197254120386
 CircleCollider2D:
   m_ObjectHideFlags: 0

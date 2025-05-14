@@ -76,6 +76,10 @@ public class GridCity : MonoBehaviour
                     PlaceBuilding(_selectedBuilding, gridPosition);
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+            {
+                _selectedBuilding = null;
+            }
         }
 
         else if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
