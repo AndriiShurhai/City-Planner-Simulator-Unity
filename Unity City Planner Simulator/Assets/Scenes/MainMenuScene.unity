@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: 0.35, g: 0.4, b: 0.45, a: 1} # Adjusted for a slightly brighter, more neutral ambient
+  m_AmbientEquatorColor: {r: 0.25, g: 0.28, b: 0.3, a: 1} # Adjusted
+  m_AmbientGroundColor: {r: 0.15, g: 0.15, b: 0.18, a: 1} # Adjusted
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 0} # Assign your Skybox material in Lighting Settings for visual sky
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 0} # Assign a Directional Light here if needed for the scene
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -50,8 +50,8 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 0
-    m_EnableRealtimeLightmaps: 0
+    m_EnableBakedLightmaps: 0 # Enable if you plan to bake lightmaps
+    m_EnableRealtimeLightmaps: 0 # Enable for Realtime GI
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingDataAsset: {fileID: 0} # Changed from potentially invalid GUID to 0
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 10334405}
   - component: {fileID: 10334407}
   - component: {fileID: 10334406}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer) if it's UI, but leaving as 0 for now as it's consistent
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 313977410}
   - component: {fileID: 313977412}
   - component: {fileID: 313977411}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ Transform:
   m_GameObject: {fileID: 476659658}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1730.0288, y: 304.2262, z: 2.9287276}
+  m_LocalPosition: {x: 0, y: 0, z: 0} # Reset position
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 546428425}
   - component: {fileID: 546428427}
   - component: {fileID: 546428426}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +477,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000026672147, y: 0}
-  m_SizeDelta: {x: 1920, y: 1358.9751}
+  m_SizeDelta: {x: 1920, y: 1358.9751} # This size might be intentional for a specific aspect or very large background
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546428426
 MonoBehaviour:
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 671527333}
   - component: {fileID: 671527335}
   - component: {fileID: 671527334}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: building (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 773244052}
   - component: {fileID: 773244051}
   - component: {fileID: 773244050}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 861086412}
   - component: {fileID: 861086414}
   - component: {fileID: 861086413}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +873,7 @@ GameObject:
   - component: {fileID: 953795311}
   - component: {fileID: 953795310}
   - component: {fileID: 953795309}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +943,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 953795310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls: [] # Add OnClick event for Options button here if desired
 --- !u!114 &953795310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,8 +991,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1130387977}
-  - component: {fileID: 1130387976}
-  - component: {fileID: 1130387975}
+  - component: {fileID: 1130387976} # StandaloneInputModule, now disabled
+  - component: {fileID: 1130387975} # InputSystemUIInputModule
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1001,7 +1001,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1130387975
-MonoBehaviour:
+MonoBehaviour: # InputSystemUIInputModule
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1032,13 +1032,13 @@ MonoBehaviour:
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
 --- !u!114 &1130387976
-MonoBehaviour:
+MonoBehaviour: # StandaloneInputModule
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130387974}
-  m_Enabled: 1
+  m_Enabled: 0 # Disabled this module as InputSystemUIInputModule is active
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
@@ -1072,7 +1072,7 @@ GameObject:
   - component: {fileID: 1191375435}
   - component: {fileID: 1191375437}
   - component: {fileID: 1191375436}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,7 +1209,7 @@ GameObject:
   - component: {fileID: 1343032870}
   - component: {fileID: 1343032869}
   - component: {fileID: 1343032868}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Button (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1365,7 @@ Camera:
   m_GameObject: {fileID: 1343788758}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 1 # Clears to Skybox (or solid color if no Skybox material is in Lighting Settings)
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1390,12 +1390,12 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 1 # Orthographic is common for UI
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967295 # Renders all layers
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1416,7 +1416,7 @@ Transform:
   m_GameObject: {fileID: 1343788758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10} # Standard z-depth for UI camera
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1434,7 +1434,7 @@ GameObject:
   - component: {fileID: 1348311083}
   - component: {fileID: 1348311082}
   - component: {fileID: 1348311081}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Button (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1348311082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls: [] # Add OnClick event for Credits button here if desired
 --- !u!114 &1348311082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,7 +1555,7 @@ GameObject:
   - component: {fileID: 1403388790}
   - component: {fileID: 1403388789}
   - component: {fileID: 1403388788}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1563,7 +1563,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1403388788
-MonoBehaviour:
+MonoBehaviour: # GraphicRaycaster
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1580,7 +1580,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
 --- !u!114 &1403388789
-MonoBehaviour:
+MonoBehaviour: # CanvasScaler
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1591,12 +1591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1 # Changed to Scale With Screen Size
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_ReferenceResolution: {x: 1920, y: 1080} # Set reference resolution
+  m_ScreenMatchMode: 0 # Match Width Or Height
+  m_MatchWidthOrHeight: 0.5 # Balanced
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1611,7 +1611,7 @@ Canvas:
   m_GameObject: {fileID: 1403388787}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 0 # Screen Space - Overlay
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1634,16 +1634,16 @@ RectTransform:
   m_GameObject: {fileID: 1403388787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1} # CRITICAL FIX: Was {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 546428425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0} # Default for ScreenSpace-Overlay, usually covers screen via CanvasScaler
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0} # Default for ScreenSpace-Overlay, usually covers screen via CanvasScaler
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1554512199
 GameObject:
@@ -1656,7 +1656,7 @@ GameObject:
   - component: {fileID: 1554512200}
   - component: {fileID: 1554512202}
   - component: {fileID: 1554512201}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1792,7 +1792,7 @@ GameObject:
   - component: {fileID: 1986362797}
   - component: {fileID: 1986362799}
   - component: {fileID: 1986362798}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 2027583034}
   - component: {fileID: 2027583036}
   - component: {fileID: 2027583035}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: building (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1940,13 +1940,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2110020610}
-  m_Layer: 0
+  m_Layer: 0 # Should be 5 (UI Layer)
   m_Name: Decorations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1 # Changed from 0 to 1 to make decorations visible
 --- !u!224 &2110020610
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1343788761}
-  - {fileID: 1130387977}
-  - {fileID: 1403388791}
-  - {fileID: 476659660}
+  - {fileID: 1343788761} # Main Camera
+  - {fileID: 1130387977} # EventSystem
+  - {fileID: 1403388791} # Canvas (1)
+  - {fileID: 476659660}  # MainMenuManager
