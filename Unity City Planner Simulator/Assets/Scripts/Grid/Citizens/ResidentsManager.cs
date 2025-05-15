@@ -96,7 +96,7 @@ public class ResidentsManager : MonoBehaviour
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
-            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
+            EconomyManager.Instance.RegisterResident(citizenInstance);
             PopulationRateManager.Instance.IncreaseRate(1);
         }
     }
@@ -130,7 +130,7 @@ public class ResidentsManager : MonoBehaviour
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
-            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
+            EconomyManager.Instance.RegisterResident(citizenInstance);
             PopulationRateManager.Instance.IncreaseRate(1);
         }
     }
@@ -164,7 +164,7 @@ public class ResidentsManager : MonoBehaviour
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
-            EconomyManager.Instance.registeredResidents.Add(citizenInstance);
+            EconomyManager.Instance.RegisterResident(citizenInstance);
             PopulationRateManager.Instance.IncreaseRate(1);
         }
     }
@@ -186,8 +186,8 @@ public class ResidentsManager : MonoBehaviour
         }
         if (criminal == null) return;
 
-        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.BuildingData.Type == BuildingType.Commercial).Count()}");
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        Debug.Log($"Markets count: {EconomyManager.Instance.RegisteredBuildings.Where(x => x.BuildingData.Type == BuildingType.Commercial).Count()}");
+        foreach (var building in EconomyManager.Instance.RegisteredBuildings)
         {
             Vector3 distance = criminal.transform.position - building.transform.position;
             if (building.BuildingData.Type == BuildingType.Commercial)

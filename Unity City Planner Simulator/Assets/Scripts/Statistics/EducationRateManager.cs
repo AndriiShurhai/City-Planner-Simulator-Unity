@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class EducationRateManager : MonoBehaviour, IRate
+public class EducationRateManager : MonoBehaviour, ICityRate
 {
     [SerializeField] private TMP_Text currentEducationRateTXT;
 
@@ -42,7 +42,7 @@ public class EducationRateManager : MonoBehaviour, IRate
     public void CalculateRate()
     {
         _educationFacilities = 0;
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        foreach (var building in EconomyManager.Instance.RegisteredBuildings)
         {
             if (building.BuildingData.Type == BuildingType.Education)
             {

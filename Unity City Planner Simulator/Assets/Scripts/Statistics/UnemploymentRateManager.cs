@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UnemploymentRateManager : MonoBehaviour, IRate
+public class UnemploymentRateManager : MonoBehaviour, ICityRate
 {
     private float _unemploymentRate;
     [SerializeField] private TMP_Text currentUnemploymentRateTXT;
@@ -36,7 +36,7 @@ public class UnemploymentRateManager : MonoBehaviour, IRate
         float laborForce = PopulationRateManager.Instance.CurrentPopulationRate;
         int jobsAvailable = 0;
 
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        foreach (var building in EconomyManager.Instance.RegisteredBuildings)
         {
             IEmploymentProvider employmentProvider = building as IEmploymentProvider;
             if (employmentProvider != null)

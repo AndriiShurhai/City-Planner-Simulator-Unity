@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class PopulationRateManager : MonoBehaviour, IRate
+public class PopulationRateManager : MonoBehaviour, ICityRate
 {
     [SerializeField] private TMP_Text currentPopulationRateTXT;
 
@@ -24,7 +24,7 @@ public class PopulationRateManager : MonoBehaviour, IRate
         }
         Instance = this;
         OnPopulationRateChange += UpdateUI;
-        _currentPopulationRate = EconomyManager.Instance.registeredResidents.Count;
+        _currentPopulationRate = EconomyManager.Instance.RegisteredResidents.Count;
     }
 
     public void IncreaseRate(float rate)
@@ -40,7 +40,7 @@ public class PopulationRateManager : MonoBehaviour, IRate
     }
     public void CalculateRate()
     {
-        _currentPopulationRate = EconomyManager.Instance.registeredResidents.Count;
+        _currentPopulationRate = EconomyManager.Instance.RegisteredResidents.Count;
     }
     private void UpdateUI()
     {

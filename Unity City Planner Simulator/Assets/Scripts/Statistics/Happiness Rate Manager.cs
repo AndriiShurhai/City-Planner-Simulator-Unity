@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class HappinessRateManager : MonoBehaviour, IRate
+public class HappinessRateManager : MonoBehaviour, ICityRate
 {
     private float _currentHappinessRate;
     [SerializeField] private TMP_Text currentHappinessRateTXT;
@@ -36,7 +36,7 @@ public class HappinessRateManager : MonoBehaviour, IRate
     {
         float happinessEffect = 0;
 
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        foreach (var building in EconomyManager.Instance.RegisteredBuildings)
         {
             if (building.BuildingData.Type == BuildingType.Amusement)
             {

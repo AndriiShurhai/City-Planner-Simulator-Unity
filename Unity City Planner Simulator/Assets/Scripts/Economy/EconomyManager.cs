@@ -1,104 +1,63 @@
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class EconomyManager : MonoBehaviour
+public class EconomyManager : MonoBehaviour, IEconomyManager
 {
-    [SerializeField] private const int STARTING_MONEY = 10000;
+    private const int STARTING_MONEY = 10000;
 
-    [SerializeField] private CrimeRateManager crimeRateManager;
-    [SerializeField] private UnemploymentRateManager unemploymentRateManager;
-    [SerializeField] private HappinessRateManager happinessRateManager;
-    [SerializeField] private PopulationRateManager populationRateManager;
-    [SerializeField] private HealthRateManager healthRateManager;
-    [SerializeField] private EducationRateManager educationRateManager;
-
-    [SerializeField] public List<GameObject> rates;
-
-    [SerializeField] TMPro.TMP_Text currentMoneyTXT;
-    [SerializeField] AudioManager audioManager;
-
-    [SerializeField] private float monthlyIncomeTax = 750f;
-    [SerializeField] private float monthlyPropertyTax = 5f;
+    [SerializeField] private CityRateManager _cityRateManager;
+    [SerializeField] private TMPro.TMP_Text _currentMoneyText;
+    [SerializeField] private AudioManager _audioManager;
+    [SerializeField] private float _timeIntervalInSeconds = 30f;
 
     private int _currentMoney;
-    private float _monthlyRevenue;
-    private float _monthlyExpenses;
-
-    public List<Building> registeredBuildings;
-    public List<GameObject> registeredResidents;
-
-    public List<AmusementParkStructure> amusementBuildings;
+    private BuildingRegistry _buildingRegistry;
+    private EconomyCalculator _economyCalculator;
+    private TimeManager _timeManager;
 
     public event Action OnMoneyChanged;
-    public static EconomyManager Instance { get; private set; }
-    public int CurrentMoney { get { return _currentMoney; } }
+
+    public int CurrentMoney => _currentMoney;
+    public IReadOnlyList<Building> RegisteredBuildings => _buildingRegistry.GetAllBuildings();
+    public IReadOnlyList<GameObject> RegisteredResidents => _buildingRegistry.GetAllResidents();    
+    public static EconomyManager Instance {  get; private set; }   
+
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
+        Instance = this;
+        _buildingRegistry = new BuildingRegistry(); 
+        _economyCalculator = new EconomyCalculator();
+        _timeManager = FindAnyObjectByType<TimeManager>();
+
+        _currentMoney = STARTING_MONEY;
     }
 
     private void Start()
     {
-        _currentMoney = STARTING_MONEY;
-        this.OnMoneyChanged += UpdateUI;
+        _economyCalculator.Initialize(_buildingRegistry, Instance, FindAnyObjectByType<PopulationRateManager>());
 
-        InvokeRepeating(nameof(CalculateMonthlyEconomics), 0f, 5f);
+        if ( _timeManager != null )
+        {
+            // if interval finished => HandleIntervalFinished
+        }
+
+        InvokeRepeating(nameof(HandleIntervalElapsed), 0f, _timeIntervalInSeconds);
 
         UpdateUI();
     }
 
-    private void CalculateMonthlyEconomics()
+    private void HandleIntervalElapsed()
     {
-        CalculateRevenue();
-        CalculateExpenses();
-        UpdateBudgetAndRates();
-    }
-
-    private void UpdateBudgetAndRates()
-    {
-        int monthlyBalance = Mathf.RoundToInt(_monthlyRevenue - _monthlyExpenses);
-        AddMoney(monthlyBalance);
-
-        UpdateCityRates();
-    }
-
-    private void UpdateCityRates()
-    {
-        foreach (var rate in rates)
-        {
-            rate.GetComponent<IRate>().CalculateRate();
-            
-        }
-    }
-
-    private void CalculateExpenses()
-    {
-        _monthlyExpenses = 0;
-        foreach (var building in registeredBuildings) 
-        { 
-
-            Debug.Log("Building process tick");
-            building.ProcessTick();
-        }
-    }
-
-    private void CalculateRevenue()
-    {
-        float workingPopulation = PopulationRateManager.Instance.CurrentPopulationRate;
-        _monthlyRevenue = workingPopulation * monthlyIncomeTax;
-
-        _monthlyRevenue += registeredBuildings.Count * monthlyPropertyTax;
+        _economyCalculator.CalculateMonthlyEconomics();
+        _cityRateManager.UpdateAllRates();
     }
 
     public bool CanAfford(int cost)
@@ -108,33 +67,58 @@ public class EconomyManager : MonoBehaviour
 
     public void AddMoney(int amount)
     {
-        _currentMoney += amount;
+        _currentMoney = Mathf.Max(0, _currentMoney + amount);
         OnMoneyChanged?.Invoke();
     }
 
     public bool SubtractMoney(int amount)
     {
-        if (_currentMoney < amount)
+        if (_currentMoney < amount )
         {
             return false;
         }
         _currentMoney = Mathf.Max(0, _currentMoney - amount);
         OnMoneyChanged?.Invoke();
-
         return true;
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
-        if (currentMoneyTXT != null)
+        if (_currentMoneyText != null)
         {
-            currentMoneyTXT.text = _currentMoney.ToString();
+            _currentMoneyText.text = _currentMoney.ToString();
         }
     }
 
-    internal void RegisterBuilding(Building building)
+    private void OnEnable()
     {
-        registeredBuildings.Add(building);
-        Debug.Log("Placed");
+        OnMoneyChanged += UpdateUI;
+    }
+
+    private void OnDisable()
+    {
+        OnMoneyChanged -= UpdateUI;
+
+        //
+    }
+
+    public void RegisterBuilding(Building building)
+    {
+        _buildingRegistry.RegisterBuilding(building);
+    }
+
+    public void UnregisterBuilding(Building building)
+    {
+        _buildingRegistry.UnregisterBuilding(building);
+    }
+
+    public void RegisterResident(GameObject resident)
+    {
+        _buildingRegistry.RegisterResident(resident);
+    }
+
+    public void UnregisterResident(GameObject resident)
+    {
+        _buildingRegistry.UnregisterResident(resident);
     }
 }

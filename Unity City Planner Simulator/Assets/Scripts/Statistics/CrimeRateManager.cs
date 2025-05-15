@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class CrimeRateManager : MonoBehaviour, IRate
+public class CrimeRateManager : MonoBehaviour, ICityRate
 {
     [SerializeField] private TMP_Text currentCrimeRateTXT;
 
@@ -45,7 +45,7 @@ public class CrimeRateManager : MonoBehaviour, IRate
     public void CalculateRate()
     {
         _policeEffect = 0;
-        foreach (var building in EconomyManager.Instance.registeredBuildings)
+        foreach (var building in EconomyManager.Instance.RegisteredBuildings)
         {
             if (building.BuildingData.Type == BuildingType.Police)
             {

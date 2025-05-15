@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.UIElements;
 
 public enum BuildingState { Constructing, Active}
@@ -276,9 +277,9 @@ public class Building : MonoBehaviour
         }
 
         if (EconomyManager.Instance != null &&
-            EconomyManager.Instance.registeredBuildings.Contains(this))
+            EconomyManager.Instance.RegisteredBuildings.Contains(this))
         {
-            EconomyManager.Instance.registeredBuildings.Remove(this);
+            EconomyManager.Instance.UnregisterBuilding(this);
         }
     }
 
