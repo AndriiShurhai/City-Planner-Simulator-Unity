@@ -10,7 +10,7 @@ public class AmusementParkStructure : EntertainmentBuildingBase
         base.OnInitialize();
 
         happinessBonus = 2f;
-        visitorCapacity = 50f * Size.x * Size.y;
+        visitorCapacity = 50f * buildingData.Size.x * buildingData.Size.y;
         currentVisitors = 0;
     }
 

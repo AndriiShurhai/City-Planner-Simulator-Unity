@@ -59,7 +59,7 @@ public class ConstructionUIManager : MonoBehaviour
         Debug.Log("Creating UI");
         if (activeUIs.ContainsKey(building) || constructionUIPrefab == null)
         {
-            Debug.LogWarning($"UI already exists for {building.BuildingData.buildingName} or prefab is missing.");
+            Debug.LogWarning($"UI already exists for {building.BuildingData.BuildingName} or prefab is missing.");
             return;
         }
 

@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: GovermentStructure
   m_EditorClassIdentifier: 
-  buildingName: ROBOTA
-  buildingDescription: robota yraaaaaaa
-  buildingSprite: {fileID: 21300000, guid: e7c59bfad2ade1c4ba6f050f060e3aa9, type: 3}
-  buildingPrefab: {fileID: 4427661025103703106, guid: 6439e380546ca104ab9ed3bc6bcebf4e, type: 3}
-  buildingType: 2
-  size: {x: 5, y: 8}
-  cost: 0
-  maintenanceCost: 990
-  constructionDuration: 5
-  incomePerCycle: 1000
-  incomePerResident: 0
-  jobsAvailiable: 10
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: Robota
+  _buildingDescription: This is robota yraaaaa
+  _buildingSprite: {fileID: 21300000, guid: e7c59bfad2ade1c4ba6f050f060e3aa9, type: 3}
+  _buildingPrefab: {fileID: 4427661025103703106, guid: 6439e380546ca104ab9ed3bc6bcebf4e, type: 3}
+  _buildingType: 2
+  _size: {x: 5, y: 81}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

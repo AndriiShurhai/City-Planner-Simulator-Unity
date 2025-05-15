@@ -44,7 +44,7 @@ public class EducationRateManager : MonoBehaviour, IRate
         _educationFacilities = 0;
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
-            if (building.BuildingData.buildingType == BuildingType.Education)
+            if (building.BuildingData.Type == BuildingType.Education)
             {
                 IEducationProvider educationProvider = building as IEducationProvider;
                 if (educationProvider != null)

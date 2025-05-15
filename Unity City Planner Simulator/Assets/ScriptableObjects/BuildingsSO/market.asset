@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: market
   m_EditorClassIdentifier: 
-  buildingName: House
-  buildingDescription: Common good-looking and cosy residential house.
-  buildingSprite: {fileID: 21300000, guid: 292fe9b7fc2f06844b29d9b5a2b0b3a9, type: 3}
-  buildingPrefab: {fileID: 190154463320851615, guid: dd6987ff83f7f6b4c847b3e821e3d17c, type: 3}
-  buildingType: 1
-  size: {x: 13, y: 13}
-  cost: 0
-  maintenanceCost: 750
-  constructionDuration: 5
-  incomePerCycle: 800
-  incomePerResident: 0
-  jobsAvailiable: 0
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: Market
+  _buildingDescription: 'This is market. '
+  _buildingSprite: {fileID: 21300000, guid: 292fe9b7fc2f06844b29d9b5a2b0b3a9, type: 3}
+  _buildingPrefab: {fileID: 190154463320851615, guid: dd6987ff83f7f6b4c847b3e821e3d17c, type: 3}
+  _buildingType: 1
+  _size: {x: 14, y: 13}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

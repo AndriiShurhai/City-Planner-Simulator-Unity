@@ -53,7 +53,7 @@ public class GridCity : MonoBehaviour
                 Vector3Int cellPosition = grid.WorldToCell(mouseWorldPosition);
                 Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
 
-                if (CanPlaceBuilding(gridPosition, BuildingMover.Instance.CurrentlyMovingBuilding.Size,
+                if (CanPlaceBuilding(gridPosition, BuildingMover.Instance.CurrentlyMovingBuilding.BuildingData.Size,
                                      BuildingMover.Instance.CurrentlyMovingBuilding.BuildingData))
                 {
                     MoveBuilding(BuildingMover.Instance.CurrentlyMovingBuilding, gridPosition);
@@ -71,7 +71,7 @@ public class GridCity : MonoBehaviour
                 Vector2Int gridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
 
 
-                if (CanPlaceBuilding(gridPosition, _selectedBuilding.size, _selectedBuilding))
+                if (CanPlaceBuilding(gridPosition, _selectedBuilding.Size, _selectedBuilding))
                 {
                     PlaceBuilding(_selectedBuilding, gridPosition);
                 }
@@ -93,7 +93,7 @@ public class GridCity : MonoBehaviour
             if (building != null)
             {
                 Debug.Log("Building clicked at: " + gridPosition);
-                BuildingPanel.Instance.ShowBuildingPanel(building, building.OccupiedPositions[0] + new Vector2((float)building.Size.x / 2f, -2));
+                BuildingPanel.Instance.ShowBuildingPanel(building, building.OccupiedPositions[0] + new Vector2((float)building.BuildingData.Size.x / 2f, -2));
             }
             else
             {
@@ -124,7 +124,7 @@ public class GridCity : MonoBehaviour
                 }
             }
         }
-        BoxCollider2D collider = building.buildingPrefab.GetComponent<BoxCollider2D>();
+        BoxCollider2D collider = building.Prefab.GetComponent<BoxCollider2D>();
         if (collider == null) return true;
 
         Vector3 worldPosition = grid.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
@@ -152,21 +152,21 @@ public class GridCity : MonoBehaviour
     {
         Vector3 worldPosition = grid.CellToWorld(new Vector3Int(position.x, position.y, 0));
 
-        Transform instance = Instantiate(data.buildingPrefab, worldPosition, Quaternion.identity);
+        Transform instance = Instantiate(data.Prefab, worldPosition, Quaternion.identity);
         Building building = instance.GetComponent<Building>();
 
-        building.Initialize(data, data.size); 
+        building.Initialize(data, data.Size); 
         building.SetGridPosition(position);
 
-        for (int x = position.x; x < position.x + data.size.x; x++)
+        for (int x = position.x; x < position.x + data.Size.x; x++)
         {
-            for (int y = position.y; y < position.y + data.size.y; y++)
+            for (int y = position.y; y < position.y + data.Size.y; y++)
             {
                 buildings[new Vector2Int(x, y)] = building;
             }
         }
 
-        EconomyManager.Instance.SubtractMoney(building.BuildingData.cost);
+        EconomyManager.Instance.SubtractMoney(building.BuildingData.Cost);
         customBuildingCursor.ToggleCursor(false, null);
         _selectedBuilding = null;
     }
@@ -175,9 +175,9 @@ public class GridCity : MonoBehaviour
     {
         building.SetGridPosition(newPosition);
 
-        for (int x = newPosition.x; x < newPosition.x + building.Size.x; x++)
+        for (int x = newPosition.x; x < newPosition.x + building.BuildingData.Size.x; x++)
         {
-            for (int y = newPosition.y; y < newPosition.y + building.Size.y; y++)
+            for (int y = newPosition.y; y < newPosition.y + building.BuildingData.Size.y; y++)
             {
                 buildings[new Vector2Int(x, y)] = building;
             }

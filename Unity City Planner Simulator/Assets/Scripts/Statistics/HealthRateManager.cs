@@ -45,7 +45,7 @@ public class HealthRateManager : MonoBehaviour, IRate
         _healthcareEffect = 0;
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
-            if (building.BuildingData.buildingType == BuildingType.Medical)
+            if (building.BuildingData.Type == BuildingType.Medical)
             {
                 _healthcareEffect++;
             }

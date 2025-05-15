@@ -18,8 +18,8 @@ public abstract class ResidentialBuildingBase : Building, IPopulationProvider
 
     public override int CalculateIncome()
     {
-        int taxIncome = buildingData.incomePerResident * currentResidents;
-        int netIncome = taxIncome - buildingData.maintenanceCost;
+        int taxIncome = buildingData.IncomePerCycle * currentResidents;
+        int netIncome = taxIncome - buildingData.MaintenanceCost;
         return netIncome;
     }
 

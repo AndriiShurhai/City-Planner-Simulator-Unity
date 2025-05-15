@@ -13,7 +13,6 @@ public class Building : MonoBehaviour
 
     public BuildingData BuildingData => buildingData;
     public Vector2Int GridPosition => _gridPosition;
-    public Vector2Int Size => _size;
     public IReadOnlyList<IBuildingEffect> BuildingEffects => _buildingEffects;
     public List<Vector2Int> OccupiedPositions => _occupiedPositions;
     public bool IsInitialized => _isInitialized;
@@ -22,7 +21,6 @@ public class Building : MonoBehaviour
     public BuildingState State { get; private set; } = BuildingState.Constructing;
 
     protected Vector2Int _gridPosition;
-    protected Vector2Int _size;
     protected readonly List<IBuildingEffect> _buildingEffects = new List<IBuildingEffect>();
     protected readonly List<Vector2Int> _occupiedPositions = new List<Vector2Int>();
     protected Vector2Int _lastGridPosition;
@@ -51,10 +49,9 @@ public class Building : MonoBehaviour
         if (_isInitialized || _wasPlacedBefore) return;
 
         this.buildingData = data;
-        _size = size;
         _isInitialized = true;
 
-        name = $"{data.buildingName} ({GetInstanceID()})";
+        name = $"{data.BuildingName} ({GetInstanceID()})";
 
         OnInitialize();
 
@@ -71,7 +68,7 @@ public class Building : MonoBehaviour
     }
     private void StartConstruction()
     {
-        if (buildingData.constructionDuration <= 0)
+        if (buildingData.ConstructionDuration <= 0)
         {
             CompleteConstruction();
             return;
@@ -82,7 +79,7 @@ public class Building : MonoBehaviour
     }
     private IEnumerator Construct()
     {
-        yield return new WaitForSeconds(buildingData.constructionDuration);
+        yield return new WaitForSeconds(buildingData.ConstructionDuration);
         CompleteConstruction();
     }
 
@@ -108,9 +105,9 @@ public class Building : MonoBehaviour
         Debug.Log("Updating occupied positions");
         _occupiedPositions.Clear();
 
-        for (int x = 0; x < _size.x; x++)
+        for (int x = 0; x < buildingData.Size.x; x++)
         {
-            for (int y = 0; y < _size.y; y++)
+            for (int y = 0; y < buildingData.Size.y; y++)
             {
                 Debug.Log("pos");
                 _occupiedPositions.Add(new Vector2Int(_gridPosition.x + x, _gridPosition.y + y));
@@ -134,7 +131,7 @@ public class Building : MonoBehaviour
 
         OnBuildingPlaced?.Invoke(this);
 
-        Debug.Log($"Building {buildingData.buildingName} placed at positions: {string.Join(", ", _occupiedPositions)}");
+        Debug.Log($"Building {buildingData.BuildingName} placed at positions: {string.Join(", ", _occupiedPositions)}");
     }
 
     protected virtual void AfterPlacement() { }
@@ -178,14 +175,14 @@ public class Building : MonoBehaviour
     {
         if (buildingData == null) return 0;
 
-        return buildingData.incomePerCycle - buildingData.maintenanceCost;
+        return buildingData.IncomePerCycle - buildingData.MaintenanceCost;
     }
 
     public virtual void Upgrade()
     {
-        if (buildingData.upgradeLevel >= buildingData.maxUpgradeLevel)
+        if (buildingData.UpgradeLevel >= buildingData.MaxUpgradeLevel)
         {
-            Debug.Log($"Building {buildingData.buildingName} is already at max level");
+            Debug.Log($"Building {buildingData.BuildingName} is already at max level");
             return;
         }
 
@@ -195,25 +192,25 @@ public class Building : MonoBehaviour
             return;
         }
 
-        buildingData.upgradeLevel++;
+        buildingData.UpgradeLevel++;
 
         ApplyStandartUpgrades();
 
         OnUpgraded();
 
-        Debug.Log($"Upgraded {buildingData.buildingName} to level {buildingData.upgradeLevel}");
+        Debug.Log($"Upgraded {buildingData.BuildingName} to level {buildingData.UpgradeLevel}");
 
         OnUpgrade?.Invoke();
     }
     private bool TryPayForUpgrade()
     {
-        return (EconomyManager.Instance != null && EconomyManager.Instance.SubtractMoney(buildingData.upgradeCost));
+        return (EconomyManager.Instance != null && EconomyManager.Instance.SubtractMoney(buildingData.UpgradeCost));
     }
 
     private void ApplyStandartUpgrades()
     {
-        buildingData.incomePerCycle = Mathf.RoundToInt(buildingData.incomePerCycle * 1.5f);
-        buildingData.upgradeCost = Mathf.RoundToInt(buildingData.upgradeCost * 2f);
+        buildingData.IncomePerCycle = Mathf.RoundToInt(buildingData.IncomePerCycle * 1.5f);
+        buildingData.UpgradeCost = Mathf.RoundToInt(buildingData.UpgradeCost * 2f);
     }
 
     protected virtual void OnUpgraded() { }
@@ -263,7 +260,7 @@ public class Building : MonoBehaviour
 
     public virtual void DestroyBuilding()
     {
-        Debug.Log($"Destroying building: {buildingData.buildingName}");
+        Debug.Log($"Destroying building: {buildingData.BuildingName}");
 
         UnregisterFromManagers();
         CleanupEffects();
@@ -295,7 +292,7 @@ public class Building : MonoBehaviour
         if (BuildingMover.Instance != null &&
             BuildingMover.Instance.StartMovingBuilding(this))
         {
-            Debug.Log($"Started moving {buildingData.buildingName}");
+            Debug.Log($"Started moving {buildingData.BuildingName}");
 
         }
     }

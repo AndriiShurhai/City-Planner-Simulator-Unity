@@ -15,9 +15,9 @@ public class ResidentsManager : MonoBehaviour
     private bool isResidentSpawned = false;
 
     private float crimeCheckInterval = 10f;
-    private float crimeCheckTimer = 40f;
-    private float healthAttackInterval = 10f;
-    private float healthAttackTimer = 10f;
+    private float crimeCheckTimer = 10f;
+    private float healthAttackInterval = 40f;
+    private float healthAttackTimer = 40f;
 
     public event Action<AIResident> OnResidentGoingToCrime;
     public event Action<AIResident> OnResidentGoingToDie;
@@ -171,7 +171,7 @@ public class ResidentsManager : MonoBehaviour
 
     public void DoCrimeIfCrimeRateIsHigh()
     {
-        if (CrimeRateManager.Instance.CrimeRate <= 50) return;
+        if (CrimeRateManager.Instance.CrimeRate <= 0) return;
         Building target = null;
         float minDistance = int.MaxValue;
         AIResident criminal = null;
@@ -186,11 +186,11 @@ public class ResidentsManager : MonoBehaviour
         }
         if (criminal == null) return;
 
-        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.BuildingData.buildingType == BuildingType.Commercial).Count()}");
+        Debug.Log($"Markets count: {EconomyManager.Instance.registeredBuildings.Where(x => x.BuildingData.Type == BuildingType.Commercial).Count()}");
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
             Vector3 distance = criminal.transform.position - building.transform.position;
-            if (building.BuildingData.buildingType == BuildingType.Commercial)
+            if (building.BuildingData.Type == BuildingType.Commercial)
             {
                 float cells = Mathf.Abs(distance.x) + Mathf.Abs(distance.y) + Mathf.Abs(distance.z);
 
@@ -209,7 +209,7 @@ public class ResidentsManager : MonoBehaviour
 
     public void DoHealthAttackIfHealthRateIsLow()
     {
-        if (HealthRateManager.Instance.HealthRate >= 50) return;
+        if (HealthRateManager.Instance.HealthRate >= 10) return;
         AIResident residentWithHealthProblem = null;
         if (residents.Count > 0)
         {

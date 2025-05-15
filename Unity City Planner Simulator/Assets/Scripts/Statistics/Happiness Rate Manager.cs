@@ -38,7 +38,7 @@ public class HappinessRateManager : MonoBehaviour, IRate
 
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
-            if (building.BuildingData.buildingType == BuildingType.Amusement)
+            if (building.BuildingData.Type == BuildingType.Amusement)
             {
                 happinessEffect++;
             }

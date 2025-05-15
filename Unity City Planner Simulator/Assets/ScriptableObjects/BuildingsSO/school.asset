@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: school
   m_EditorClassIdentifier: 
-  buildingName: House
-  buildingDescription: Common good-looking and cosy residential house.
-  buildingSprite: {fileID: 21300000, guid: bcb2f3c21bfdf614ab95a83678ed25c2, type: 3}
-  buildingPrefab: {fileID: 190154463320851615, guid: 795e529e04873df4e983e9a92219df70, type: 3}
-  buildingType: 7
-  size: {x: 17, y: 15}
-  cost: 0
-  maintenanceCost: 750
-  constructionDuration: 5
-  incomePerCycle: 800
-  incomePerResident: 0
-  jobsAvailiable: 0
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: School
+  _buildingDescription: This is school. Educational purposes.
+  _buildingSprite: {fileID: 21300000, guid: bcb2f3c21bfdf614ab95a83678ed25c2, type: 3}
+  _buildingPrefab: {fileID: 190154463320851615, guid: 795e529e04873df4e983e9a92219df70, type: 3}
+  _buildingType: 7
+  _size: {x: 17, y: 15}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

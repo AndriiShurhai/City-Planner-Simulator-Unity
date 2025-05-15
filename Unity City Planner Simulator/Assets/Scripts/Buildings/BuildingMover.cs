@@ -41,7 +41,7 @@ public class BuildingMover : MonoBehaviour
 
         if (building.State != BuildingState.Active)
         {
-            Debug.LogWarning($"Cannot move {building.BuildingData.buildingName} while in {building.State} state.");
+            Debug.LogWarning($"Cannot move {building.BuildingData.BuildingName} while in {building.State} state.");
             return false;
         }
 
@@ -76,9 +76,9 @@ public class BuildingMover : MonoBehaviour
 
         currentlyMovingBuilding.SetGridPosition(originalGridPosition);
 
-        for (int x = originalGridPosition.x; x < originalGridPosition.x + currentlyMovingBuilding.Size.x; x++)
+        for (int x = originalGridPosition.x; x < originalGridPosition.x + currentlyMovingBuilding.BuildingData.Size.x; x++)
         {
-            for (int y = originalGridPosition.y; y < originalGridPosition.y + currentlyMovingBuilding.Size.y; y++)
+            for (int y = originalGridPosition.y; y < originalGridPosition.y + currentlyMovingBuilding.BuildingData.Size.y; y++)
             {
                 GridCity.Instance.Buildings[new Vector2Int(x, y)] = currentlyMovingBuilding;
             }

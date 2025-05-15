@@ -55,17 +55,17 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < _shopItemsSO.Length; i++)
         {
-            _purchaseButtons[i].interactable = EconomyManager.Instance.CanAfford(_shopItemsSO[i].cost);
+            _purchaseButtons[i].interactable = EconomyManager.Instance.CanAfford(_shopItemsSO[i].Cost);
         }
     }
     private void LoadPanels()
     {
         for (int i = 0; i < _shopItemsSO.Length; i++)
         {
-            _shopPanels[i].titleTxt.text = _shopItemsSO[i].buildingName;
-            _shopPanels[i].descriptionTxt.text = _shopItemsSO[i].buildingDescription;
-            _shopPanels[i].costTxt.text = _shopItemsSO[i].cost.ToString();
-            _shopPanels[i].imageItem.sprite = _shopItemsSO[i].buildingSprite;
+            _shopPanels[i].titleTxt.text = _shopItemsSO[i].BuildingName;
+            _shopPanels[i].descriptionTxt.text = _shopItemsSO[i].Description;
+            _shopPanels[i].costTxt.text = _shopItemsSO[i].Cost.ToString();
+            _shopPanels[i].imageItem.sprite = _shopItemsSO[i].Sprite;
             int index = i;
             _shopPanels[i].infoButton.onClick.AddListener(() => HandleInfoButtonClick(index));
             AdjustSize(_shopPanels[i].imageItem);
@@ -76,9 +76,9 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < _buildingInfoTemplates.Length; i++)
         {
-            _buildingInfoTemplates[i].titleTxt.text = _shopItemsSO[i].buildingName;
-            _buildingInfoTemplates[i].descriptionTxt.text = _shopItemsSO[i].buildingDescription;
-            _buildingInfoTemplates[i].imageItem.sprite = _shopItemsSO[i].buildingSprite;
+            _buildingInfoTemplates[i].titleTxt.text = _shopItemsSO[i].BuildingName;
+            _buildingInfoTemplates[i].descriptionTxt.text = _shopItemsSO[i].Description;
+            _buildingInfoTemplates[i].imageItem.sprite = _shopItemsSO[i].Sprite;
             AdjustSize(_buildingInfoTemplates[i].imageItem);
         }
     }
@@ -92,7 +92,7 @@ public class ShopManager : MonoBehaviour
         }
 
         BuildingData selectedBuilding = _shopItemsSO[buttonIndex];
-        int buildingCost = selectedBuilding.cost;
+        int buildingCost = selectedBuilding.Cost;
 
         if (EconomyManager.Instance.CanAfford(buildingCost))
         {

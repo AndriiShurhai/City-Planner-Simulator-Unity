@@ -12,21 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: AmusementPark
   m_EditorClassIdentifier: 
-  buildingName: House
-  buildingDescription: "_________________________ \nThis is amusement park. This
-    place brings joy and happiness to people.\n\nLevel 1:\n+5% happiness rate\n+
-    impact to happiness rate calculation\n\nLevel 2:\n+ 7% happiness rate\n\nLevel
-    3:\n+ 8% happiness rate\n\n_____________________________________"
-  buildingSprite: {fileID: 21300000, guid: e736c4f972e3463418d14e906453e46f, type: 3}
-  buildingPrefab: {fileID: 190154463320851615, guid: ef15bbe290b64e74886a05d0c3dbd7f8, type: 3}
-  buildingType: 3
-  size: {x: 14, y: 14}
-  cost: 0
-  maintenanceCost: 900
-  constructionDuration: 5
-  incomePerCycle: 1000
-  incomePerResident: 50
-  jobsAvailiable: 0
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: Amusement Park
+  _buildingDescription: This is an amusement park.
+  _buildingSprite: {fileID: 21300000, guid: e736c4f972e3463418d14e906453e46f, type: 3}
+  _buildingPrefab: {fileID: 190154463320851615, guid: ef15bbe290b64e74886a05d0c3dbd7f8, type: 3}
+  _buildingType: 3
+  _size: {x: 14, y: 14}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

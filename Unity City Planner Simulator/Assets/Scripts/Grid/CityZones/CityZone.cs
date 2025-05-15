@@ -96,7 +96,7 @@ public class CityZone : MonoBehaviour
 
         if (!IsBuildingInZone(building)) return;
 
-        var type = building.BuildingData.buildingType;
+        var type = building.BuildingData.Type;
         EnsureBuildingListExists(type);
 
         if (_buildingsByType[type].Contains(building)) return;
@@ -136,7 +136,7 @@ public class CityZone : MonoBehaviour
 
     private void HandleMovedBuilding(Building building)
     {
-        var type = building.BuildingData.buildingType;
+        var type = building.BuildingData.Type;
         if (_buildingsByType.TryGetValue(type, out var list) && list.Contains(building))
         {
             bool stillInZone = building.OccupiedPositions.Any(pos => _zoneGridPosition.Contains(pos));

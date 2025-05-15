@@ -15,7 +15,7 @@ public class ConstructionUI : MonoBehaviour
     {
         this.building = building;
         constructionStartTime = Time.time;
-        constructionDuration = building.BuildingData.constructionDuration;
+        constructionDuration = building.BuildingData.ConstructionDuration;
 
         progressBarFill = transform.Find("ProgressBarBackground/ProgressBarFill")?.GetComponent<Image>();
         progressText = transform.Find("ProgressBarBackground/ProgressText")?.GetComponent<TextMeshProUGUI>();
@@ -38,7 +38,7 @@ public class ConstructionUI : MonoBehaviour
             return;
         }
 
-        transform.position = new Vector3(building.OccupiedPositions[0].x, building.OccupiedPositions[0].y, 0) + new Vector3((float)building.Size.x / 2f, -2, 0) * 1f;
+        transform.position = new Vector3(building.OccupiedPositions[0].x, building.OccupiedPositions[0].y, 0) + new Vector3((float)building.BuildingData.Size.x / 2f, -2, 0) * 1f;
         UpdateUI();
     }
 

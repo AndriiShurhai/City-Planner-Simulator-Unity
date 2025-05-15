@@ -62,7 +62,7 @@ public class CustomBuildingCursor : MonoBehaviour
 
         if (show && activeBuildingType != null)
         {
-            spriteRenderer.sprite = activeBuildingType.buildingSprite;
+            spriteRenderer.sprite = activeBuildingType.Sprite;
         }
     }
 
@@ -81,7 +81,7 @@ public class CustomBuildingCursor : MonoBehaviour
         if (grid == null || activeBuildingType == null) return;
 
         Vector3Int gridPosition = grid.WorldToCell(transform.position);
-        bool isValidPosition = GridCity.Instance.CanPlaceBuilding((Vector2Int)gridPosition, activeBuildingType.size, activeBuildingType);
+        bool isValidPosition = GridCity.Instance.CanPlaceBuilding((Vector2Int)gridPosition, activeBuildingType.Size, activeBuildingType);
 
         spriteRenderer.color = isValidPosition ? validColor : invalidColor;
     }

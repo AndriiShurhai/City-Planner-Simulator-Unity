@@ -12,22 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: PurpleFlat
   m_EditorClassIdentifier: 
-  buildingName: Purple flat
-  buildingDescription: '_________________________  This is residential Flat. Works
-    just as residential house except of bigger amount of residetns spawned, cost
-    is more expensive and gives more profit.   Level 1:  2 RESIDENTS spawned Profit:
-    20 dollars  LEVEL 2:  4 RESIDENTS spawned profit: 40 dollars  LEVEL 3:  6 RESIDENTS
-    profit: 80 dollars _________________________'
-  buildingSprite: {fileID: 21300000, guid: 4cc62615463b77b4aaf05e707bd507e6, type: 3}
-  buildingPrefab: {fileID: 4428906684350208622, guid: df42bf444f2695948b8aac0d1040a631, type: 3}
-  buildingType: 0
-  size: {x: 4, y: 7}
-  cost: 0
-  maintenanceCost: 1000
-  constructionDuration: 5
-  incomePerCycle: 1100
-  incomePerResident: 50
-  jobsAvailiable: 0
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: Purple Flat
+  _buildingDescription: This is purple flat. Just as residential house but spawns
+    more residents
+  _buildingSprite: {fileID: 21300000, guid: 4cc62615463b77b4aaf05e707bd507e6, type: 3}
+  _buildingPrefab: {fileID: 4428906684350208622, guid: df42bf444f2695948b8aac0d1040a631, type: 3}
+  _buildingType: 0
+  _size: {x: 4, y: 7}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

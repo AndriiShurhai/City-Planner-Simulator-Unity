@@ -70,7 +70,7 @@ public class AutoZoneManager : MonoBehaviour
     {
         UpdateAndProcess(building);
 
-        foreach (var zone in _typeToZones[building.BuildingData.buildingType])
+        foreach (var zone in _typeToZones[building.BuildingData.Type])
         {
             zone.RegisterBuilding(building);
         }
@@ -82,12 +82,12 @@ public class AutoZoneManager : MonoBehaviour
         if (building is not IZonable) return;
         Debug.Log("Building placed event received");
         UpdateBuildingPositions(building);
-        ProcessZoningForType(building.BuildingData.buildingType);
+        ProcessZoningForType(building.BuildingData.Type);
     }
 
     private void UpdateBuildingPositions(Building building)
     {
-        var type = building.BuildingData.buildingType;
+        var type = building.BuildingData.Type;
         RemoveOldPositions(building, type);
 
         var newPositions = AddNewPositions(building, type);
@@ -233,9 +233,9 @@ public class AutoZoneManager : MonoBehaviour
 
     private void OnBuildingDestroyed(Building building)
     {
-        RemoveOldPositions(building, building.BuildingData.buildingType);
+        RemoveOldPositions(building, building.BuildingData.Type);
         _buildingToPositions.Remove(building);
-        ProcessZoningForType(building.BuildingData.buildingType);
+        ProcessZoningForType(building.BuildingData.Type);
     }
 
     private void DestroyZone(CityZone zone)

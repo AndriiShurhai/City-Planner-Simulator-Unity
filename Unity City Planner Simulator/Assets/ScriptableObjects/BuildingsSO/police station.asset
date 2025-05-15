@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c775974d79299488a74b1d84f56a38, type: 3}
   m_Name: police station
   m_EditorClassIdentifier: 
-  buildingName: House
-  buildingDescription: Common good-looking and cosy residential house.
-  buildingSprite: {fileID: 21300000, guid: 027c9352334c8e5499db50ceb58a9b1c, type: 3}
-  buildingPrefab: {fileID: 190154463320851615, guid: f08bd315c531a05449ba546c14fea074, type: 3}
-  buildingType: 6
-  size: {x: 12, y: 12}
-  cost: 0
-  maintenanceCost: 750
-  constructionDuration: 5
-  incomePerCycle: 800
-  incomePerResident: 0
-  jobsAvailiable: 0
-  maxUpgradeLevel: 3
-  upgradeLevel: 0
-  upgradeCost: 0
+  _buildingName: Police station
+  _buildingDescription: This is a police station. Spawns some policemans to stop
+    criminals.
+  _buildingSprite: {fileID: 21300000, guid: 027c9352334c8e5499db50ceb58a9b1c, type: 3}
+  _buildingPrefab: {fileID: 190154463320851615, guid: f08bd315c531a05449ba546c14fea074, type: 3}
+  _buildingType: 6
+  _size: {x: 12, y: 12}
+  _cost: 0
+  _maintenanceCost: 0
+  _constructionDuration: 0
+  _incomePerCycle: 0
+  _incomePerResident: 0
+  _jobsAvailable: 0
+  _maxUpgradeLevel: 1
+  _upgradeLevel: 0
+  _upgradeCost: 0

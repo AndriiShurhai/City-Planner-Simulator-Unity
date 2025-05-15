@@ -47,7 +47,7 @@ public class CrimeRateManager : MonoBehaviour, IRate
         _policeEffect = 0;
         foreach (var building in EconomyManager.Instance.registeredBuildings)
         {
-            if (building.BuildingData.buildingType == BuildingType.Police)
+            if (building.BuildingData.Type == BuildingType.Police)
             {
                 _policeEffect++;
             }

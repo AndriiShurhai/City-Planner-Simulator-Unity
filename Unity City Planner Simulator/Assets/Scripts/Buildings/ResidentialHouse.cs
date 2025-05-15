@@ -18,7 +18,7 @@ public class ResidentialHouse : ResidentialBuildingBase, IZonable
 
     protected override int GetMaxResidentCount()
     {
-        return 5 + buildingData.upgradeLevel * 2;
+        return 5 + buildingData.UpgradeLevel * 2;
     }
 
     protected override void OnInitialize()
@@ -50,7 +50,7 @@ public class ResidentialHouse : ResidentialBuildingBase, IZonable
         if (OnUpgrade != null && OccupiedPositions.Count > 0)
         {
             Vector3 position = new Vector3(OccupiedPositions[0].x, OccupiedPositions[0].y, 0);
-            OnUpgrade.Invoke(buildingData.upgradeLevel, position);
+            OnUpgrade.Invoke(buildingData.UpgradeLevel, position);
         }
     }
 }
