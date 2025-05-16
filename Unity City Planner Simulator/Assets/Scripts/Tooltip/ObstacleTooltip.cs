@@ -27,6 +27,13 @@ public class Tooltip : MonoBehaviour
         Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int cellPosition = obstacleTilemap.WorldToCell(mousePosition);
 
+        if (ObstacleRemover.Instance.SelectedTiles.Count > 1)
+        {
+            string message = $"To remove selected obstacles you need to pay {ObstacleRemover.Instance.CalculateTotalRemovalCost()} coins";
+            TooltipManager.Instance.SetAndShowTooltip(message);
+            return;
+        }
+
         if (smallObstacleTilemap.GetTile(cellPosition) != null)
         {
             TooltipManager.Instance.SetAndShowTooltip(smallObstacleMessage);
