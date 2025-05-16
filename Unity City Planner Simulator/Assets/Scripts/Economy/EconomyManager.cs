@@ -31,6 +31,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
         _buildingRegistry = new BuildingRegistry(); 
@@ -44,10 +45,8 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
     {
         _economyCalculator.Initialize(_buildingRegistry, Instance, FindAnyObjectByType<PopulationRateManager>());
 
-        if ( _timeManager != null )
-        {
-            // if interval finished => HandleIntervalFinished
-        }
+        TimeManager.Instance.OnDayChanged += HandleDayChanged;
+        TimeManager.Instance.OnMonthChanged += HandleMonthChanged;
 
         InvokeRepeating(nameof(HandleIntervalElapsed), 0f, _timeIntervalInSeconds);
 
@@ -58,6 +57,16 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
     {
         _economyCalculator.CalculateMonthlyEconomics();
         _cityRateManager.UpdateAllRates();
+    }
+
+    private void HandleDayChanged()
+    {
+        Debug.Log("Day is gone");
+    }
+
+    private void HandleMonthChanged()
+    {
+        Debug.Log("Month is gone");
     }
 
     public bool CanAfford(int cost)
