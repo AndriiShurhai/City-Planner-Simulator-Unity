@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class CrimeRateManager : MonoBehaviour, ICityRate
+public class CrimeRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     [SerializeField] private TMP_Text currentCrimeRateTXT;
 
@@ -20,6 +20,10 @@ public class CrimeRateManager : MonoBehaviour, ICityRate
     public float CrimeRate { get { return _crimeRate; } }
     public static CrimeRateManager Instance { get; private set; }
 
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
     private void Start()
     {
         if (Instance != null)
@@ -70,5 +74,16 @@ public class CrimeRateManager : MonoBehaviour, ICityRate
     private void UpdateUI()
     {
         currentCrimeRateTXT.text = _crimeRate.ToString();
+    }
+
+    public void Save(SaveData saveData)
+    {
+        saveData.crimeRate = _crimeRate;
+    }
+
+    public void Load(SaveData saveData)
+    {
+        _crimeRate = saveData.crimeRate;
+        UpdateUI();
     }
 }

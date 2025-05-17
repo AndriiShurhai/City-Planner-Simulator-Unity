@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using UnityEditor.Experimental.GraphView;
 
 public class ObstacleRemover : MonoBehaviour
 {
@@ -79,6 +81,19 @@ public class ObstacleRemover : MonoBehaviour
             if (tilemap != null)
             {
                 tilemap.SetTile(cell, null);
+                if (tilemap == _smallObstacleTilemap)
+                {
+                    ObstacleGenerator.Instance.smallObstaclesPositions.Remove(cell);
+                }
+                else if (tilemap == _middleObstacleTilemap)
+                {
+                    ObstacleGenerator.Instance.middleObstaclePositions.Remove(cell);
+                }
+                else if (tilemap == _largeObstacleTilemap)
+                {
+                    ObstacleGenerator.Instance.largeObstaclePositions.Remove(cell);
+                }
+
                 Vector3 effectPosition = tilemap.GetCellCenterWorld(cell);
                 Instantiate(_removeEffectPrefab, effectPosition, Quaternion.identity);
             }

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
-public class ObstacleGenerator : MonoBehaviour
+public class ObstacleGenerator : MonoBehaviour, ISaveable
 {
 
     [Header("Obstacles Tilemaps")]
@@ -23,16 +24,33 @@ public class ObstacleGenerator : MonoBehaviour
     [Range(0f, 1f)][SerializeField] private float middleObstacleDensity = 0.03f;
     [Range(0f, 1f)][SerializeField] private float largeObstacleDensity = 0.01f;
 
+    public List<Vector3Int> smallObstaclesPositions = new List<Vector3Int>();
+    public List<Vector3Int> middleObstaclePositions = new List<Vector3Int>();
+    public List<Vector3Int> largeObstaclePositions = new List<Vector3Int>();
+
+    private bool isLoaded = false;
+
+    public static ObstacleGenerator Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+        SaveManager.Instance.Register(this);
+    }
 
     private void Start()
     {
-
-        GenerateObstacles(smallObstacleTilemap, smallObstacleTile, smallObstacleDensity);
-        GenerateObstacles(middleObstacleTilemap, middleObstacleTile, middleObstacleDensity);
-        GenerateObstacles(largeObstacleTilemap, largeObstacleTile, largeObstacleDensity);
+        if (isLoaded) return;
+        GenerateObstacles(smallObstacleTilemap, smallObstacleTile, smallObstacleDensity, smallObstaclesPositions);
+        GenerateObstacles(middleObstacleTilemap, middleObstacleTile, middleObstacleDensity, middleObstaclePositions);
+        GenerateObstacles(largeObstacleTilemap, largeObstacleTile, largeObstacleDensity, largeObstaclePositions);
     }
 
-    private void GenerateObstacles(Tilemap map, AnimatedTile tile, float density)
+    private void GenerateObstacles(Tilemap map, AnimatedTile tile, float density, List<Vector3Int> obstacles)
     {
         var bounds = groundTilemap.cellBounds;
         for (int x = bounds.xMin; x < bounds.xMax; x++)
@@ -47,6 +65,7 @@ public class ObstacleGenerator : MonoBehaviour
                 if (Random.value < density)
                 {
                     map.SetTile(cellPos, tile);
+                    obstacles.Add(cellPos);
                 }
             }
         }
@@ -76,4 +95,41 @@ public class ObstacleGenerator : MonoBehaviour
 
         return true;
     }
+
+    public void Save(SaveData data)
+    {
+        data.smallObstacles = (smallObstaclesPositions);
+        data.middleObstacles = (middleObstaclePositions);
+        data.largeObstacles = (largeObstaclePositions);
+    }
+
+
+    public void Load(SaveData data)
+    {
+        smallObstacleTilemap.ClearAllTiles();
+        middleObstacleTilemap.ClearAllTiles();
+        largeObstacleTilemap.ClearAllTiles();
+
+        smallObstaclesPositions.Clear();
+        middleObstaclePositions.Clear();
+        largeObstaclePositions.Clear();
+
+        foreach (var pos in data.smallObstacles)
+        {
+            smallObstacleTilemap.SetTile(pos, smallObstacleTile);
+            smallObstaclesPositions.Add(pos);
+        }
+        foreach (var pos in data.middleObstacles)
+        {
+            middleObstacleTilemap.SetTile(pos, middleObstacleTile);
+            middleObstaclePositions.Add(pos);
+        }
+        foreach (var pos in data.largeObstacles)
+        {
+            largeObstacleTilemap.SetTile(pos, largeObstacleTile);
+            largeObstaclePositions.Add(pos);
+        }
+        isLoaded = true;
+    }
+
 }

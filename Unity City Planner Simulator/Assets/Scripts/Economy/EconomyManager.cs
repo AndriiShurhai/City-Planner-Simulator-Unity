@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EconomyManager : MonoBehaviour, IEconomyManager
+public class EconomyManager : MonoBehaviour, IEconomyManager, ISaveable
 {
-    private const int STARTING_MONEY = 10000;
+    private const int STARTING_MONEY = 1000000;
 
     [SerializeField] private CityRateManager _cityRateManager;
     [SerializeField] private TMPro.TMP_Text _currentMoneyText;
@@ -22,8 +22,8 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
 
     public int CurrentMoney => _currentMoney;
     public IReadOnlyList<Building> RegisteredBuildings => _buildingRegistry.GetAllBuildings();
-    public IReadOnlyList<GameObject> RegisteredResidents => _buildingRegistry.GetAllResidents();    
-    public static EconomyManager Instance {  get; private set; }   
+    public IReadOnlyList<GameObject> RegisteredResidents => _buildingRegistry.GetAllResidents();
+    public static EconomyManager Instance { get; private set; }
 
 
     private void Awake()
@@ -34,7 +34,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
             return;
         }
         Instance = this;
-        _buildingRegistry = new BuildingRegistry(); 
+        _buildingRegistry = new BuildingRegistry();
         _economyCalculator = new EconomyCalculator();
         _timeManager = FindAnyObjectByType<TimeManager>();
 
@@ -48,8 +48,6 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
         TimeManager.Instance.OnDayChanged += HandleDayChanged;
         TimeManager.Instance.OnMonthChanged += HandleMonthChanged;
 
-        InvokeRepeating(nameof(HandleIntervalElapsed), 0f, _timeIntervalInSeconds);
-
         UpdateUI();
     }
 
@@ -61,6 +59,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
 
     private void HandleDayChanged()
     {
+        _cityRateManager.UpdateAllRates();
         Debug.Log("Day is gone");
     }
 
@@ -82,7 +81,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
 
     public bool SubtractMoney(int amount)
     {
-        if (_currentMoney < amount )
+        if (_currentMoney < amount)
         {
             return false;
         }
@@ -107,8 +106,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
     private void OnDisable()
     {
         OnMoneyChanged -= UpdateUI;
-
-        //
+        SaveManager.Instance.Unregister(this);
     }
 
     public void RegisterBuilding(Building building)
@@ -129,5 +127,17 @@ public class EconomyManager : MonoBehaviour, IEconomyManager
     public void UnregisterResident(GameObject resident)
     {
         _buildingRegistry.UnregisterResident(resident);
+    }
+
+    public void Save(SaveData data)
+    {
+        data.money = _currentMoney;
+    }
+
+    public void Load(SaveData data)
+    {
+        _currentMoney = data.money;
+        OnMoneyChanged?.Invoke();
+        UpdateUI();
     }
 }
