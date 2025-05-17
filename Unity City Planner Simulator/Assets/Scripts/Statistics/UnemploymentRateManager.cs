@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UnemploymentRateManager : MonoBehaviour, ICityRate
+public class UnemploymentRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     private float _unemploymentRate;
     [SerializeField] private TMP_Text currentUnemploymentRateTXT;
@@ -10,6 +10,11 @@ public class UnemploymentRateManager : MonoBehaviour, ICityRate
     public event Action OnUnemploymentRateChange;
     public float UnemploymentRate { get { return _unemploymentRate; } }
     public static UnemploymentRateManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
     private void Start()
     {
         if (Instance != null)
@@ -60,5 +65,16 @@ public class UnemploymentRateManager : MonoBehaviour, ICityRate
     private void UpdateUI()
     {
         currentUnemploymentRateTXT.text= _unemploymentRate.ToString();
+    }
+
+    public void Save(SaveData data)
+    {
+        data.unemploymentRate = _unemploymentRate;
+    }
+
+    public void Load(SaveData data)
+    {
+        _unemploymentRate = data.unemploymentRate;
+        UpdateUI();
     }
 }

@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class PopulationRateManager : MonoBehaviour, ICityRate
+public class PopulationRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     [SerializeField] private TMP_Text currentPopulationRateTXT;
 
@@ -15,6 +15,11 @@ public class PopulationRateManager : MonoBehaviour, ICityRate
     private int workersCitizens;
     private int policeCitizens;
     private int tourists;
+
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
 
     private void Start()
     {
@@ -45,5 +50,16 @@ public class PopulationRateManager : MonoBehaviour, ICityRate
     private void UpdateUI()
     {
         currentPopulationRateTXT.text = _currentPopulationRate.ToString();  
+    }
+
+    public void Save(SaveData data)
+    {
+        data.populationRate = _currentPopulationRate;
+    }
+
+    public void Load(SaveData data)
+    {
+        _currentPopulationRate = data.populationRate;
+        UpdateUI();
     }
 }

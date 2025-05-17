@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class EducationRateManager : MonoBehaviour, ICityRate
+public class EducationRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     [SerializeField] private TMP_Text currentEducationRateTXT;
 
@@ -17,6 +17,10 @@ public class EducationRateManager : MonoBehaviour, ICityRate
     public float EducationRate {  get { return _currentEducationRate; } }
     public static EducationRateManager Instance { get; private set; }
 
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
     void Start()
     {
         if (Instance != null)
@@ -63,5 +67,16 @@ public class EducationRateManager : MonoBehaviour, ICityRate
     private void UpdateUI()
     {
         currentEducationRateTXT.text = _currentEducationRate.ToString();
+    }
+
+    public void Save(SaveData data)
+    {
+        data.educationRate = _currentEducationRate;
+    }
+
+    public void Load(SaveData data)
+    {
+        _currentEducationRate = data.educationRate;
+        UpdateUI();
     }
 }

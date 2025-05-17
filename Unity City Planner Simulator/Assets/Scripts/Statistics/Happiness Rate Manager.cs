@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class HappinessRateManager : MonoBehaviour, ICityRate
+public class HappinessRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     private float _currentHappinessRate;
     [SerializeField] private TMP_Text currentHappinessRateTXT;
@@ -19,6 +19,11 @@ public class HappinessRateManager : MonoBehaviour, ICityRate
 
     public float HapppinessRate { get { return _currentHappinessRate; } }
     public static HappinessRateManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
     private void Start()
     {
         if (Instance != null)
@@ -101,4 +106,16 @@ public class HappinessRateManager : MonoBehaviour, ICityRate
             happinessImagesToChange[i].sprite = happinessConditionImages[index].sprite;
         }
     }
+
+    public void Save(SaveData data)
+    {
+        data.happinessRate = _currentHappinessRate;
+    }
+
+    public void Load(SaveData data)
+    {
+        _currentHappinessRate = data.happinessRate;
+        UpdateUI();
+    }
+    
 }

@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class HealthRateManager : MonoBehaviour, ICityRate
+public class HealthRateManager : MonoBehaviour, ICityRate, ISaveable
 {
     [SerializeField] TMP_Text currentHealthRateTXT;
 
@@ -19,6 +19,11 @@ public class HealthRateManager : MonoBehaviour, ICityRate
 
     public event Action OnHealthRateChange;
 
+
+    private void Awake()
+    {
+        SaveManager.Instance.Register(this);
+    }
 
     private void Start()
     {
@@ -62,5 +67,16 @@ public class HealthRateManager : MonoBehaviour, ICityRate
     private void UpdateUI()
     {
         currentHealthRateTXT.text = _healthRate.ToString();
+    }
+
+    public void Save(SaveData data)
+    {
+        data.healthRate = _healthRate;
+    }
+
+    public void Load(SaveData data)
+    {
+        _healthRate = data.healthRate;
+        UpdateUI();
     }
 }

@@ -25,6 +25,7 @@ public class SaveData
     public float crimeRate;
     public float educationRate;
     public float happinessRate;
+    public float healthRate;
     public float populationRate;
     public float unemploymentRate;
 }
