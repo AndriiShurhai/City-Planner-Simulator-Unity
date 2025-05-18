@@ -25,19 +25,24 @@ public class AIResident : MonoBehaviour
     [Header("Car Detection")]
     [SerializeField] private float carDetectionRadius = 3f;
 
+
     private const int ACCELERATION_SPEED = 7;
     private const int DEFAULT_SPEED = 2;
 
     private float healthInterval = 10f;
     private float healthTimer = 0f;
+    public float HealthTimer { get => healthTimer; set => healthTimer = value; }
 
     protected MovementController movementController;
     protected PathFinder pathFinder;
     protected SpriteRenderer spriteRenderer;
     protected CircleCollider2D carDetectionCollider;
 
+    public int residentID;
     public bool isCommitingCrime = false;
     public bool isHavingHeartAttack = false;
+
+    public SpriteRenderer SpriteRenderer { get { return spriteRenderer; } }
     public MovementController MovementController { get; private set; }
     protected virtual void Start()
     {
@@ -200,12 +205,12 @@ public class AIResident : MonoBehaviour
 
     public void ResetCriminal(bool isCaught)
     {
+        isCommitingCrime = false;
         if (isCommitingCrime && !isCaught)
         {
             FindAnyObjectByType<RobbingSceneIntro>().StartRobbingSequence();
         }
 
-        isCommitingCrime = false;
 
         spriteRenderer.color = Color.white;
         movementController.ChooseNewRandomDestination();
@@ -217,6 +222,7 @@ public class AIResident : MonoBehaviour
         if (isHavingHeartAttack && !isCured)
         {
             PopulationRateManager.Instance.DecreaseRate(1);
+            ResidentsManager.Instance.RemoveResident(this);
             Destroy(gameObject);
             FindAnyObjectByType<MedicalAttack>().StartMedicalAttack();
         }

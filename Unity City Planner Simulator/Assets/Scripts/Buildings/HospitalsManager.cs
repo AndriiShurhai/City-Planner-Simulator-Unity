@@ -7,7 +7,7 @@ public class HospitalsManager : MonoBehaviour
 
     public static HospitalsManager Instance;
 
-    private AIResident currentIllResident;
+    public AIResident currentIllResident;
     private int doctorsCount;
 
     private void Start()

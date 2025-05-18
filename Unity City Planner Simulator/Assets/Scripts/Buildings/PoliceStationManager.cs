@@ -8,7 +8,7 @@ public class PoliceStationManager : MonoBehaviour
 
     public static PoliceStationManager Instance;
 
-    private AIResident currentCriminal;
+    public AIResident currentCriminal;
     private int policemansCount;
 
     private void Start()

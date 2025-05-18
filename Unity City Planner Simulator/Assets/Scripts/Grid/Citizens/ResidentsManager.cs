@@ -4,13 +4,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class ResidentsManager : MonoBehaviour
+public class ResidentsManager : MonoBehaviour, ISaveable
 {
     [SerializeField] public Tilemap groundTilemap;
     [SerializeField] public Tilemap roadTilemap;
 
     [SerializeField] private List<GameObject> citizensPrefabs = new List<GameObject>();
     [SerializeField] private GameObject residentsParent;
+
+    [SerializeField] private GameObject doctorPrefab;
+    [SerializeField] private GameObject policemanPrefab;
 
     private bool isResidentSpawned = false;
 
@@ -24,6 +27,7 @@ public class ResidentsManager : MonoBehaviour
 
     private List<AIResident> residents = new List<AIResident>();
 
+    private static int nextID = 0;
     public static ResidentsManager Instance { get; private set; }
 
     private void Awake()
@@ -35,11 +39,13 @@ public class ResidentsManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+        SaveManager.Instance.Register(this);
     }
 
     private void Start()
     {
-        if (isResidentSpawned)
+        if (isResidentSpawned || residents.Count > 0)
         {
             crimeCheckTimer = 2f;
             healthAttackTimer = 40f;
@@ -48,7 +54,7 @@ public class ResidentsManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isResidentSpawned) return;
+        if (!isResidentSpawned && residents.Count <= 0) return;
 
         crimeCheckTimer -= Time.deltaTime;
         healthAttackTimer -= Time.deltaTime;   
@@ -87,12 +93,14 @@ public class ResidentsManager : MonoBehaviour
             {
                 residentAI = citizenInstance.AddComponent<Policeman>();
             }
-
+            residentAI.residentID = nextID++;
             residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
 
             residentAI.InitializeComponents();
 
             PoliceStationManager.Instance.policemans.Add(residentAI);
+
+            residents.Add(residentAI);
 
             position = new Vector3Int(position.x + offset, position.y, position.z);
 
@@ -121,10 +129,12 @@ public class ResidentsManager : MonoBehaviour
             {
                 residentAI = citizenInstance.AddComponent<Doctor>();
             }
-
+            residentAI.residentID = nextID++;
             residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
 
             residentAI.InitializeComponents();
+
+            residents.Add(residentAI);
 
             HospitalsManager.Instance.doctors.Add(residentAI);
 
@@ -158,7 +168,7 @@ public class ResidentsManager : MonoBehaviour
             {
                 residentAI = citizenInstance.AddComponent<AIResident>();
             }
-
+            residentAI.residentID = nextID++;
             residentAI.Initialize(groundTilemap, roadTilemap, citizenInstance.GetComponent<Animator>());
             residents.Add( residentAI );
 
@@ -209,7 +219,7 @@ public class ResidentsManager : MonoBehaviour
 
     public void DoHealthAttackIfHealthRateIsLow()
     {
-        if (HealthRateManager.Instance.HealthRate >= 10) return;
+        if (HealthRateManager.Instance.HealthRate >= 50) return;
         AIResident residentWithHealthProblem = null;
         if (residents.Count > 0)
         {
@@ -223,5 +233,153 @@ public class ResidentsManager : MonoBehaviour
         residentWithHealthProblem.InitiateHealthAttack();
         OnResidentGoingToDie?.Invoke(residentWithHealthProblem);
 
+    }
+
+    public void RemoveResident(AIResident resident)
+    {
+        residents.Remove(resident);
+    }
+
+    public void Save(SaveData data)
+    {
+        data.residents = new List<ResidentSaveData>();
+        foreach (var resident in residents)
+        {
+            ResidentSaveData residentData = new ResidentSaveData
+            {
+                residentID = resident.residentID,
+                position = resident.transform.position,
+                isCommittingCrime = resident.isCommitingCrime,
+                isHavingHeartAttack = resident.isHavingHeartAttack,
+                healthTimer = resident.isHavingHeartAttack ? resident.HealthTimer : 0f,
+                currentDestination = resident.MovementController?.GetCurrentDestination() ?? resident.transform.position,
+                isMoving = resident.MovementController?.IsMoving() ?? false,
+            };
+
+            if (resident is Doctor doctor)
+            {
+                residentData.residentType = "Doctor";
+                residentData.isTryingToCure = doctor.IsTryingToCure;
+                residentData.illCitizenID = doctor.IllCitizenTarget != null ? doctor.IllCitizenTarget.GetComponent<AIResident>().residentID : -1;
+                doctor.isHavingHeartAttack = false;
+                residentData.isHavingHeartAttack = false;
+            }
+
+            else if (resident is Policeman policeman)
+            {
+                residentData.residentType = "Policeman";
+                residentData.isChasing = policeman.IsChasing;
+                residentData.criminalID = policeman.CriminalTarget != null ? policeman.CriminalTarget.GetComponent<AIResident>().residentID : -1;
+                residentData.chasingRecalculationCooldown = policeman.ChasingRecalculationCooldown;
+                    
+            }
+
+            else
+            {
+                residentData.residentType = "AIResident";
+                residentData.prefabIndex = citizensPrefabs.FindIndex(p => p.name == resident.gameObject.name);
+                residentData.isTryingToCure = false;
+                residentData.illCitizenID = -1;
+                residentData.isChasing = false;
+                residentData.criminalID = -1;
+                residentData.chasingRecalculationCooldown = 1f;
+            }
+
+            data.residents.Add(residentData);
+        }
+        data.currentCriminalID = PoliceStationManager.Instance.currentCriminal != null ? PoliceStationManager.Instance.currentCriminal.residentID : -1;
+        data.currentIllResidentID = HospitalsManager.Instance.currentIllResident != null ? HospitalsManager.Instance.currentIllResident.residentID : -1;
+    }
+
+    public void Load(SaveData data)
+    {
+        foreach (var resident in residents)
+        {
+            Destroy(resident.gameObject);
+        }
+        residents.Clear();
+
+        PoliceStationManager.Instance.policemans.Clear();
+        HospitalsManager.Instance.doctors.Clear();
+
+        foreach (var residentData in data.residents)
+        {
+            GameObject prefab = residentData.residentType switch
+            {
+                "Doctor" => doctorPrefab,
+                "Policeman" => policemanPrefab,
+                _ => residentData.prefabIndex >= 0 && residentData.prefabIndex < citizensPrefabs.Count ? citizensPrefabs[residentData.prefabIndex] : citizensPrefabs[0]
+            };
+
+            GameObject residentObj = Instantiate(prefab, residentData.position, Quaternion.identity, residentsParent.transform);
+            AIResident resident = residentObj.GetComponent<AIResident>();
+            resident.Initialize(groundTilemap, roadTilemap, residentObj.GetComponent<Animator>());
+            resident.residentID = residentData.residentID;
+            resident.isCommitingCrime = residentData.isCommittingCrime;
+            resident.isHavingHeartAttack = residentData.isHavingHeartAttack;
+
+            if (residentData.isHavingHeartAttack)
+            {
+                resident.HealthTimer = residentData.healthTimer;
+                resident.SpriteRenderer.color = Color.blue;
+            }
+            else if (residentData.isCommittingCrime)
+            {
+                resident.SpriteRenderer.color = Color.red;
+            }
+            else
+            {
+                resident.SpriteRenderer.color = Color.white;
+            }
+
+            if (resident is Doctor doctor)
+            {
+                doctor.isTryingToCure = residentData.isTryingToCure;
+                HospitalsManager.Instance.doctors.Add(doctor);
+            }
+            else if (resident is Policeman policeman)
+            {
+                policeman.isChasing = residentData.isChasing;
+                policeman.ChasingRecalculationCooldown = residentData.chasingRecalculationCooldown;
+                PoliceStationManager.Instance.policemans.Add(policeman);
+            }
+
+            if (residentData.isMoving && resident.MovementController != null)
+            {
+                resident.MovementController.SetDestination(residentData.currentDestination);
+            }
+
+            residents.Add(resident);
+        }
+
+        foreach (var residentData in data.residents)
+        {
+            AIResident resident = residents.Find(r => r.residentID == residentData.residentID);
+
+            if (resident is Doctor doctor && residentData.illCitizenID != -1)
+            {
+                AIResident illCitizen = residents.Find(r => r.residentID == residentData.illCitizenID);
+                if (illCitizen != null)
+                {
+                    doctor.GoHealCitizen(illCitizen.transform, illCitizen);
+                }
+            }
+            else if (resident is Policeman policeman && residentData.criminalID != -1)
+            {
+                AIResident criminal = residents.Find(r => r.residentID == residentData.criminalID);
+                if (criminal != null)
+                {
+                    policeman.StartChasingCriminal(criminal.transform, criminal);
+                }
+            }
+        }
+
+        PoliceStationManager.Instance.currentCriminal = residents.Find(r => r.residentID == data.currentCriminalID);
+        HospitalsManager.Instance.currentIllResident = residents.Find(r => r.residentID == data.currentIllResidentID);
+
+        if (residents.Count > 0)
+        {
+            nextID = residents.Max(r => r.residentID) + 1;
+        }
     }
 }

@@ -3,7 +3,10 @@ using UnityEngine;
 public class Doctor : AIResident
 {
     private Transform illCitizenTarget;
-    private bool isTryingToCure = false;
+    public bool isTryingToCure = false;
+
+    public bool IsTryingToCure { get { return isTryingToCure; } }
+    public Transform IllCitizenTarget { get { return illCitizenTarget; } }
     protected override void Awake()
     {
         Debug.Log($"Doctor Awake called on {gameObject.name}");

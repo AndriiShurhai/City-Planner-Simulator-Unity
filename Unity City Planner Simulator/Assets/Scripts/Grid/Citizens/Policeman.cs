@@ -5,9 +5,14 @@ public class Policeman : AIResident
 {
     private Transform criminalTarget;
     private float chasingRecalculationCooldown = 1f;
-    private bool isChasing = false;
+    public float ChasingRecalculationCooldown { get => chasingRecalculationCooldown; set => chasingRecalculationCooldown = value; }
+
+    public bool isChasing = false;
 
     private int pathIndex;
+
+    public Transform CriminalTarget {  get { return criminalTarget; } } 
+    public bool IsChasing { get { return isChasing; } }
 
     protected override void Awake()
     {

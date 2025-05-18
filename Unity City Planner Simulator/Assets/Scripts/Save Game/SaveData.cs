@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 
 
-[System.Serializable]
+[Serializable]
 
 public class SaveData
 {
     public int money;
-    public List<GameObject> residents;
+    public List<ResidentSaveData> residents;
     public List<Building> buildings;
 
     public List<Vector3Int> smallObstacles;
@@ -28,6 +28,9 @@ public class SaveData
     public float healthRate;
     public float populationRate;
     public float unemploymentRate;
+
+    public int currentCriminalID;
+    public int currentIllResidentID;
 }
 
 [Serializable]
@@ -50,3 +53,23 @@ public struct SerializableColor
     public Color ToColor() => new Color(r, g, b, a);
 }
 
+
+[Serializable]
+
+public struct ResidentSaveData
+{
+    public int residentID;
+    public int prefabIndex;
+    public string residentType;
+    public Vector3 position;
+    public bool isCommittingCrime;
+    public bool isHavingHeartAttack;
+    public float healthTimer;
+    public bool isTryingToCure;
+    public int illCitizenID;
+    public bool isChasing;
+    public int criminalID;
+    public float chasingRecalculationCooldown;
+    public Vector3 currentDestination;
+    public bool isMoving;
+}

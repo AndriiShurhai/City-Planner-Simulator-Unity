@@ -315,4 +315,15 @@ public class MovementController
             isChasing = false;
         }
     }
+
+    public bool IsMoving()
+    {
+        return path != null && path.Count > 0;
+    }
+
+    public Vector3 GetCurrentDestination()
+    {
+        return IsMoving() ? path[path.Count - 1] : resident.transform.position;
+    }
+
 }
