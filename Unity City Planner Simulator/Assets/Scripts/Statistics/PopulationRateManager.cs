@@ -26,6 +26,7 @@ public class PopulationRateManager : MonoBehaviour, ICityRate, ISaveable
         if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
         OnPopulationRateChange += UpdateUI;

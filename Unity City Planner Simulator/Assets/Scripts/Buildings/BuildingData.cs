@@ -22,7 +22,6 @@ public class BuildingData : ScriptableObject
     [SerializeField] private int _incomePerResident;
     [SerializeField] private int _jobsAvailable;
     [SerializeField] private int _maxUpgradeLevel;
-    [SerializeField] private int _upgradeLevel;
     [SerializeField] private int _upgradeCost;
     public string BuildingName => _buildingName;
     public string Description => _buildingDescription;
@@ -69,11 +68,6 @@ public class BuildingData : ScriptableObject
         get => _maxUpgradeLevel; 
         set => _maxUpgradeLevel = value >= 0 ? value : 0; 
     }
-    public int UpgradeLevel
-    {
-        get => _upgradeLevel;
-        set => _upgradeLevel = Mathf.Clamp(value, 0, _maxUpgradeLevel);
-    }
     public int UpgradeCost 
     { 
         get => _upgradeCost; 
@@ -91,7 +85,6 @@ public class BuildingData : ScriptableObject
         _incomePerResident = Mathf.Max(0, _incomePerResident);
         _jobsAvailable = Mathf.Max(0, _jobsAvailable);
         _maxUpgradeLevel = Mathf.Clamp(_maxUpgradeLevel, 1, 100);
-        _upgradeLevel = Mathf.Clamp(_upgradeLevel, 0, _maxUpgradeLevel);
         _upgradeCost = Mathf.Max(0, _upgradeCost);
 
         Validate();

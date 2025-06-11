@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
-using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 
 public class ObstacleRemover : MonoBehaviour
 {
@@ -144,7 +144,7 @@ public class ObstacleRemover : MonoBehaviour
             StartDragSelection(cellPosition);
             return;
         }
-
+        
         if (_isDragging)
         {
             UpdateDragSelection();
@@ -305,7 +305,6 @@ public class ObstacleRemover : MonoBehaviour
                 {
                     _selectedCells.Add(cell);
 
-                    // Mark with selection color
                     Tilemap tilemap = GetTilemapForCell(cell);
                     if (tilemap != null)
                     {

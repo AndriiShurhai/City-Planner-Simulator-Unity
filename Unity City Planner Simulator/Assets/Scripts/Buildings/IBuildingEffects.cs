@@ -133,7 +133,7 @@ public class HappinessEffect : BuildingEffectBase
 
     public override void ProcessTick(Building building)
     {
-        // HappinessRateManager.Instance.IncreaseRate(0.1f * Time.deltaTime);
+        HappinessRateManager.Instance.IncreaseRate(0.1f * Time.deltaTime);
     }
 }
 
@@ -168,7 +168,7 @@ public class UpgradeEffect : BuildingEffectBase
         {
             case BuildingType.Residential:
                 break;
-            case BuildingType.Commercial:
+            case BuildingType.Employment:
                 UnemploymentRateManager.Instance.DecreaseRate(0.5f); 
                 break;
             case BuildingType.Amusement:
@@ -176,6 +176,9 @@ public class UpgradeEffect : BuildingEffectBase
                 break;
             case BuildingType.Medical:
                 HealthRateManager.Instance.IncreaseRate(0.5f);
+                break;
+            case BuildingType.Commercial:
+                EconomyManager.Instance.AddMoney(100);
                 break;
         }
     }

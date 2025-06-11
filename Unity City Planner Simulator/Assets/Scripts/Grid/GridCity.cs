@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -17,7 +17,7 @@ public class GridCity : MonoBehaviour
 
     public Action<Building> OnBuildingMoved;
     public static GridCity Instance { get; private set; }
-    public BuildingData SelectedBuilding { get;}
+    public BuildingData SelectedBuilding { get { return _selectedBuilding; } }
 
     public Grid Grid { get { return grid; } }
 

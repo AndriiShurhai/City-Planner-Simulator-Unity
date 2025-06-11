@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.35, g: 0.4, b: 0.45, a: 1} # Adjusted for a slightly brighter, more neutral ambient
-  m_AmbientEquatorColor: {r: 0.25, g: 0.28, b: 0.3, a: 1} # Adjusted
-  m_AmbientGroundColor: {r: 0.15, g: 0.15, b: 0.18, a: 1} # Adjusted
+  m_AmbientSkyColor: {r: 0.35, g: 0.4, b: 0.45, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0} # Assign your Skybox material in Lighting Settings for visual sky
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0} # Assign a Directional Light here if needed for the scene
+  m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -50,8 +50,8 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 0 # Enable if you plan to bake lightmaps
-    m_EnableRealtimeLightmaps: 0 # Enable for Realtime GI
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0} # Changed from potentially invalid GUID to 0
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 10334405}
   - component: {fileID: 10334407}
   - component: {fileID: 10334406}
-  m_Layer: 0 # Should be 5 (UI Layer) if it's UI, but leaving as 0 for now as it's consistent
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,6 +255,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10334404}
   m_CullTransparentMesh: 1
+--- !u!1 &273702531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273702533}
+  - component: {fileID: 273702532}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &273702532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273702531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f7c19fad8e9af4b8a6a27f088f0d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameSounds: {fileID: 11400000, guid: 876d1ad463d0140429a05d108b825cc8, type: 2}
+  sfxMixerGroup: {fileID: -2186722356149717535, guid: c90cd0dcd2342ee4faeb97c6fcbca064, type: 2}
+  audioSourcePoolSize: 10
+  backgroundMusicClips:
+  - {fileID: 8300000, guid: f1af602394c3c4843a5ecc3a43ec4b38, type: 3}
+  musicMixerGroup: {fileID: 7560590693402154453, guid: c90cd0dcd2342ee4faeb97c6fcbca064, type: 2}
+  playMusicOnStart: 1
+  musicVolume: 1
+--- !u!4 &273702533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273702531}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9841839, y: -0.9412584, z: 0.0063691577}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313977409
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +318,7 @@ GameObject:
   - component: {fileID: 313977410}
   - component: {fileID: 313977412}
   - component: {fileID: 313977411}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +482,7 @@ Transform:
   m_GameObject: {fileID: 476659658}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0} # Reset position
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -447,7 +499,7 @@ GameObject:
   - component: {fileID: 546428425}
   - component: {fileID: 546428427}
   - component: {fileID: 546428426}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +529,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000026672147, y: 0}
-  m_SizeDelta: {x: 1920, y: 1358.9751} # This size might be intentional for a specific aspect or very large background
+  m_SizeDelta: {x: 1920, y: 1358.9751}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546428426
 MonoBehaviour:
@@ -528,7 +580,7 @@ GameObject:
   - component: {fileID: 671527333}
   - component: {fileID: 671527335}
   - component: {fileID: 671527334}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: building (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +656,7 @@ GameObject:
   - component: {fileID: 773244052}
   - component: {fileID: 773244051}
   - component: {fileID: 773244050}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +788,7 @@ GameObject:
   - component: {fileID: 861086412}
   - component: {fileID: 861086414}
   - component: {fileID: 861086413}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -873,7 +925,7 @@ GameObject:
   - component: {fileID: 953795311}
   - component: {fileID: 953795310}
   - component: {fileID: 953795309}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +995,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 953795310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [] # Add OnClick event for Options button here if desired
+      m_Calls:
+      - m_Target: {fileID: 2062169928}
+        m_TargetAssemblyTypeName: SettingsPanel, Assembly-CSharp
+        m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &953795310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -982,6 +1046,152 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953795307}
   m_CullTransparentMesh: 1
+--- !u!1001 &1019716581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1403388791}
+    m_Modifications:
+    - target: {fileID: 634845381639702824, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 634845381639702824, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701751131803386246, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_Name
+      value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701751131803386246, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321772365186357506, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321772365186357506, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029731614194167831, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029731614194167831, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029731614194167831, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385014454139271309, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385014454139271309, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385014454139271309, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.617
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+--- !u!224 &1019716582 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2972547808257340907, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+  m_PrefabInstance: {fileID: 1019716581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1130387974
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,8 +1201,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1130387977}
-  - component: {fileID: 1130387976} # StandaloneInputModule, now disabled
-  - component: {fileID: 1130387975} # InputSystemUIInputModule
+  - component: {fileID: 1130387976}
+  - component: {fileID: 1130387975}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1001,7 +1211,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1130387975
-MonoBehaviour: # InputSystemUIInputModule
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1016,29 +1226,29 @@ MonoBehaviour: # InputSystemUIInputModule
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
   m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ActionsAsset: {fileID: 0}
+  m_PointAction: {fileID: 0}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
 --- !u!114 &1130387976
-MonoBehaviour: # StandaloneInputModule
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130387974}
-  m_Enabled: 0 # Disabled this module as InputSystemUIInputModule is active
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
@@ -1072,7 +1282,7 @@ GameObject:
   - component: {fileID: 1191375435}
   - component: {fileID: 1191375437}
   - component: {fileID: 1191375436}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,7 +1419,7 @@ GameObject:
   - component: {fileID: 1343032870}
   - component: {fileID: 1343032869}
   - component: {fileID: 1343032868}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Button (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1575,7 @@ Camera:
   m_GameObject: {fileID: 1343788758}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1 # Clears to Skybox (or solid color if no Skybox material is in Lighting Settings)
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1390,12 +1600,12 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1 # Orthographic is common for UI
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295 # Renders all layers
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1416,7 +1626,7 @@ Transform:
   m_GameObject: {fileID: 1343788758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10} # Standard z-depth for UI camera
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1434,7 +1644,7 @@ GameObject:
   - component: {fileID: 1348311083}
   - component: {fileID: 1348311082}
   - component: {fileID: 1348311081}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Button (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1504,7 +1714,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1348311082}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: [] # Add OnClick event for Credits button here if desired
+      m_Calls: []
 --- !u!114 &1348311082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,7 +1765,7 @@ GameObject:
   - component: {fileID: 1403388790}
   - component: {fileID: 1403388789}
   - component: {fileID: 1403388788}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1563,7 +1773,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1403388788
-MonoBehaviour: # GraphicRaycaster
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1580,7 +1790,7 @@ MonoBehaviour: # GraphicRaycaster
     serializedVersion: 2
     m_Bits: 4294967295
 --- !u!114 &1403388789
-MonoBehaviour: # CanvasScaler
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1591,12 +1801,12 @@ MonoBehaviour: # CanvasScaler
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1 # Changed to Scale With Screen Size
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080} # Set reference resolution
-  m_ScreenMatchMode: 0 # Match Width Or Height
-  m_MatchWidthOrHeight: 0.5 # Balanced
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1611,7 +1821,7 @@ Canvas:
   m_GameObject: {fileID: 1403388787}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0 # Screen Space - Overlay
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1634,16 +1844,17 @@ RectTransform:
   m_GameObject: {fileID: 1403388787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1} # CRITICAL FIX: Was {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 546428425}
+  - {fileID: 1019716582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0} # Default for ScreenSpace-Overlay, usually covers screen via CanvasScaler
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0} # Default for ScreenSpace-Overlay, usually covers screen via CanvasScaler
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &1554512199
 GameObject:
@@ -1656,7 +1867,7 @@ GameObject:
   - component: {fileID: 1554512200}
   - component: {fileID: 1554512202}
   - component: {fileID: 1554512201}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1792,7 +2003,7 @@ GameObject:
   - component: {fileID: 1986362797}
   - component: {fileID: 1986362799}
   - component: {fileID: 1986362798}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +2078,7 @@ GameObject:
   - component: {fileID: 2027583034}
   - component: {fileID: 2027583036}
   - component: {fileID: 2027583035}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: building (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1931,6 +2142,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2027583033}
   m_CullTransparentMesh: 1
+--- !u!114 &2062169928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4983884925836890895, guid: 26a27fb0111afa749a086b5531e4675f, type: 3}
+  m_PrefabInstance: {fileID: 1019716581}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e951abb7020ab448822c7d406a04a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110020609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,13 +2162,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2110020610}
-  m_Layer: 0 # Should be 5 (UI Layer)
+  m_Layer: 0
   m_Name: Decorations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1 # Changed from 0 to 1 to make decorations visible
+  m_IsActive: 1
 --- !u!224 &2110020610
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1973,7 +2195,8 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1343788761} # Main Camera
-  - {fileID: 1130387977} # EventSystem
-  - {fileID: 1403388791} # Canvas (1)
-  - {fileID: 476659660}  # MainMenuManager
+  - {fileID: 1343788761}
+  - {fileID: 1130387977}
+  - {fileID: 1403388791}
+  - {fileID: 476659660}
+  - {fileID: 273702533}

@@ -205,13 +205,14 @@ public class AIResident : MonoBehaviour
 
     public void ResetCriminal(bool isCaught)
     {
-        isCommitingCrime = false;
         if (isCommitingCrime && !isCaught)
         {
+            Debug.Log("COMMITING CRIME");
             FindAnyObjectByType<RobbingSceneIntro>().StartRobbingSequence();
         }
 
 
+        isCommitingCrime = false;
         spriteRenderer.color = Color.white;
         movementController.ChooseNewRandomDestination();
     }

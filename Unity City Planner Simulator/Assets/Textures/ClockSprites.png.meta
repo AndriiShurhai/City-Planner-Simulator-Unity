@@ -133,6 +133,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -347,7 +360,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ClockSprites_0: 3051382885313656451
+      ClockSprites_1: 8190775290344891330
+      ClockSprites_2: -6410097794260031407
+      ClockSprites_3: 2182406899979887443
+      ClockSprites_4: -6482806940582705783
+      ClockSprites_5: 7268487886326456679
+      ClockSprites_6: 5939772808702513897
+      ClockSprites_7: -5616459659885954745
+      ClockSprites_8: -1980191258628334980
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

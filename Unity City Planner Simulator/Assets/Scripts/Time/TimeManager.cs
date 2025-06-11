@@ -30,8 +30,10 @@ public class TimeManager : MonoBehaviour
     private bool _isPaused = false;
 
 
+
     public event Action OnHourChanged;
     public event Action OnDayChanged;   
+    public event Action OnWeekChanged;
     public event Action OnMonthChanged;
     public event Action OnYearChanged;
     public event Action OnDayNightTransition;
@@ -150,6 +152,11 @@ public class TimeManager : MonoBehaviour
         if (_currentDay != previousDay)
         {
             OnDayChanged?.Invoke();
+        }
+
+        if (_currentDay == 7)
+        {
+            OnWeekChanged?.Invoke();
         }
 
         if (_currentMonth != previousMonth)

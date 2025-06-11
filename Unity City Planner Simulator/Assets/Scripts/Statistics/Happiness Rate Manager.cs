@@ -29,6 +29,7 @@ public class HappinessRateManager : MonoBehaviour, ICityRate, ISaveable
         if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
 

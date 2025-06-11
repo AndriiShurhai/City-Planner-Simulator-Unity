@@ -9,7 +9,7 @@ namespace SVS
         [SerializeField, Tooltip("Base movement speed in units/second")]
         private float moveSpeed = 20f;
         [SerializeField, Tooltip("Screen edge percentage for scrolling")]
-        private float edgeScrollThreshold = 20f;
+        private float edgeScrollThreshold = 5f;
         [SerializeField]
         private bool enableEdgeScrolling = true;
 
@@ -192,6 +192,15 @@ namespace SVS
             pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
             transform.position = pos;
+        }
+
+        public void SetEdgeScrolling(bool isEnabled)
+        {
+            enableEdgeScrolling = isEnabled;    
+        }
+        public bool IsEdgeScrolling()
+        {
+            return enableEdgeScrolling;
         }
     }
 }

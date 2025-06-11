@@ -21,6 +21,7 @@ public class Building : MonoBehaviour
 
     public BuildingState State { get; private set; } = BuildingState.Constructing;
 
+    protected int _upgradeLevel;
     protected Vector2Int _gridPosition;
     protected readonly List<IBuildingEffect> _buildingEffects = new List<IBuildingEffect>();
     protected readonly List<Vector2Int> _occupiedPositions = new List<Vector2Int>();
@@ -181,7 +182,7 @@ public class Building : MonoBehaviour
 
     public virtual void Upgrade()
     {
-        if (buildingData.UpgradeLevel >= buildingData.MaxUpgradeLevel)
+        if (_upgradeLevel >= buildingData.MaxUpgradeLevel)
         {
             Debug.Log($"Building {buildingData.BuildingName} is already at max level");
             return;
@@ -193,13 +194,13 @@ public class Building : MonoBehaviour
             return;
         }
 
-        buildingData.UpgradeLevel++;
+        _upgradeLevel++;
 
         ApplyStandartUpgrades();
 
         OnUpgraded();
 
-        Debug.Log($"Upgraded {buildingData.BuildingName} to level {buildingData.UpgradeLevel}");
+        Debug.Log($"Upgraded {buildingData.BuildingName} to level {_upgradeLevel}");
 
         OnUpgrade?.Invoke();
     }

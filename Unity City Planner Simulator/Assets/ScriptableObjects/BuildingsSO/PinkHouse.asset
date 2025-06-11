@@ -24,6 +24,6 @@ MonoBehaviour:
   _incomePerCycle: 0
   _incomePerResident: 0
   _jobsAvailable: 0
-  _maxUpgradeLevel: 1
-  _upgradeLevel: 0
+  _maxUpgradeLevel: 3
+  _upgradeLevel: 3
   _upgradeCost: 0

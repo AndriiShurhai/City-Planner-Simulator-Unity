@@ -3,6 +3,7 @@ using Unity;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using JetBrains.Annotations;
 
 
 [Serializable]
@@ -11,7 +12,6 @@ public class SaveData
 {
     public int money;
     public List<ResidentSaveData> residents;
-    public List<Building> buildings;
 
     public List<Vector3Int> smallObstacles;
     public List<Vector3Int> middleObstacles;
@@ -31,6 +31,7 @@ public class SaveData
 
     public int currentCriminalID;
     public int currentIllResidentID;
+
 }
 
 [Serializable]
@@ -73,3 +74,8 @@ public struct ResidentSaveData
     public Vector3 currentDestination;
     public bool isMoving;
 }
+
+
+
+
+

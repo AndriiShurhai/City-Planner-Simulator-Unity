@@ -28,7 +28,8 @@ public class CrimeRateManager : MonoBehaviour, ICityRate, ISaveable
     {
         if (Instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
         Instance = this;
         _crimeRate = 70;

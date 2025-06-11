@@ -1,3 +1,4 @@
+using SVS;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Slider soundVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
 
+    [SerializeField] private Toggle edgeScrollingToggle;
     private void Start()
     {
         if (AudioManager.Instance == null)
@@ -30,6 +32,11 @@ public class SettingsPanel : MonoBehaviour
 
         if (musicVolumeSlider != null)
             musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+
+        if (edgeScrollingToggle != null)
+        {
+            edgeScrollingToggle.onValueChanged.AddListener(OnEdgeScrollingToggleChanged);
+        }
     }
 
     private void OnEnable()
@@ -44,6 +51,7 @@ public class SettingsPanel : MonoBehaviour
     {
         bool soundEnabled = AudioManager.Instance.IsSoundEnabled();
         bool musicEnabled = AudioManager.Instance.IsMusicEnabled();
+        bool edgeScrollingEnabled = CameraController.Instance == null ? true : CameraController.Instance.IsEdgeScrolling();
         float soundVolume = AudioManager.Instance.GetSoundVolume();
         float musicVolume = AudioManager.Instance.GetMusicVolume();
 
@@ -65,6 +73,11 @@ public class SettingsPanel : MonoBehaviour
         if (musicVolumeSlider != null)
         {
             musicVolumeSlider.SetValueWithoutNotify(musicVolume);
+        }
+
+        if (edgeScrollingToggle != null)
+        {
+            edgeScrollingToggle.SetIsOnWithoutNotify(edgeScrollingEnabled);
         }
     }
 
@@ -103,6 +116,14 @@ public class SettingsPanel : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.SetMusicVolume(volume);
+        }
+    }
+
+    private void OnEdgeScrollingToggleChanged(bool isEnabled)
+    {
+        if (CameraController.Instance != null)
+        {
+            CameraController.Instance.SetEdgeScrolling(isEnabled);
         }
     }
 

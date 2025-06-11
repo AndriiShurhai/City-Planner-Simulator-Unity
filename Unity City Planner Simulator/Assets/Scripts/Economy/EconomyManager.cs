@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ public class EconomyManager : MonoBehaviour, IEconomyManager, ISaveable
     private BuildingRegistry _buildingRegistry;
     private EconomyCalculator _economyCalculator;
     private TimeManager _timeManager;
+    private float _intervalTimer = 0f;
 
     public event Action OnMoneyChanged;
 
@@ -45,27 +45,24 @@ public class EconomyManager : MonoBehaviour, IEconomyManager, ISaveable
     {
         _economyCalculator.Initialize(_buildingRegistry, Instance, FindAnyObjectByType<PopulationRateManager>());
 
-        TimeManager.Instance.OnDayChanged += HandleDayChanged;
-        TimeManager.Instance.OnMonthChanged += HandleMonthChanged;
-
         UpdateUI();
+    }
+
+    private void Update()
+    {
+
+        _intervalTimer += Time.deltaTime;
+        if (_intervalTimer >= _timeIntervalInSeconds)
+        {
+            _intervalTimer = 0f;  
+            HandleIntervalElapsed();
+        }
     }
 
     private void HandleIntervalElapsed()
     {
         _economyCalculator.CalculateMonthlyEconomics();
         _cityRateManager.UpdateAllRates();
-    }
-
-    private void HandleDayChanged()
-    {
-        _cityRateManager.UpdateAllRates();
-        Debug.Log("Day is gone");
-    }
-
-    private void HandleMonthChanged()
-    {
-        Debug.Log("Month is gone");
     }
 
     public bool CanAfford(int cost)

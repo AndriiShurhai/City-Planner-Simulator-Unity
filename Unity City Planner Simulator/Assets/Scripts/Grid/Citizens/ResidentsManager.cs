@@ -181,7 +181,7 @@ public class ResidentsManager : MonoBehaviour, ISaveable
 
     public void DoCrimeIfCrimeRateIsHigh()
     {
-        if (CrimeRateManager.Instance.CrimeRate <= 0) return;
+        if (CrimeRateManager.Instance.CrimeRate <= 30) return;
         Building target = null;
         float minDistance = int.MaxValue;
         AIResident criminal = null;

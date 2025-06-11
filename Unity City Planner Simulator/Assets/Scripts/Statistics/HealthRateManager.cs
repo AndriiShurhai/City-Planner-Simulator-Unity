@@ -30,6 +30,7 @@ public class HealthRateManager : MonoBehaviour, ICityRate, ISaveable
         if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
         OnHealthRateChange += UpdateUI;

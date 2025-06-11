@@ -26,6 +26,7 @@ public class EducationRateManager : MonoBehaviour, ICityRate, ISaveable
         if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         Instance = this;
         OnEducationRateChange += UpdateUI;
@@ -68,7 +69,6 @@ public class EducationRateManager : MonoBehaviour, ICityRate, ISaveable
     {
         currentEducationRateTXT.text = _currentEducationRate.ToString();
     }
-
     public void Save(SaveData data)
     {
         data.educationRate = _currentEducationRate;

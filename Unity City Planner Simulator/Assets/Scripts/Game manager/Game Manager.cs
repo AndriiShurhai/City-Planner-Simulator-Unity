@@ -9,6 +9,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SaveManager.Instance.LoadGame();
+        //SaveManager.Instance.LoadGame();
     }
 }

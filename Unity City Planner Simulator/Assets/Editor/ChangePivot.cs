@@ -1,4 +1,5 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 public class PivotSetter : Editor
@@ -78,3 +79,5 @@ public class PivotSetter : Editor
         }
     }
 }
+
+#endif

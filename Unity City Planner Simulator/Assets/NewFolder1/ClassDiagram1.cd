@@ -1,0 +1,780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AudioManager">
+    <Position X="10.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEEIGBABgRgAggJAMAI0EACFEgDEASgAmBCcAREA=</HashCode>
+      <FileName>Assets\Scripts\Audio\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSounds">
+    <Position X="12.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAiAAAAAAAAAABAACAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Audio\GameSounds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Book">
+    <Position X="15" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABAYCACACAQEAAQQAAAACICgQAgCAAATEAAIEAAAEE=</HashCode>
+      <FileName>Assets\Scripts\Book\Book.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bookmark" BaseTypeListCollapsed="true">
+    <Position X="16.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQEAESAAAAAAAAAgAAAAIAAgQAAAAAAAAQgAAEA=</HashCode>
+      <FileName>Assets\Scripts\Book\Bookmark.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="BookmarkAnimator">
+    <Position X="18.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAGCAAAAAIAAAAAAIAAAIAEAAAGAAgBBAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Book\BookmarkAnimator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PageFlipper">
+    <Position X="16.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAACAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Book\PageFlipper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PageVideo">
+    <Position X="18.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAIEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Book\PageVideo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AmusementParkStructure">
+    <Position X="36.25" Y="28" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAAAAAAAAAEAAAAAAAIAAAAACAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\AmusementParkStructure.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Building">
+    <Position X="30.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YC0BgkBYBEABxwAgQIIgAIAAQCgCYAAgAIAQBCBGBEI=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingData">
+    <Position X="42.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABJAAgAAICjggAACQgGAABABQAAgAAAQARAAIgoAQAQ=</HashCode>
+      <FileName>Assets\Scripts\Buildings\BuildingData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingMover">
+    <Position X="46" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAQAAADAAAAAAAAAEAAAQABAAACAAEA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\BuildingMover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingPanel">
+    <Position X="47.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAEAhAAAAAAQAACIAAABAAAQQAAAAABAEA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\BuildingPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConstructionUI">
+    <Position X="51.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQQAAAAAAAAQQAAAAAAAAAAAAAAAAIAAAQAAAAQABA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\ConstructionUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConstructionUIManager">
+    <Position X="53" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAADAAAAAAAAgAAABAAAAgAAAAQAEAAABAAEA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\ConstructionUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CustomBuildingCursor">
+    <Position X="49.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABCIAACBAAAAgABAAAAAAAAAAQAAAAAgAAEA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\CustomBuildingCursor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EducationBuildingBase">
+    <Position X="24" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\EducationBuildingBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EmploymentBuilding">
+    <Position X="33.25" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAACAAAAAIAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\EmploymentBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmploymentBuildingBase">
+    <Position X="33.25" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\EmploymentBuildingBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EntertainmentBuildingBase">
+    <Position X="36.25" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAACAAAIAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\EntertainmentBuildingBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Flat">
+    <Position X="25" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Flat.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HospitalBuilding">
+    <Position X="38.75" Y="27.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAEAIAAAAAAAAAAAAAAIAAAAACIABAAAAAQAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\HospitalBuilding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HospitalsManager">
+    <Position X="54.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAAACAAAAgAAAAAACAAAAAAAAAAwAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\HospitalsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingEffectBase">
+    <Position X="31.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BuildingEffectFactory">
+    <Position X="44.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoreBuildingEffect">
+    <Position X="34.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentialEffect">
+    <Position X="38.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlatEffect">
+    <Position X="22.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommercialEffect">
+    <Position X="26.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AmusementEffect">
+    <Position X="28.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalEffect">
+    <Position X="30.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmploymentEffect">
+    <Position X="32.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HappinessEffect">
+    <Position X="37" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthEffect" Collapsed="true">
+    <Position X="39.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UpgradeEffect">
+    <Position X="24.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PoliceStation">
+    <Position X="43" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAACAAIAAAAAAKAAAgAAAAAAAAAg=</HashCode>
+      <FileName>Assets\Scripts\Buildings\PoliceStation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PoliceStationManager">
+    <Position X="40.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAZAAAAAACAAAAAAEAAAAAAAAAAAAAEAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\PoliceStationManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentialBuildingBase">
+    <Position X="27.5" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAABgAQIAAAgAIAAAAACIAQAAAAAAEAAABA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\ResidentialBuildingBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ResidentialHouse">
+    <Position X="30" Y="30.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAgAIAAAAACAAAkAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\ResidentialHouse.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SchoolBuilding">
+    <Position X="24" Y="27.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\SchoolBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServiceBuildingBase">
+    <Position X="41.25" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAEAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Buildings\ServiceBuildingBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SVS.CameraController">
+    <Position X="57.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAQIgAQEkCAAAAAAAIAUIIkCAACCEEAASAAQACAgAFQ=</HashCode>
+      <FileName>Assets\Scripts\Camera\CameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingRegistry" BaseTypeListCollapsed="true">
+    <Position X="37.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAgEAAAAAAAAABAAAAAMEABAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Economy\BuildingRegistry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CityRateManager">
+    <Position X="40.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAAQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Economy\CityRateManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EconomyCalculator">
+    <Position X="39" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAAIggAUAAAAhAABAAAAAAAECACAAAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Economy\EconomyCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EconomyManager" BaseTypeListCollapsed="true">
+    <Position X="42.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQoIJAQGgAAQAAAAAAAABAEIAAEBAIQAAABgLAiUE=</HashCode>
+      <FileName>Assets\Scripts\Economy\EconomyManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FadeManager">
+    <Position X="45.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAACAAAAAAAAAIAgAAAAAAAAAQAQAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Fade Transition\FadeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="41.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Game manager\Game Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AIResident">
+    <Position X="46.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAgBEIEKAQESBAUAACBIIBAAIEAAAAAAAEiCAIYFg=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\AIResident.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Doctor" Collapsed="true">
+    <Position X="45" Y="25.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAACAgACgAAAAAAAAAAAAAAEAABAAIAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\Doctor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovementController">
+    <Position X="50.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hIAARBCwUIAAAGIECAACAgHEYAAACAEAACABAIQIZBA=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\MovementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PathFinder">
+    <Position X="53.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAgAIABAEAAEAAAAAAIAAAAAFgIAAAAAUAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\PathFinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Policeman" Collapsed="true">
+    <Position X="48.25" Y="25.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAARCAAAAIAAACAAAAABEAAAAQAAoAACAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\Policeman.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentsManager" BaseTypeListCollapsed="true">
+    <Position X="52" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiQAgJAJBCAAAAAgARAQEIEAIAAABAIAQAQAAQiAAEA=</HashCode>
+      <FileName>Assets\Scripts\Grid\Citizens\ResidentsManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AutoZoneManager">
+    <Position X="21.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>pBABAAEAACAIQUAEAAAAQRAAACAQWggASKAARAAUAEg=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\AutoZone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CityZone">
+    <Position X="28.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEIpAAAQADAIQQQAQggQAEBAECEBAkQFAAAAAAAQQkI=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\CityZone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileVisualEffect">
+    <Position X="23.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AERAAAAAACEAACAAAAAAAAAAAAQAAACAAEgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\TileVisualEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZoneEffect">
+    <Position X="17.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AmusementDistrictEffect">
+    <Position X="17.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAACAAAAAACAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResidentialDistrictEffect">
+    <Position X="19.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAIAAAAAAAAAAACAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthCareDistrictEffect">
+    <Position X="15.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAACAAAAAgAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZoneManager">
+    <Position X="26.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAACIAAAAACAAAAABAEAACAAAAQAAAAIABAEI=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ListExtensions">
+    <Position X="25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CityZones\ZoneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPathfinding">
+    <Position X="13" Y="19.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="CarPathfinding.RoadType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Grid\AICar.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QIQAAgKpEGAEAEAAAAACEAAAAAAEgIDEAAoBAAAAREA=</HashCode>
+      <FileName>Assets\Scripts\Grid\AICar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarAgentManager">
+    <Position X="11.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAICCAAIQACAABGJACAAAgAEABIAAAAABAACgA=</HashCode>
+      <FileName>Assets\Scripts\Grid\CarAgentManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GridCity">
+    <Position X="9.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAUAAhAIACIAAAAQAAAgEIAAAkACAAAAQEAANAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\GridCity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PriorityQueue&lt;T&gt;">
+    <Position X="14.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAABAAAAAAAAQAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Grid\PriorityQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenuManager">
+    <Position X="59.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\MainMenu\MainMenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicalAttack">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAYAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Medical Attack\MedicalAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObstacleGenerator">
+    <Position X="7" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgIAKCCAAAQAEAAQCCIAAAACQAAASUAAEAAAAAEI=</HashCode>
+      <FileName>Assets\Scripts\Obstacles\ObstacleGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ObstacleRemover">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AExAAIgECCihEAwAAQAGBBAMFCIYAISIQFQCAgwgAkI=</HashCode>
+      <FileName>Assets\Scripts\Obstacles\ObstacleRemover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobbingSceneIntro">
+    <Position X="48.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAAAAAAIAAAAAAAAEAAAAAICAAAAAAAAAACAAA=</HashCode>
+      <FileName>Assets\Scripts\Robbing\RobbingSceneIntro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveData">
+    <Position X="16.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAREgAEAAAAAAAAAAAMAAAEAAAAAABAgEgAEAAAAEAI=</HashCode>
+      <FileName>Assets\Scripts\Save Game\SaveData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZoneSaveData">
+    <Position X="20" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\Save Game\SaveData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveManager">
+    <Position X="18.25" Y="24" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAQAAAAAAACAgAAAAABAAAAQAAAAAAAGEE=</HashCode>
+      <FileName>Assets\Scripts\Save Game\SaveManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneManagerController">
+    <Position X="53.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAARAAAgEAAAAAAAAAQgAAAAAQAEA=</HashCode>
+      <FileName>Assets\Scripts\Scene Management\SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SettingsPanel">
+    <Position X="56.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgADAAAAgCAAIAAEEAAAAAAIAIAAAAAAAACAACCACAA=</HashCode>
+      <FileName>Assets\Scripts\Settings\SettingsPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingInfoTemplate">
+    <Position X="59.5" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAACACIAAFAQAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Shop\BuiildingInfoTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShopManager">
+    <Position X="57.75" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQBAAAQACgACAAAAAAAAABACQAAAAAAAgAAAACAAEI=</HashCode>
+      <FileName>Assets\Scripts\Shop\ShopManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShopTemplate">
+    <Position X="56" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAEAQAIAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Shop\ShopTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CrimeRateManager" BaseTypeListCollapsed="true">
+    <Position X="59.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQiIAAACAAAAiCAABgAIABAAACAAAAQACBACAACEA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\CrimeRateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EducationRateManager" BaseTypeListCollapsed="true">
+    <Position X="61.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAARiIAAACAAAAAiAAAAAIAAAAAYEAAQQQQAAIAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\EducationRateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HappinessRateManager" BaseTypeListCollapsed="true">
+    <Position X="66.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEAQiIABACCAAAACgEEAAIAEAAAAABAAQAAAAAggAEA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\Happiness Rate Manager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HealthRateManager" BaseTypeListCollapsed="true">
+    <Position X="68.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAB4iIAAEKAAAACCAIAAAIAAAAACAAIAQABAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\HealthRateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InformationPanel" BaseTypeListCollapsed="true">
+    <Position X="63" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAICAJAACQAABAAAAAAAAEAAAAAAQCAABAEAA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\Information panel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PopulationRateManager" BaseTypeListCollapsed="true">
+    <Position X="61.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAARiIAIACAAAAAKAAAAAIAAAAAAAAAAQEIAAAAEAEI=</HashCode>
+      <FileName>Assets\Scripts\Statistics\PopulationRateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Statisticstooltip">
+    <Position X="67.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\Statistics tooltip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StatisticsPanelTooltip">
+    <Position X="64.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\StatisticsPanelTooltip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnemploymentRateManager" BaseTypeListCollapsed="true">
+    <Position X="64.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQiIAAACAAAAACAAAAAIAAAQAAAAAAQAAAAAAAAkA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\UnemploymentRateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TimeManager">
+    <Position X="64.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQQAIoIAAEwSIEiIkAAAIACARAaQAQmQAAACAgEBkA=</HashCode>
+      <FileName>Assets\Scripts\Time\TimeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tooltip">
+    <Position X="4.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAIAAAAAAAEACQAAAAAARAAUAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Tooltip\ObstacleTooltip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TooltipManager">
+    <Position X="6.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACQAACABAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Tooltip\Tootltip Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersistentUI">
+    <Position X="3.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\UI\PersistentUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SerializableColor">
+    <Position X="18.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAoAQABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Save Game\SaveData.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ResidentSaveData">
+    <Position X="20" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoQAAQAAIBAAAAIIAAIIAAAAAAAACBCAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Save Game\SaveData.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IHappinessProvider">
+    <Position X="53.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IHealthProvider">
+    <Position X="48" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IPopulationProvider">
+    <Position X="53.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IEmploymentProvider">
+    <Position X="46.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IEducationProvider">
+    <Position X="46.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IZonable">
+    <Position X="49.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuiildingInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBuildingEffect">
+    <Position X="51.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Buildings\IBuildingEffects.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IBuildingRegistry">
+    <Position X="39.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAABAAAAAEAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Economy\EconomyInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IEconomyManager">
+    <Position X="37.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAACAAAE=</HashCode>
+      <FileName>Assets\Scripts\Economy\EconomyInterfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ISaveable" Collapsed="true">
+    <Position X="16.5" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Save Game\ISaveable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ICityRate">
+    <Position X="61.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAACAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Statistics\ICityRate.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="BuildingState">
+    <Position X="51.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\Building.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="BuildingType">
+    <Position X="49.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAgIAEAAAAAAAAAAAAAAgABoAAAA=</HashCode>
+      <FileName>Assets\Scripts\Buildings\BuildingType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

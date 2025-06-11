@@ -1,0 +1,12 @@
+# ninja log v5
+271	3665	7702523455283235	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	bc2d77d2c4544a7d
+3668	6337	7702523481422996	F:/City Planner Simulator Unity/Unity City Planner Simulator/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4r3v02y2/obj/arm64-v8a/libswappywrapper.so	f71cd67dc0a4c36c
+22	7854	7702523495391178	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	1d4fff4d2ee238b4
+144	8222	7702523497981542	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	af9c1a571f817289
+116	8230	7702523497256778	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e676d067f5ac56b4
+131	8267	7702523497523235	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	6da8a61b71ab0e45
+59	8305	7702523496576025	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	e8d59c1e06851b58
+34	8309	7702523499795008	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	45a47e5f620bc0ba
+46	8412	7702523503272742	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	32061ada3894fdfa
+1	8926	7702523505102667	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3b83579903bdb96e
+8927	9416	7702523513566301	F:/City Planner Simulator Unity/Unity City Planner Simulator/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4r3v02y2/obj/arm64-v8a/libgame.so	df83e6f5cf258004
