@@ -1,8 +1,19 @@
-# City Planner Simulator (University Coursework) 
-**A 2D city-building simulation game developed in Unity.**  
+# City Planner Simulator
 
-### 📜 **Project Overview**  
-This project focuses on designing and implementing core city-building mechanics, including:  
-- Grid-based structure placement (roads, residential/commercial zones, parks).  
-- Economy simulation (taxes, expenses, and citizen happiness).  
-- AI agents (villagers with daily routines and pathfinding).  
+City-building simulation game made in Unity. My first big Unity project.
+
+## Gameplay Video
+▶ https://youtu.be/DGYw5fG_NxY
+
+## What's in it
+- Grid-based building placement
+- Resource management
+- Construction and upgrade system
+- City state tracking across 70+ scripts
+
+## Built with
+- Unity
+- C#
+
+## Status
+Unfinished and has bugs — built as a learning project to get comfortable with Unity and simulation architecture.
